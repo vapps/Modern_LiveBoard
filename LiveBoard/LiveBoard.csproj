@@ -106,6 +106,8 @@
     <Compile Include="AttachedDp\ItemsControlVariableSizedGridProperties.cs" />
     <Compile Include="Attributes\TemplateItemName.cs" />
     <Compile Include="Collections\GroupInfoList.cs" />
+    <Compile Include="Common\LbMessage.cs" />
+    <Compile Include="Common\LbMessageType.cs" />
     <Compile Include="Controls\GridViewVariableWrapPanel.cs" />
     <Compile Include="Model\Board.cs" />
     <Compile Include="Model\IPage.cs" />
@@ -119,7 +121,7 @@
       <DependentUpon>MainHubPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\XamlResourceHelper.cs" />
-    <Compile Include="Pages\BlankPage_SingleText.xaml.cs">
+    <Compile Include="Page\BlankPage_SingleText.xaml.cs">
       <DependentUpon>BlankPage_SingleText.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -136,6 +138,9 @@
     <Compile Include="TemplateSelectors\HubPageItemTemplateSelector.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\ShowPage.xaml.cs">
+      <DependentUpon>ShowPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -161,7 +166,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\BlankPage_SingleText.xaml">
+    <Page Include="Page\BlankPage_SingleText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,6 +182,10 @@
     <Page Include="MainHubPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\ShowPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

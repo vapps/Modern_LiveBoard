@@ -1,9 +1,12 @@
 using System;
+using System.Diagnostics;
 using System.Windows.Input;
 using Windows.Storage;
 using Windows.UI.Xaml;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using LiveBoard.Common;
 using LiveBoard.Model;
 using LiveBoard.Model.Page;
 
@@ -26,6 +29,8 @@ namespace LiveBoard.ViewModel
         private Board _activeBoard = new Board();
         private bool _isPreview;
         private bool _isPlaying;
+        private DateTime _startTime;
+        private IPage _currentPage;
 
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
@@ -45,6 +50,7 @@ namespace LiveBoard.ViewModel
         public ICommand SaveCmd { get { return new RelayCommand(Save); } }
         public ICommand AddPageCmd { get { return new RelayCommand(AddPage); } }
         public ICommand DeletePageCmd { get { return new RelayCommand<IPage>(DeletePage); } }
+        public ICommand PlayCmd { get { return new RelayCommand<Board>(Play); } }
 
         #endregion ICommand
 
@@ -68,20 +74,31 @@ namespace LiveBoard.ViewModel
             if (!IsPlaying)
                 IsPlaying = true;
             else
+            {
+                Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
+                {
+                    MessageType = LbMessageType.ERROR, Data = "IsPlaying is true"
+                }));
                 return;
+            }
+
+            StartTime = DateTime.Now;
 
             var timer = new DispatcherTimer();
             timer.Tick += PlayTimerEventHandler;
-            timer.Interval = new TimeSpan(0, 0, 0, 1);
+            timer.Interval = new TimeSpan(0, 0, 1);
             timer.Start();
-            
         }
 
         private void PlayTimerEventHandler(object sender, object e)
         {
-            // NOTE: YoungjaeKim: 여기까지 했음.
-            // TODO: 타이머마다 실행해줘야 함.
-            throw new NotImplementedException();
+            Debug.WriteLine("tick at {0} and Elapsed {1}", DateTime.Now.ToString("u"), (DateTime.Now - StartTime).ToString("g"));
+
+            CurrentPage = ActiveBoard.Pages[0];
+            Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
+            {
+                MessageType = LbMessageType.EVT_TICK
+            }));
         }
 
         /// <summary>
@@ -119,6 +136,17 @@ namespace LiveBoard.ViewModel
         }
 
         #region Properties
+
+        public IPage CurrentPage
+        {
+            get { return _currentPage; }
+            set
+            {
+                _currentPage = value; 
+                RaisePropertyChanged("CurrentPage");
+            }
+        }
+
         /// <summary>
         /// 현재 보드.
         /// </summary>
@@ -142,6 +170,19 @@ namespace LiveBoard.ViewModel
             {
                 _isPreview = value;
                 RaisePropertyChanged("IsPreview");
+            }
+        }
+
+        /// <summary>
+        /// 쇼 시작 시간.
+        /// </summary>
+        public DateTime StartTime
+        {
+            get { return _startTime; }
+            set
+            {
+                _startTime = value; 
+                RaisePropertyChanged("StartTime");
             }
         }
 

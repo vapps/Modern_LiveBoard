@@ -3,14 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Messaging;
+using LiveBoard.Common;
 
 namespace LiveBoard.Model.Page
 {
     /// <summary>
     /// 페이지 인터페이스
     /// </summary>
-    public class SingleTextPage: IPage
+    public class SingleTextPage: ObservableObject, IPage
     {
+        public SingleTextPage ()
+        {
+            Messenger.Default.Register<LbMessage>(this, Guid, OnReceived);
+        }
+
+        private void OnReceived(LbMessage msg)
+        {
+            throw new NotImplementedException();
+        }
+
         public Guid Guid { get; set; }
         public string Title { get; set; }
         public string TemplateCode { get; set; }
@@ -22,11 +35,21 @@ namespace LiveBoard.Model.Page
         /// <summary>
         /// Specific data.
         /// </summary>
-        public string Data { get; set; }
+        public string Data
+        {
+            get { return _data; }
+            set
+            {
+                _data = value;
+                RaisePropertyChanged("Data");
+            }
+        }
 
         public override string ToString()
         {
             return String.Format("{0} ({1})", Title, TemplateCode);
         }
+
+        private string _data;
     }
 }

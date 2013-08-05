@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 using Windows.UI.Xaml.Data;
+using LiveBoard.Common;
 using LiveBoard.ViewModel;
 
 namespace LiveBoard.View
@@ -21,8 +23,7 @@ namespace LiveBoard.View
             if (model != null)
                 _viewModel = model;
 
-            var viewSource = new CollectionViewSource();
-            viewSource.Source = _viewModel.ActiveBoard.Pages;
+            var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Pages };
             ListViewPages.ItemsSource = viewSource.View;
         }
 
@@ -47,6 +48,18 @@ namespace LiveBoard.View
         /// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
         protected override void SaveState(Dictionary<String, Object> pageState)
         {
+        }
+
+        private void ButtonPreview_OnClick(object sender, RoutedEventArgs e)
+        {
+            _viewModel.IsPreview = true;
+            this.Frame.Navigate(typeof(ShowPage));
+        }
+
+        private void ButtonPlay_OnClick(object sender, RoutedEventArgs e)
+        {
+            _viewModel.IsPreview = false;
+            this.Frame.Navigate(typeof(ShowPage));
         }
     }
 }

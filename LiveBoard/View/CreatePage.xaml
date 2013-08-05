@@ -36,27 +36,38 @@
             <Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
             <TextBlock x:Name="pageTitle" Grid.Column="1" Text="Create" Style="{StaticResource PageHeaderTextStyle}"/>
         </Grid>
+        <!-- 아이템의 드래그앤드롭 기능을 위해 ItemsSource 는 CodeBehind에서 설정한다. -->
         <ListView x:Name="ListViewPages" HorizontalAlignment="Left"
-                  Height="608" Margin="119,10,0,0" Grid.Row="1" 
-                  VerticalAlignment="Top" Width="400"
+                  Height="608" Margin="40,26,0,-6" Grid.Row="1" 
+                  VerticalAlignment="Top" Width="515"
                   CanReorderItems="True" CanDragItems="True" AllowDrop="True">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                        <Border BorderBrush="Black" BorderThickness="1">
-                    <StackPanel Orientation="Vertical" Background="CadetBlue">
+                    <Border BorderBrush="Black" BorderThickness="1">
+                        <StackPanel Orientation="Vertical" Background="CadetBlue">
                             <TextBlock Foreground="Red" Text="{Binding Path=Title}"/>
                             <TextBlock Foreground="Red" Text="{Binding Path=TemplateCode}"/>
                             <TextBlock Foreground="Red" Text="{Binding Path=Duration}"/>
-                        
-                    </StackPanel>
-                        </Border>
+
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <Button Command="{Binding Path=AddPageCmd}" Content="Add Page" HorizontalAlignment="Left" 
                 Margin="579,26,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Button Command="{Binding DeletePageCmd}" CommandParameter="{Binding ElementName=ListViewPages, Path=SelectedItem}" Content="Delete Page" HorizontalAlignment="Left" 
+        <Button Command="{Binding Path=DeletePageCmd}" CommandParameter="{Binding ElementName=ListViewPages, Path=SelectedItem}" Content="Delete Page" HorizontalAlignment="Left" 
         	Margin="579,90,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonPreview" Click="ButtonPreview_OnClick" Content="Preview Page" HorizontalAlignment="Left" 
+        	Margin="579,150,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Button x:Name="ButtonPlay" Click="ButtonPlay_OnClick" Content="Play" HorizontalAlignment="Left" 
+        	Margin="579,214,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <Grid  x:Name="GridPreview">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30" />
+            </Grid.RowDefinitions>
+            <Frame x:Name="FramePreview" HorizontalAlignment="Left" VerticalAlignment="Top" Height="351" Width="571" Margin="721,169,0,-380"/>
+        </Grid>
 
         <VisualStateManager.VisualStateGroups>
 
