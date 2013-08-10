@@ -2,8 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.Storage;
+using Windows.Storage.Pickers;
+using Windows.Storage.Provider;
+using Windows.Storage.Streams;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -28,6 +34,7 @@ namespace LiveBoard.ViewModel
 		private int _currentRemainedSecond;
 		DispatcherTimer _timer;
 		private bool _currentPageStarted;
+		private string _popupMessage;
 
 		/// <summary>
 		/// Initializes a new instance of the MainViewModel class.
@@ -88,6 +95,7 @@ namespace LiveBoard.ViewModel
 			});
 		}
 		#region ICommand
+		public ICommand LoadCmd { get { return new RelayCommand(Load); } }
 		public ICommand SaveCmd { get { return new RelayCommand(Save); } }
 		public ICommand AddPageCmd { get { return new RelayCommand(AddPage); } }
 		public ICommand DeletePageCmd { get { return new RelayCommand<IPage>(DeletePage); } }
@@ -99,12 +107,28 @@ namespace LiveBoard.ViewModel
 		/// <summary>
 		/// 불러오기.
 		/// </summary>
-		/// <param name="file"></param>
-		public void Load(StorageFile file)
+		public async void Load()
 		{
+			if (!EnsureUnsnapped())
+				return;
+
+			var openPicker = new FileOpenPicker
+			{
+				ViewMode = PickerViewMode.List,
+				SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+			};
+			openPicker.FileTypeFilter.Add(".lbd");
+
+			StorageFile file = await openPicker.PickSingleFileAsync();
+			if (file == null)
+				return;
+
 			if (ActiveBoard == null)
 				ActiveBoard = new BoardViewModel();
 
+			var text = await FileIO.ReadTextAsync(file);
+			await ActiveBoard.LoadAsync(text);
+			RaisePropertyChanged("ActiveBoard"); // Force UI change
 		}
 
 		/// <summary>
@@ -142,7 +166,7 @@ namespace LiveBoard.ViewModel
 				Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 				{
 					MessageType = LbMessageType.ERROR,
-					Data = "IsPlaying is true"
+					Data = LbError.IsPlayingTrue
 				}));
 				return;
 			}
@@ -198,12 +222,71 @@ namespace LiveBoard.ViewModel
 			//}));
 		}
 
+		internal bool EnsureUnsnapped()
+		{
+			// FilePicker APIs will not work if the application is in a snapped state.
+			// If an app wants to show a FilePicker while snapped, it must attempt to unsnap first
+			bool unsnapped = ((ApplicationView.Value != ApplicationViewState.Snapped) || ApplicationView.TryUnsnap());
+			if (!unsnapped)
+			{
+				Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
+				{
+					MessageType = LbMessageType.ERROR,
+					Data = LbError.UnSnappedToSave
+				}));
+			}
+
+			return unsnapped;
+		}
+
 		/// <summary>
 		/// 저장하기.
 		/// </summary>
-		public void Save()
+		public async void Save()
 		{
-			ActiveBoard.Board.SaveAsync();
+			if (!EnsureUnsnapped())
+				return;
+			var savePicker = new FileSavePicker { SuggestedStartLocation = PickerLocationId.DocumentsLibrary };
+			// Dropdown of file types the user can save the file as
+			savePicker.FileTypeChoices.Add("LiveBoard file", new List<string>() { ".lbd" });
+			// Default file name if the user does not type one in or select a file to replace
+			savePicker.SuggestedFileName = "LiveBoard " + DateTime.Now.ToString("s").Replace(':', '_');
+			savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
+			StorageFile file = await savePicker.PickSaveFileAsync();
+			if (file != null)
+			{
+				// Prevent updates to the remote version of the file until we finish making changes and call CompleteUpdatesAsync.
+				CachedFileManager.DeferUpdates(file);
+				// write to file
+				String content = await ActiveBoard.SaveAsync();
+
+				await FileIO.WriteTextAsync(file, content, UnicodeEncoding.Utf8);
+				// Let Windows know that we're finished changing the file so the other app can update the remote version of the file.
+				// Completing updates may require Windows to ask for user input.
+				FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
+				if (status == FileUpdateStatus.Complete)
+				{
+					PopupMessage = "File " + file.Name + " was saved.";
+				}
+				else
+				{
+					PopupMessage = "File " + file.Name + " couldn't be saved.";
+				}
+			}
+			else
+			{
+				PopupMessage = "Operation cancelled.";
+			}
+		}
+
+		public string PopupMessage
+		{
+			get { return _popupMessage; }
+			set
+			{
+				_popupMessage = value;
+				RaisePropertyChanged("PopupMessage");
+			}
 		}
 
 		/// <summary>

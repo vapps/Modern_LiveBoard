@@ -25,4 +25,14 @@ namespace LiveBoard.Common
 	    EVT_SHOW_FINISHED
     }
 
+	/// <summary>
+	/// 에러 유형
+	/// </summary>
+	public enum LbError
+	{
+		UnSnappedToSave,
+		DataContextIsNull,
+		IsPlayingTrue
+	}
+
 }

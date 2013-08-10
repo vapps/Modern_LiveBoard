@@ -86,7 +86,7 @@ namespace LiveBoard.View
 				Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 				{
 					MessageType = LbMessageType.ERROR,
-					Data = "ShowPage: datacontext null"
+					Data = LbError.UnSnappedToSave
 				}));
 				return;
 			}

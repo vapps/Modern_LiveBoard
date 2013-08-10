@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Data.Json;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
+using Newtonsoft.Json;
 
 namespace LiveBoard.Model.Page
 {
@@ -16,12 +18,6 @@ namespace LiveBoard.Model.Page
     {
         public SingleTextPage ()
         {
-            Messenger.Default.Register<GenericMessage<LbMessage>>(this, Guid, OnReceived);
-        }
-
-        private void OnReceived(GenericMessage<LbMessage> genericMessage)
-        {
-            throw new NotImplementedException();
         }
 
         public Guid Guid { get; set; }

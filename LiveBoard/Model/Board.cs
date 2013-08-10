@@ -9,6 +9,7 @@ using Windows.Storage;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
+using Newtonsoft.Json;
 
 namespace LiveBoard.Model
 {
@@ -62,6 +63,7 @@ namespace LiveBoard.Model
 		/// <para>[읽기전용] 단발성 실행 또는 무한루프.</para>
 		/// <value>false</value> if <see cref="LoopCount"/> is 0. Otherwise, <value>true</value>. 
 		/// </summary>
+		[JsonIgnore]
 		public bool IsLoop
 		{
 			get { return LoopCount != 0; }
@@ -115,11 +117,6 @@ namespace LiveBoard.Model
 		{
 			get { return _pages; }
 			set { _pages = value; }
-		}
-
-		public void SaveAsync()
-		{
-
 		}
 
 		public string ToXml()

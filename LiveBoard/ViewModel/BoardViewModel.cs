@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using LiveBoard.Model;
+using Newtonsoft.Json;
 
 namespace LiveBoard.ViewModel
 {
 	public class BoardViewModel: ViewModelBase
 	{
-		private Board _board = new Board();
 
 		public void Start()
 		{
@@ -39,6 +40,7 @@ namespace LiveBoard.ViewModel
 		/// <summary>
 		/// 현재 인덱스
 		/// </summary>
+		[JsonIgnore]
 		public int CurrentIndex
 		{
 			get { return _currentIndex; }
@@ -62,11 +64,34 @@ namespace LiveBoard.ViewModel
 			}
 		}
 
-		private int _currentIndex;
-
 		public void Stop()
 		{
 			CurrentIndex = 0;
 		}
+
+		/// <summary>
+		/// JSON 으로 시리얼라이즈.
+		/// 저장용.
+		/// </summary>
+		/// <returns></returns>
+		public Task<string> SaveAsync()
+		{
+			return JsonConvert.SerializeObjectAsync(Board);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="json"></param>
+		/// <returns></returns>
+		public async Task LoadAsync(string json)
+		{
+			Board = await JsonConvert.DeserializeObjectAsync<Board>(json);
+			RaisePropertyChanged("Board");
+		}
+
+		private int _currentIndex;
+		private Board _board = new Board();
+
 	}
 }
