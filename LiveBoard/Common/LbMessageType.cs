@@ -12,10 +12,17 @@ namespace LiveBoard.Common
     /// </summary>
     public enum LbMessageType
     {
-        EVT_SHOWSTARTED,
-        EVT_SHOWEND,
+		EVT_ON_DATA_READY,
+		EVT_PAGE_STARTED,
+		EVT_PAGE_FINISHED,
+	    EVT_PAGE_FINISHING,
         EVT_TICK,
-        ERROR
+        ERROR,
+        EVT_SHOW_END,
+	    EVT_SHOW_STARTING,
+        EVT_SHOW_STARTED,
+	    EVT_SHOW_FINISHING,
+	    EVT_SHOW_FINISHED
     }
 
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 using Windows.UI.Xaml.Data;
+using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using LiveBoard.ViewModel;
 
@@ -14,7 +16,7 @@ namespace LiveBoard.View
     /// </summary>
     public sealed partial class CreatePage : LiveBoard.Common.LayoutAwarePage
     {
-        private MainViewModel _viewModel;
+        private readonly MainViewModel _viewModel;
         public CreatePage()
         {
             this.InitializeComponent();
@@ -23,8 +25,19 @@ namespace LiveBoard.View
             if (model != null)
                 _viewModel = model;
 
-            var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Pages };
+            var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Board.Pages };
             ListViewPages.ItemsSource = viewSource.View;
+
+			// 메신저 연결.
+			Messenger.Default.Register<GenericMessage<LbMessage>>(this, message =>
+			{
+
+				if (message.Content.MessageType == LbMessageType.EVT_SHOW_STARTING)
+				{
+					Debug.WriteLine("* CreatePage Received Message: " + message.Content.MessageType.ToString());
+					this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+				}
+			});
         }
 
         /// <summary>
@@ -50,16 +63,5 @@ namespace LiveBoard.View
         {
         }
 
-        private void ButtonPreview_OnClick(object sender, RoutedEventArgs e)
-        {
-            _viewModel.IsPreview = true;
-            this.Frame.Navigate(typeof(ShowPage));
-        }
-
-        private void ButtonPlay_OnClick(object sender, RoutedEventArgs e)
-        {
-            _viewModel.IsPreview = false;
-            this.Frame.Navigate(typeof(ShowPage));
-        }
     }
 }

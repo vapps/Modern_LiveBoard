@@ -24,11 +24,19 @@
     <Grid Style="{StaticResource LayoutRootStyle}">
         <!-- Back button and page title -->
         <Grid x:Name="GridRoot">
+            <!-- 콘텐츠 보여지는 프래임. 가장 바닥에 깔림. -->
             <Frame x:Name="FrameRoot" />
+            
+            <!-- 타이머 슬라이더. -->
+            <ProgressBar x:Name="ProgressBarTimer" Value="{Binding Path=CurrentPageElapsedRatio}" HorizontalAlignment="Right" Height="10" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="100" Opacity="0.5"/>
+
             <Grid x:Name="GridPreviewBanner" Height="40" VerticalAlignment="Top" Background="#66AF0000">
-                <TextBlock Text="Preview Mode" FontSize="20" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="LightGray"></TextBlock>
+				<StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+					<Button x:Name="BackButton" Click="GoBack">Go Back</Button>
+					<TextBlock Text="Preview Mode" FontSize="20" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="LightGray"></TextBlock>
+				</StackPanel>
             </Grid>
-            <!-- TODO: Close App Bar 달아야 함 -->
+            <!-- TODO: Close App Bar 달아야 함. http://msdn.microsoft.com/en-us/library/windows/apps/jj150604.aspx -->
         </Grid>
 
         <VisualStateManager.VisualStateGroups>

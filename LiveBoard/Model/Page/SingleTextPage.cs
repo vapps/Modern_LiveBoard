@@ -16,10 +16,10 @@ namespace LiveBoard.Model.Page
     {
         public SingleTextPage ()
         {
-            Messenger.Default.Register<LbMessage>(this, Guid, OnReceived);
+            Messenger.Default.Register<GenericMessage<LbMessage>>(this, Guid, OnReceived);
         }
 
-        private void OnReceived(LbMessage msg)
+        private void OnReceived(GenericMessage<LbMessage> genericMessage)
         {
             throw new NotImplementedException();
         }

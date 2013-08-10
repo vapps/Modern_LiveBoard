@@ -8,6 +8,7 @@
     xmlns:common="using:LiveBoard.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	NavigationCacheMode="Required"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -55,18 +56,19 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button Command="{Binding Path=AddPageCmd}" Content="Add Page" HorizontalAlignment="Left" 
-                Margin="579,26,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+                Margin="579,26,0,0" Grid.Row="1" VerticalAlignment="Top" Width="150" />
         <Button Command="{Binding Path=DeletePageCmd}" CommandParameter="{Binding ElementName=ListViewPages, Path=SelectedItem}" Content="Delete Page" HorizontalAlignment="Left" 
-        	Margin="579,90,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Button x:Name="ButtonPreview" Click="ButtonPreview_OnClick" Content="Preview Page" HorizontalAlignment="Left" 
-        	Margin="579,150,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <Button x:Name="ButtonPlay" Click="ButtonPlay_OnClick" Content="Play" HorizontalAlignment="Left" 
-        	Margin="579,214,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        	Margin="579,90,0,0" Grid.Row="1" VerticalAlignment="Top" Width="150"/>
+		<Button x:Name="ButtonPreview" Command="{Binding Path=PreviewCmd}" Content="Preview" HorizontalAlignment="Left" 
+        	Margin="579,150,0,0" Grid.Row="1" VerticalAlignment="Top" Width="150"/>
+        <Button x:Name="ButtonPlay" Command="{Binding Path=PlayCmd}" Content="Play" HorizontalAlignment="Left" 
+        	Margin="579,214,0,0" Grid.Row="1" VerticalAlignment="Top" Width="150"/>
         <Grid  x:Name="GridPreview">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30" />
             </Grid.RowDefinitions>
-            <Frame x:Name="FramePreview" HorizontalAlignment="Left" VerticalAlignment="Top" Height="351" Width="571" Margin="721,169,0,-380"/>
+            <Frame x:Name="FramePreview" 
+                   HorizontalAlignment="Left" VerticalAlignment="Top" Height="351" Width="598" Margin="749,172,0,-493"/>
         </Grid>
 
         <VisualStateManager.VisualStateGroups>
