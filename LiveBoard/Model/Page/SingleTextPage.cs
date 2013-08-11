@@ -20,7 +20,7 @@ namespace LiveBoard.Model.Page
         {
         }
 
-        public Guid Guid { get; set; }
+        public string Guid { get; set; }
         public string Title { get; set; }
         public string TemplateCode { get; set; }
         public string TemplateOption { get; set; }

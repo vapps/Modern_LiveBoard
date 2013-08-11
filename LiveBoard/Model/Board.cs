@@ -18,7 +18,6 @@ namespace LiveBoard.Model
 	/// </summary>
 	public class Board : ObservableObject
 	{
-		
 		/// <summary>
 		/// Title of board
 		/// </summary>
@@ -113,28 +112,12 @@ namespace LiveBoard.Model
 		/// <summary>
 		/// List of page
 		/// </summary>
+		[JsonProperty(TypeNameHandling = TypeNameHandling.Objects)]
 		public ObservableCollection<IPage> Pages
 		{
 			get { return _pages; }
 			set { _pages = value; }
 		}
-
-		public string ToXml()
-		{
-			var xml = new XElement("Board");
-			return xml.ToString();
-		}
-
-		/// <summary>
-		/// Json으로부터 생성.
-		/// </summary>
-		/// <returns></returns>
-		public Board FromXml(XElement xElement)
-		{
-			var board = new Board();
-			return board;
-		}
-
 
 
 		#region Private Variables

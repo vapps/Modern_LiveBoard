@@ -216,6 +216,8 @@ namespace LiveBoard.ViewModel
 				}
 			}
 
+			CurrentPageElapsedRatio = (int) (((CurrentPage.Duration.TotalSeconds - CurrentRemainedSecond) / CurrentPage.Duration.TotalSeconds)*100);
+
 			//Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 			//{
 			//	MessageType = LbMessageType.EVT_TICK
@@ -296,11 +298,11 @@ namespace LiveBoard.ViewModel
 		{
 			var page = new SingleTextPage
 			{
-				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
+				Title = "http://inserbia.info/news/wp-content/uploads/2013/05/grizzly-650x487.jpg", //"타이틀 " + DateTime.Now.Ticks.ToString(),
 				Duration = TimeSpan.FromSeconds(5.0d),
 				IsVisible = true,
-				Guid = new Guid(),
-				TemplateCode = "BlankPage_SingleText"
+				Guid = Guid.NewGuid().ToString(),
+				TemplateCode = "BlankPage_SingleUrlImage"
 			};
 			ActiveBoard.Board.Pages.Add(page);
 		}

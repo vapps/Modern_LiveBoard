@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using LiveBoard.Pages;
+using LiveBoard.PageTemplate;
 using LiveBoard.ViewModel;
 
 namespace LiveBoard.View
@@ -41,19 +42,29 @@ namespace LiveBoard.View
 				switch (message.Content.MessageType)
 				{
 					case LbMessageType.EVT_SHOW_STARTED:
-						if (_vm.CurrentPage.TemplateCode == "BlankPage_SingleText")
-						{
-							FrameRoot.Navigate(typeof(BlankPage_SingleText));
-						}
-						break;
 					case LbMessageType.EVT_PAGE_FINISHING:
-						if (_vm.CurrentPage.TemplateCode == "BlankPage_SingleText")
-						{
-							FrameRoot.Navigate(typeof(BlankPage_SingleText));
-						}
+						loadFrame(_vm.CurrentPage.TemplateCode);
 						break;
 				}
 			});
+		}
+
+		/// <summary>
+		/// 템플릿 로딩.
+		/// </summary>
+		/// <param name="templateCode"></param>
+		private void loadFrame(string templateCode)
+		{
+			switch (templateCode)
+			{
+				case "BlankPage_SingleText":
+					FrameRoot.Navigate(typeof(BlankPage_SingleText));
+					break;
+				case "BlankPage_SingleUrlImage":
+					FrameRoot.Navigate(typeof(BlankPage_SingleUrlImage));
+					break;
+			}
+
 		}
 
 		/// <summary>

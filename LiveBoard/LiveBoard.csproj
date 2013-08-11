@@ -112,6 +112,10 @@
     <Compile Include="Model\Board.cs" />
     <Compile Include="Model\IPage.cs" />
     <Compile Include="Model\Page\SingleTextPage.cs" />
+    <Compile Include="Model\Page\SingleUrlImagePage.cs" />
+    <Compile Include="PageTemplate\BlankPage_SingleUrlImage.xaml.cs">
+      <DependentUpon>BlankPage_SingleUrlImage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BoardViewModel.cs" />
     <Compile Include="View\CreatePage.xaml.cs">
       <DependentUpon>CreatePage.xaml</DependentUpon>
@@ -122,7 +126,7 @@
       <DependentUpon>MainHubPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\XamlResourceHelper.cs" />
-    <Compile Include="Page\BlankPage_SingleText.xaml.cs">
+    <Compile Include="PageTemplate\BlankPage_SingleText.xaml.cs">
       <DependentUpon>BlankPage_SingleText.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -163,11 +167,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="PageTemplate\BlankPage_SingleUrlImage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\CreatePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Page\BlankPage_SingleText.xaml">
+    <Page Include="PageTemplate\BlankPage_SingleText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
