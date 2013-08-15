@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using LiveBoard.Model;
+using LiveBoard.PageTemplate.Model;
 using LiveBoard.PageTemplate.View;
 using LiveBoard.ViewModel;
 
@@ -27,6 +28,9 @@ namespace LiveBoard.View
 	/// </summary>
 	public sealed partial class ShowPage : LiveBoard.Common.LayoutAwarePage
 	{
+		// TODO: 커서 감추기. http://blogs.msdn.com/b/devfish/archive/2012/08/02/customcursors-in-windows-8-csharp-metro-applications.aspx
+
+		private int _counterForTipShowing = 0;
 		private readonly MainViewModel _vm;
 		public ShowPage()
 		{
@@ -44,6 +48,18 @@ namespace LiveBoard.View
 					case LbMessageType.EVT_PAGE_READY:
 						loadFrame(_vm.CurrentPage.TemplateCode);
 						break;
+					case LbMessageType.EVT_TICK:
+						// 팁을 보이고 있다면 판단하여 숨긴다.
+						if (GridTipBanner.Visibility == Visibility.Visible && !_vm.IsPreview && _counterForTipShowing > 0)
+						{
+							--_counterForTipShowing;
+							if (_counterForTipShowing <= 0)
+							{
+								_counterForTipShowing = 0;
+								GridTipBanner.Visibility = Visibility.Collapsed;
+							}
+						}
+						break;
 				}
 			});
 		}
@@ -54,6 +70,7 @@ namespace LiveBoard.View
 		/// <param name="templateCode"><see cref="IPage"/>내의 TemplateCode.</param>
 		private void loadFrame(string templateCode)
 		{
+			// 오브젝트 이름에 따라 자동으로 뷰 템플릿 로딩.
 			var t = Type.GetType("LiveBoard.PageTemplate.View." + templateCode);
 			if (t != null)
 				FrameRoot.Navigate(t);
@@ -65,17 +82,7 @@ namespace LiveBoard.View
 					Data = LbError.PageTemplateViewTypeNotFound
 				}));
 			}
-			//switch (templateCode)
-			//{
-			//	case "SimpleText":
-			//		break;
-			//	case "SimpleUrlImage":
-			//		FrameRoot.Navigate(typeof(SimpleUrlImage));
-			//		break;
-			//	case "SimpleList":
-			//		FrameRoot.Navigate(typeof (SimpleList));
-			//		break;
-			//}
+
 		}
 
 
@@ -116,6 +123,7 @@ namespace LiveBoard.View
 
 			// Preview 표시 노출.
 			GridPreviewBanner.Visibility = _vm.IsPreview ? Visibility.Visible : Visibility.Collapsed;
+			ProgressBarTimer.Visibility = _vm.IsPreview ? Visibility.Visible : Visibility.Collapsed;
 
 			Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 			{
@@ -133,5 +141,25 @@ namespace LiveBoard.View
 		{
 		}
 
+		private void pageRoot_Tapped(object sender, TappedRoutedEventArgs e)
+		{
+			showTip();
+		}
+
+		private void pageRoot_PointerMoved(object sender, PointerRoutedEventArgs e)
+		{
+			showTip();
+		}
+
+		/// <summary>
+		/// 플레이 중에 마우스 움직이거나 탭하면 팁 보이기
+		/// </summary>
+		private void showTip()
+		{
+			if (_vm.IsPreview) 
+				return;
+			GridTipBanner.Visibility = Visibility.Visible;
+			_counterForTipShowing = 3;
+		}
 	}
 }

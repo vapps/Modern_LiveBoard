@@ -98,7 +98,7 @@ namespace LiveBoard.Helpers
         {
             object output = null;
 
-			Windows.UI.Xaml.Controls.Page ParentPage = container.FindParentPage() as Page; // Note: Have to use the FindParentPage since App.Current.Resources does not contain items from page
+			var ParentPage = container.FindParentPage() as Page; // Note: Have to use the FindParentPage since App.Current.Resources does not contain items from page
 
             // Create proper template name
             string NameOfResource = TemplateName + TemplateSuffix;

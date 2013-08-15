@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using LiveBoard.Model;
 
@@ -14,12 +16,17 @@ namespace LiveBoard.PageTemplate.Model
 		public TimeSpan Duration { get; set; }
 		public string Description { get; set; }
 		public bool IsVisible { get; set; }
+		public virtual async Task<bool> PrepareToLoadAsync()
+		{
+			// do nothing
+			return true;
+		}
 
 
 		/// <summary>
 		/// Specific data.
 		/// </summary>
-		public ListData Data
+		public virtual ListData Data
 		{
 			get { return _data; }
 			set
@@ -31,7 +38,7 @@ namespace LiveBoard.PageTemplate.Model
 
 		public class ListData : ObservableObject
 		{
-			private List<string> _stringList;
+			private ObservableCollection<string> _stringList;
 			private string _header;
 
 			public string Header
@@ -44,7 +51,7 @@ namespace LiveBoard.PageTemplate.Model
 				}
 			}
 
-			public List<string> StringList
+			public ObservableCollection<string> StringList
 			{
 				get { return _stringList; }
 				set

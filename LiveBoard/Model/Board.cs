@@ -9,6 +9,7 @@ using Windows.Storage;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
+using LiveBoard.PageTemplate.Model;
 using Newtonsoft.Json;
 
 namespace LiveBoard.Model

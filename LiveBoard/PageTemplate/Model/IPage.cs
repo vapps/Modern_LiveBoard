@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
-namespace LiveBoard.Model
+namespace LiveBoard.PageTemplate.Model
 {
 	/// <summary>
 	/// 페이지 하나의 공용 인터페이스
@@ -40,5 +36,11 @@ namespace LiveBoard.Model
 		/// 보이기
 		/// </summary>
 		bool IsVisible { get; set; }
+
+		/// <summary>
+		/// CurrentPage로 로딩될 때 호출됨. 데이터를 미리 준비시킬 수 있다.
+		/// </summary>
+		/// <returns></returns>
+		Task<bool> PrepareToLoadAsync();
 	}
 }

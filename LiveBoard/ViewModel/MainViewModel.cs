@@ -218,10 +218,10 @@ namespace LiveBoard.ViewModel
 
 			CurrentPageElapsedRatio = (int)(((CurrentPage.Duration.TotalSeconds - CurrentRemainedSecond) / CurrentPage.Duration.TotalSeconds) * 100);
 
-			//Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
-			//{
-			//	MessageType = LbMessageType.EVT_TICK
-			//}));
+			Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
+			{
+				MessageType = LbMessageType.EVT_TICK
+			}));
 		}
 
 		internal bool EnsureUnsnapped()
@@ -306,17 +306,30 @@ namespace LiveBoard.ViewModel
 				Data = "http://inserbia.info/news/wp-content/uploads/2013/05/grizzly-650x487.jpg"
 			};
 			ActiveBoard.Board.Pages.Add(page);
-			var page2 = new SimpleListPage()
+			//var page2 = new SimpleListPage()
+			//{
+			//	Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
+			//	Duration = TimeSpan.FromSeconds(5.0d),
+			//	IsVisible = true,
+			//	Guid = Guid.NewGuid().ToString(),
+			//	TemplateCode = "SimpleList",
+			//	Data = new SimpleListPage.ListData()
+			//	{
+			//		Header = "아아~~",
+			//		StringList = new List<string>() { "asdf", "asdfasdf", "음메음메" }
+			//	}
+			//};
+			//ActiveBoard.Board.Pages.Add(page2);
+			var page2 = new RssList()
 			{
 				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
-				Duration = TimeSpan.FromSeconds(5.0d),
+				Duration = TimeSpan.FromSeconds(8.0d),
 				IsVisible = true,
 				Guid = Guid.NewGuid().ToString(),
 				TemplateCode = "SimpleList",
 				Data = new SimpleListPage.ListData()
 				{
-					Header = "아아~~",
-					StringList = new List<string>() { "asdf", "asdfasdf", "음메음메" }
+					Header = "다음 View 인기 기사",
 				}
 			};
 			ActiveBoard.Board.Pages.Add(page2);
@@ -351,6 +364,11 @@ namespace LiveBoard.ViewModel
 			set
 			{
 				_currentPage = value;
+
+				if (_currentPage != null)
+					_currentPage.PrepareToLoadAsync(); // Command to Load if it needs to be prepared.
+
+				// Send events.
 				MessengerInstance.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 				{
 					MessageType = LbMessageType.EVT_PAGE_READY,

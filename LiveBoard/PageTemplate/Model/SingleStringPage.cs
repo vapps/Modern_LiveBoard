@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Threading.Tasks;
+using Windows.Web.Syndication;
 using GalaSoft.MvvmLight;
 using LiveBoard.Model;
 
@@ -9,7 +11,6 @@ namespace LiveBoard.PageTemplate.Model
 	/// </summary>
 	public class SingleStringPage : ObservableObject, IPage
 	{
-
 		public string Guid { get; set; }
 		public string Title { get; set; }
 		public string TemplateCode { get; set; }
@@ -17,6 +18,11 @@ namespace LiveBoard.PageTemplate.Model
 		public TimeSpan Duration { get; set; }
 		public string Description { get; set; }
 		public bool IsVisible { get; set; }
+		public async Task<bool> PrepareToLoadAsync()
+		{
+			// do nothing.
+			return true;
+		}
 
 		/// <summary>
 		/// Specific data.
