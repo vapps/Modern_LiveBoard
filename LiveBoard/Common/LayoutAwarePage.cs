@@ -34,7 +34,7 @@ namespace LiveBoard.Common
     /// </list>
     /// </summary>
     [Windows.Foundation.Metadata.WebHostHidden]
-    public class LayoutAwarePage : Page
+	public class LayoutAwarePage : Windows.UI.Xaml.Controls.Page
     {
         /// <summary>
         /// Identifies the <see cref="DefaultViewModel"/> dependency property.

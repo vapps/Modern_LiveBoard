@@ -40,7 +40,5 @@ namespace LiveBoard.Model
 		/// 보이기
 		/// </summary>
 		bool IsVisible { get; set; }
-
-
 	}
 }

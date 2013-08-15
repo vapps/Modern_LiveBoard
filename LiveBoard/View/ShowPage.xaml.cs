@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -15,8 +16,8 @@ using Windows.UI.Xaml.Navigation;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
-using LiveBoard.Pages;
-using LiveBoard.PageTemplate;
+using LiveBoard.Model;
+using LiveBoard.PageTemplate.View;
 using LiveBoard.ViewModel;
 
 namespace LiveBoard.View
@@ -26,7 +27,7 @@ namespace LiveBoard.View
 	/// </summary>
 	public sealed partial class ShowPage : LiveBoard.Common.LayoutAwarePage
 	{
-		private MainViewModel _vm;
+		private readonly MainViewModel _vm;
 		public ShowPage()
 		{
 			this.InitializeComponent();
@@ -38,11 +39,9 @@ namespace LiveBoard.View
 			Messenger.Default.Register<GenericMessage<LbMessage>>(this, message =>
 			{
 				// Debug.WriteLine("* ShowPage.xaml.cs Received Message: " + message.Content.MessageType.ToString());
-
 				switch (message.Content.MessageType)
 				{
-					case LbMessageType.EVT_SHOW_STARTED:
-					case LbMessageType.EVT_PAGE_FINISHING:
+					case LbMessageType.EVT_PAGE_READY:
 						loadFrame(_vm.CurrentPage.TemplateCode);
 						break;
 				}
@@ -52,20 +51,33 @@ namespace LiveBoard.View
 		/// <summary>
 		/// 템플릿 로딩.
 		/// </summary>
-		/// <param name="templateCode"></param>
+		/// <param name="templateCode"><see cref="IPage"/>내의 TemplateCode.</param>
 		private void loadFrame(string templateCode)
 		{
-			switch (templateCode)
+			var t = Type.GetType("LiveBoard.PageTemplate.View." + templateCode);
+			if (t != null)
+				FrameRoot.Navigate(t);
+			else
 			{
-				case "BlankPage_SingleText":
-					FrameRoot.Navigate(typeof(BlankPage_SingleText));
-					break;
-				case "BlankPage_SingleUrlImage":
-					FrameRoot.Navigate(typeof(BlankPage_SingleUrlImage));
-					break;
+				Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
+				{
+					MessageType = LbMessageType.ERROR,
+					Data = LbError.PageTemplateViewTypeNotFound
+				}));
 			}
-
+			//switch (templateCode)
+			//{
+			//	case "SimpleText":
+			//		break;
+			//	case "SimpleUrlImage":
+			//		FrameRoot.Navigate(typeof(SimpleUrlImage));
+			//		break;
+			//	case "SimpleList":
+			//		FrameRoot.Navigate(typeof (SimpleList));
+			//		break;
+			//}
 		}
+
 
 		/// <summary>
 		/// back을 할 때 쇼 종료 명령도 브로드캐스트.

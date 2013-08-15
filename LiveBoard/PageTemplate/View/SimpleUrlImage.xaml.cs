@@ -1,17 +1,17 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
+
 using Windows.UI.Xaml.Navigation;
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 
-namespace LiveBoard.PageTemplate
+namespace LiveBoard.PageTemplate.View
 {
 	/// <summary>
 	/// An empty page that can be used on its own or navigated to within a Frame.
 	/// </summary>
-	public sealed partial class BlankPage_SingleUrlImage : Page
+	public sealed partial class SimpleUrlImage : Windows.UI.Xaml.Controls.Page
 	{
-		public BlankPage_SingleUrlImage()
+		public SimpleUrlImage()
 		{
 			this.InitializeComponent();
 

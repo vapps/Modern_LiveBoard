@@ -12,7 +12,8 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>HubApp_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>LiveBoard_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>5612B18335B0C1966F2A33C8F530F99E864E39A5</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -111,10 +112,16 @@
     <Compile Include="Controls\GridViewVariableWrapPanel.cs" />
     <Compile Include="Model\Board.cs" />
     <Compile Include="Model\IPage.cs" />
-    <Compile Include="Model\Page\SingleTextPage.cs" />
-    <Compile Include="Model\Page\SingleUrlImagePage.cs" />
-    <Compile Include="PageTemplate\BlankPage_SingleUrlImage.xaml.cs">
-      <DependentUpon>BlankPage_SingleUrlImage.xaml</DependentUpon>
+    <Compile Include="PageTemplate\Model\SingleStringPage.cs" />
+    <Compile Include="PageTemplate\Model\SimpleListPage.cs" />
+    <Compile Include="PageTemplate\View\SimpleList.xaml.cs">
+      <DependentUpon>SimpleList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageTemplate\View\SimpleText.xaml.cs">
+      <DependentUpon>SimpleText.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageTemplate\View\SimpleUrlImage.xaml.cs">
+      <DependentUpon>SimpleUrlImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BoardViewModel.cs" />
     <Compile Include="View\CreatePage.xaml.cs">
@@ -126,9 +133,6 @@
       <DependentUpon>MainHubPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\XamlResourceHelper.cs" />
-    <Compile Include="PageTemplate\BlankPage_SingleText.xaml.cs">
-      <DependentUpon>BlankPage_SingleText.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="DataModel\SampleDataSource.cs" />
     <Compile Include="Common\BindableBase.cs" />
@@ -153,6 +157,8 @@
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
     <None Include="HubApp_TemporaryKey.pfx" />
+    <None Include="LiveBoard_StoreKey.pfx" />
+    <None Include="EventFlow.sequencediagram" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -161,21 +167,26 @@
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
     <Content Include="MVVMLight.Nuget.Readme.txt" />
+    <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="PageTemplate\BlankPage_SingleUrlImage.xaml">
+    <Page Include="PageTemplate\View\SimpleList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageTemplate\View\SimpleText.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageTemplate\View\SimpleUrlImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CreatePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="PageTemplate\BlankPage_SingleText.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -210,6 +221,11 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.5.0.6\lib\netcore45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EventFlow.sequencediagram.layout">
+      <DependentUpon>EventFlow.sequencediagram</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

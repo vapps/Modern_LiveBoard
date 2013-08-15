@@ -1,0 +1,22 @@
+﻿<Page
+    x:Class="LiveBoard.PageTemplate.View.SimpleList"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	DataContext="{Binding Source={StaticResource Locator}, Path=Main.CurrentPage}"
+    mc:Ignorable="d">
+
+	<Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+		<TextBlock HorizontalAlignment="Left" Margin="100,100,0,0" TextWrapping="Wrap" Text="{Binding Path=Data.Header}" VerticalAlignment="Top" FontFamily="Global User Interface" FontSize="40"/>
+		<ListBox Height="587" Margin="100,170,100,50" ItemsSource="{Binding Path=Data.StringList}">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding}" FontSize="20"></TextBlock>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+
+		</ListBox>
+
+	</Grid>
+</Page>

@@ -16,7 +16,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using LiveBoard.Model;
-using LiveBoard.Model.Page;
+using LiveBoard.PageTemplate.Model;
 
 namespace LiveBoard.ViewModel
 {
@@ -32,7 +32,7 @@ namespace LiveBoard.ViewModel
 		private IPage _currentPage;
 		private int _currentPageElapsedRatio;
 		private int _currentRemainedSecond;
-		DispatcherTimer _timer;
+		readonly DispatcherTimer _timer;
 		private bool _currentPageStarted;
 		private string _popupMessage;
 
@@ -216,7 +216,7 @@ namespace LiveBoard.ViewModel
 				}
 			}
 
-			CurrentPageElapsedRatio = (int) (((CurrentPage.Duration.TotalSeconds - CurrentRemainedSecond) / CurrentPage.Duration.TotalSeconds)*100);
+			CurrentPageElapsedRatio = (int)(((CurrentPage.Duration.TotalSeconds - CurrentRemainedSecond) / CurrentPage.Duration.TotalSeconds) * 100);
 
 			//Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 			//{
@@ -296,15 +296,30 @@ namespace LiveBoard.ViewModel
 		/// </summary>
 		private void AddPage()
 		{
-			var page = new SingleTextPage
+			var page = new SingleStringPage
 			{
-				Title = "http://inserbia.info/news/wp-content/uploads/2013/05/grizzly-650x487.jpg", //"타이틀 " + DateTime.Now.Ticks.ToString(),
+				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
 				Duration = TimeSpan.FromSeconds(5.0d),
 				IsVisible = true,
 				Guid = Guid.NewGuid().ToString(),
-				TemplateCode = "BlankPage_SingleUrlImage"
+				TemplateCode = "SimpleUrlImage",
+				Data = "http://inserbia.info/news/wp-content/uploads/2013/05/grizzly-650x487.jpg"
 			};
 			ActiveBoard.Board.Pages.Add(page);
+			var page2 = new SimpleListPage()
+			{
+				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
+				Duration = TimeSpan.FromSeconds(5.0d),
+				IsVisible = true,
+				Guid = Guid.NewGuid().ToString(),
+				TemplateCode = "SimpleList",
+				Data = new SimpleListPage.ListData()
+				{
+					Header = "아아~~",
+					StringList = new List<string>() { "asdf", "asdfasdf", "음메음메" }
+				}
+			};
+			ActiveBoard.Board.Pages.Add(page2);
 		}
 
 		/// <summary>
@@ -336,6 +351,11 @@ namespace LiveBoard.ViewModel
 			set
 			{
 				_currentPage = value;
+				MessengerInstance.Send(new GenericMessage<LbMessage>(this, new LbMessage()
+				{
+					MessageType = LbMessageType.EVT_PAGE_READY,
+					Data = CurrentPage
+				}));
 				RaisePropertyChanged("CurrentPage");
 			}
 		}
