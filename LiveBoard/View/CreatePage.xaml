@@ -13,8 +13,6 @@
 
     <Page.Resources>
 
-        <!-- TODO: Delete this line if the key AppName is declared in App.xaml -->
-        <x:String x:Key="AppName">My Application</x:String>
     </Page.Resources>
 
     <!--

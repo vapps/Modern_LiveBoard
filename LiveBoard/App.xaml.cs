@@ -15,8 +15,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-
 // The Grid App template is documented at http://go.microsoft.com/fwlink/?LinkId=234226
+using LiveBoard.View;
 
 namespace LiveBoard
 {
@@ -77,7 +77,7 @@ namespace LiveBoard
                 // When the navigation stack isn't restored navigate to the first page,
                 // configuring the new page by passing required information as a navigation
                 // parameter
-                if (!rootFrame.Navigate(typeof(MainHubPage)))
+                if (!rootFrame.Navigate(typeof(StartPage)))
                 {
                     throw new Exception("Failed to create initial page");
                 }
