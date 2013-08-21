@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="HubApp.App">
-      <VisualElements DisplayName="Live Board" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="HubApp" ForegroundText="light" BackgroundColor="#464646">
+      <VisualElements DisplayName="Live Board" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Best to use for signage display or slide show at conference breaktime." ForegroundText="light" BackgroundColor="#464646">
         <DefaultTile ShowName="allLogos" />
         <SplashScreen Image="Assets\SplashScreen.png" />
       </VisualElements>

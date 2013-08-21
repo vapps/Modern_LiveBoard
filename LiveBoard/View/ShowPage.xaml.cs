@@ -34,7 +34,7 @@ namespace LiveBoard.View
 				switch (message.Content.MessageType)
 				{
 					case LbMessageType.EVT_PAGE_READY:
-						loadFrame(_vm.CurrentPage.TemplateCode);
+						loadFrame(_vm.CurrentPage.View);
 						break;
 					case LbMessageType.EVT_TICK:
 						// 팁을 보이고 있다면 판단하여 숨긴다.
@@ -55,7 +55,7 @@ namespace LiveBoard.View
 		/// <summary>
 		/// 템플릿 로딩.
 		/// </summary>
-		/// <param name="templateCode"><see cref="IPage"/>내의 TemplateCode.</param>
+		/// <param name="templateCode"><see cref="IPage"/>내의 View.</param>
 		private void loadFrame(string templateCode)
 		{
 			// 오브젝트 이름에 따라 자동으로 뷰 템플릿 로딩.

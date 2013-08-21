@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Input;
+using System.Xml.Linq;
+using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
@@ -94,7 +96,7 @@ namespace LiveBoard.ViewModel
 		public ICommand LoadCmd { get { return new RelayCommand(Load); } }
 		public ICommand SaveCmd { get { return new RelayCommand(Save); } }
 		public ICommand AddPageCmd { get { return new RelayCommand(AddPage); } }
-		public ICommand DeletePageCmd { get { return new RelayCommand<IPage>(DeletePage); } }
+		public ICommand DeletePageCmd { get { return new RelayCommand<Object>(DeletePage, CanDeletePage); } }
 		public ICommand PlayCmd { get { return new RelayCommand<BoardViewModel>(Play); } }
 		public ICommand PreviewCmd { get { return new RelayCommand<BoardViewModel>(Preview); } }
 		public ICommand StopCmd { get { return new RelayCommand<BoardViewModel>(Stop); } }
@@ -292,43 +294,155 @@ namespace LiveBoard.ViewModel
 		/// </summary>
 		private void AddPage()
 		{
-			var page = new SingleStringPage
-			{
-				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
-				Duration = TimeSpan.FromSeconds(5.0d),
-				IsVisible = true,
-				Guid = Guid.NewGuid().ToString(),
-				TemplateCode = "SimpleUrlImage",
-				Data = "http://inserbia.info/news/wp-content/uploads/2013/05/grizzly-650x487.jpg"
-			};
-			ActiveBoard.Board.Pages.Add(page);
 			//var page2 = new SimpleListPage()
 			//{
 			//	Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
 			//	Duration = TimeSpan.FromSeconds(5.0d),
 			//	IsVisible = true,
 			//	Guid = Guid.NewGuid().ToString(),
-			//	TemplateCode = "SimpleList",
-			//	Data = new SimpleListPage.ListData()
+			//	View = "SimpleList",
+			//	Data = new SimpleListPage.HeaderAndListData()
 			//	{
 			//		Header = "아아~~",
 			//		StringList = new List<string>() { "asdf", "asdfasdf", "음메음메" }
 			//	}
 			//};
-			//ActiveBoard.Board.Pages.Add(page2);
+
+			// test.
+			var t1 = new LbTemplate
+			{
+				Key = "SingleUrlImage",
+				DisplayName = "Simple image viewer from web",
+				Description = "Show single image",
+				TemplateView = "SimpleUrlImage",
+				TemplateModel = "SingleStringPage"
+			};
+			t1.DataList = new List<LbTemplateData>();
+			t1.DataList.Add(new LbTemplateData()
+			{
+				Key = "Url",
+				Data = "http://inserbia.info/news/wp-content/uploads/2013/05/grizzly-650x487.jpg",
+				Name = "헤더 정보",
+				ValueType = typeof(String)
+			});
+
+			var page3 = getPageFromTemaplate(t1);
+			ActiveBoard.Board.Pages.Add(page3);
+
+			var page4 = new SingleStringPage
+			{
+				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
+				Duration = TimeSpan.FromSeconds(5.0d),
+				IsVisible = true,
+				Guid = Guid.NewGuid().ToString(),
+				View = "OneNumberCount",
+				Data = new List<LbTemplateData>(){
+					new LbTemplateData()
+						{
+							Key = "Number",
+							Data = 5,
+							Name = "헤더 정보",
+							ValueType = typeof(int)
+						}
+				}
+			};
+
+			ActiveBoard.Board.Pages.Add(page4);
+
+
+			var page = new SingleStringPage
+			{
+				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
+				Duration = TimeSpan.FromSeconds(5.0d),
+				IsVisible = true,
+				Guid = Guid.NewGuid().ToString(),
+				View = "StaticWebView",
+				Data = new List<LbTemplateData>(){
+					new LbTemplateData()
+						{
+							Key = "URL",
+							Data = "http://www.naver.com",
+							Name = "인터넷 주소",
+							ValueType = typeof(string)
+						}
+				}
+			};
+
+			ActiveBoard.Board.Pages.Add(page);
+
 			var page2 = new RssList()
 			{
 				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
-				Duration = TimeSpan.FromSeconds(8.0d),
+				Duration = TimeSpan.FromSeconds(5.0d),
 				IsVisible = true,
 				Guid = Guid.NewGuid().ToString(),
-				TemplateCode = "SimpleList",
-				Data = new SimpleListPage.ListData()
+				View = "SimpleList",
+				Data = new List<LbTemplateData>()
 				{
-					Header = "다음 View 인기 기사",
+					new LbTemplateData()
+					{
+						Key = "Header",
+						Name = "타이틀바",
+						ValueType = typeof(string),
+						Data = "다음 View 인기 기사"
+					},
+					new LbTemplateData()
+					{
+						Key="RSS",
+						Name="RSS 주소",
+						ValueType = typeof(string),
+						Data = "http://v.daum.net/best/rss"
+					},
+					new LbTemplateData()
+					{
+						Key="Feeds",
+						Name="출력될 Feed 목록",
+						ValueType = typeof(IEnumerable<string>),
+						IsHidden = true
+					}
 				}
 			};
 			ActiveBoard.Board.Pages.Add(page2);
+
+		}
+
+		/// <summary>
+		/// 데이터로 템플릿 사용.
+		/// </summary>
+		/// <param name="template"></param>
+		/// <returns></returns>
+		private IPage getPageFromTemaplate(LbTemplate template)
+		{
+			var t = Type.GetType("LiveBoard.PageTemplate.Model." + template.TemplateModel);
+			if (t == null)
+				throw new ArgumentException("Template model not found.");
+
+			var page = (IPage)Activator.CreateInstance(t);
+			var pageStrict = (SingleStringPage)page;
+			page.View = template.TemplateView;
+			page.Title = "오 쉣";
+			page.Duration = TimeSpan.FromSeconds(5.0d);
+			page.IsVisible = true;
+			page.Guid = Guid.NewGuid().ToString();
+			page.Data = template.DataList;
+
+			return page;
+		}
+
+		/// <summary>
+		/// 데이터.
+		/// </summary>
+		/// <param name="page"></param>
+		/// <returns></returns>
+		private IPage setData(IPage page)
+		{
+			switch (page.View)
+			{
+				case "SimpleUrlImage":
+
+					break;
+			}
+			return page;
 		}
 
 		/// <summary>
@@ -342,11 +456,15 @@ namespace LiveBoard.ViewModel
 				foreach (var page in (IEnumerable<IPage>)obj)
 					ActiveBoard.Board.Pages.Remove(page);
 			}
-
-			if (obj is IPage)
+			else if (obj is IPage)
 			{
 				ActiveBoard.Board.Pages.Remove((IPage)obj);
 			}
+		}
+		
+		private bool CanDeletePage(Object arg)
+		{
+			return arg != null && (!(arg is IEnumerable<IPage>) || !(arg is IPage));
 		}
 
 		#region Properties
@@ -466,5 +584,36 @@ namespace LiveBoard.ViewModel
 
 		#endregion Properties
 
+	}
+
+	/// <summary>
+	/// 템플릿
+	/// </summary>
+	public class LbTemplate
+	{
+		public string Key { get; set; }
+		public string DisplayName { get; set; }
+		public string Description { get; set; }
+		public string TemplateView { get; set; }
+		public string TemplateModel { get; set; }
+
+		public List<LbTemplateData> DataList
+		{
+			get;
+			set;
+		}
+	}
+
+	/// <summary>
+	/// 템플릿 데이터
+	/// </summary>
+	public class LbTemplateData
+	{
+		public string Key { get; set; }
+		public string Name { get; set; }
+		public Type ValueType { get; set; }
+		public object Data { get; set; }
+		public object DefaultData { get; set; }
+		public bool IsHidden { get; set; }
 	}
 }

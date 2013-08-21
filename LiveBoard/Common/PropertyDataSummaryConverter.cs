@@ -17,7 +17,7 @@ namespace LiveBoard.Common
 	/// Value converter that translates true to <see cref="Visibility.Visible"/> and false to
 	/// <see cref="Visibility.Collapsed"/>.
 	/// </summary>
-	public sealed class BooleanToVisibilityConverter : IValueConverter
+	public sealed class PropertyDataSummaryConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{

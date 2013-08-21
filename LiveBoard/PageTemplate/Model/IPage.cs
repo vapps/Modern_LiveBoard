@@ -17,13 +17,13 @@ namespace LiveBoard.PageTemplate.Model
 		/// </summary>
 		string Title { get; set; }
 		/// <summary>
-		/// 템플릿 코드
+		/// 뷰템플릿 키
 		/// </summary>
-		string TemplateCode { get; set; }
+		string View { get; set; }
 		/// <summary>
 		/// 템플릿에 대한 옵션. 세미콜론(;)으로 구분함.
 		/// </summary>
-		string TemplateOption { get; set; }
+		string ViewOption { get; set; }
 		/// <summary>
 		/// 재생 시간
 		/// </summary>
@@ -36,6 +36,8 @@ namespace LiveBoard.PageTemplate.Model
 		/// 보이기
 		/// </summary>
 		bool IsVisible { get; set; }
+
+		object Data { get; set; }
 
 		/// <summary>
 		/// CurrentPage로 로딩될 때 호출됨. 데이터를 미리 준비시킬 수 있다.

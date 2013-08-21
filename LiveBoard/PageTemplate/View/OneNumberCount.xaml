@@ -1,16 +1,19 @@
 ﻿<Page
-    x:Class="LiveBoard.PageTemplate.View.SimpleUrlImage"
+    x:Class="LiveBoard.PageTemplate.View.OneNumberCount"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LiveBoard.PageTemplate.View"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:WinRTXamlToolkit.Controls"
 	DataContext="{Binding Source={StaticResource Locator}, Path=Main.CurrentPage}"
-	NavigationCacheMode="Disabled"
     mc:Ignorable="d">
 
 	<Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-		<Grid>
-			<Image x:Name="ImageMain" Source="{Binding Path=Data[0].Data}" />
-		</Grid>
+		<controls:CountdownControl HorizontalAlignment="Center"
+                   Seconds="{Binding Path=Data[0].Data}" 
+                   Foreground="Black"
+                   VerticalAlignment="Center" FontFamily="Malgun Gothic" FontSize="80"/>
+
 	</Grid>
 </Page>

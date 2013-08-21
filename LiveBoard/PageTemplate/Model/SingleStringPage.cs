@@ -13,7 +13,8 @@ namespace LiveBoard.PageTemplate.Model
 	{
 		public string Guid { get; set; }
 		public string Title { get; set; }
-		public string TemplateCode { get; set; }
+		public string View { get; set; }
+		public string ViewOption { get; set; }
 		public string TemplateOption { get; set; }
 		public TimeSpan Duration { get; set; }
 		public string Description { get; set; }
@@ -27,7 +28,7 @@ namespace LiveBoard.PageTemplate.Model
 		/// <summary>
 		/// Specific data.
 		/// </summary>
-		public string Data
+		public object Data
 		{
 			get { return _data; }
 			set
@@ -39,9 +40,9 @@ namespace LiveBoard.PageTemplate.Model
 
 		public override string ToString()
 		{
-			return String.Format("{0} ({1})", Title, TemplateCode);
+			return String.Format("{0} ({1})", Title, View);
 		}
 
-		private string _data;
+		private object _data;
 	}
 }

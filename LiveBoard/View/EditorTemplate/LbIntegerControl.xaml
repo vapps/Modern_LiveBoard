@@ -1,0 +1,18 @@
+﻿<UserControl xmlns:Input="using:Telerik.UI.Xaml.Controls.Input" 
+    x:Class="LiveBoard.View.EditorTemplate.LbIntegerControl"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LiveBoard.View.EditorTemplate"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="70"
+    d:DesignWidth="400">
+
+	<Grid Margin="0,5,0,0">
+		<StackPanel Orientation="Vertical">
+			<TextBlock Text="{Binding Path=Name}" Style="{StaticResource EditorControlHeader}" Margin="2"></TextBlock>
+			<Input:RadNumericBox Value="{Binding Path=Data}" ValueFormat="{}{0,0:N0}" Maximum="9999999999" Minimum="-9999999999" Margin="10,0" />
+		</StackPanel>
+	</Grid>
+</UserControl>

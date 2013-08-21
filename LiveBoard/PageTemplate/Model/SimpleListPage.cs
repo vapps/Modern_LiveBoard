@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
-using LiveBoard.Model;
 
 namespace LiveBoard.PageTemplate.Model
 {
@@ -11,7 +8,8 @@ namespace LiveBoard.PageTemplate.Model
 	{
 		public string Guid { get; set; }
 		public string Title { get; set; }
-		public string TemplateCode { get; set; }
+		public string View { get; set; }
+		public string ViewOption { get; set; }
 		public string TemplateOption { get; set; }
 		public TimeSpan Duration { get; set; }
 		public string Description { get; set; }
@@ -26,7 +24,7 @@ namespace LiveBoard.PageTemplate.Model
 		/// <summary>
 		/// Specific data.
 		/// </summary>
-		public virtual ListData Data
+		public virtual object Data
 		{
 			get { return _data; }
 			set
@@ -36,33 +34,7 @@ namespace LiveBoard.PageTemplate.Model
 			}
 		}
 
-		public class ListData : ObservableObject
-		{
-			private ObservableCollection<string> _stringList;
-			private string _header;
-
-			public string Header
-			{
-				get { return _header; }
-				set
-				{
-					_header = value;
-					RaisePropertyChanged("Header");
-				}
-			}
-
-			public ObservableCollection<string> StringList
-			{
-				get { return _stringList; }
-				set
-				{
-					_stringList = value;
-					RaisePropertyChanged("StringList");
-				}
-			}
-		}
-
-		private ListData _data;
+		private object _data;
 
 	}
 }

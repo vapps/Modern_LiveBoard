@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.Web.Syndication;
+using LiveBoard.ViewModel;
 
 namespace LiveBoard.PageTemplate.Model
 {
@@ -18,27 +20,37 @@ namespace LiveBoard.PageTemplate.Model
 		/// <returns></returns>
 		public override async Task<bool> PrepareToLoadAsync()
 		{
-			if (Data.StringList == null)
-				Data.StringList = new ObservableCollection<string>();
+			var list = Data as IEnumerable<LbTemplateData>;
+			if (list == null)
+				return false;
 
-			var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
-
-			// Load RSS feed asyncronously.
-			await dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+			var feedTitles = new ObservableCollection<string>();
+			foreach (var templateData in list)
 			{
-				var feeds = await getRssFeed();
-				foreach (var item in feeds.Items)
-					Data.StringList.Add(item.Title);
-			});
+				if (templateData.Key == "RSS")
+				{
+					var url = templateData.Data as string;
+					var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
+
+					// Load RSS feed asyncronously.
+					await dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
+					{
+						var feeds = await GetFeeds(url);
+						foreach (var item in feeds.Items)
+							feedTitles.Add(item.Title);
+					});
+				}
+
+				if (templateData.Key == "Feeds")
+				{
+					templateData.Data = feedTitles;
+				}
+			}
 			return true;
 		}
 
-		private async Task<RSSFeed> getRssFeed()
-		{
-			return await GetFeeds("http://v.daum.net/best/rss", 10);
-		}
 
-		public override ListData Data
+		public override object Data
 		{
 			get
 			{
@@ -51,7 +63,7 @@ namespace LiveBoard.PageTemplate.Model
 			}
 		}
 
-		private ListData _data1 = new ListData();
+		private object _data1 = new HeaderAndListData();
 
 		// ref: Building a Windows 8 RSS Reader
 		// http://visualstudiomagazine.com/articles/2012/01/04/building-a-windows-8-rss-reader.aspx
@@ -69,15 +81,15 @@ namespace LiveBoard.PageTemplate.Model
 			{
 				var feedItem = new RSSItem { Title = item.Title.Text, PublishedOn = item.PublishedDate.DateTime };
 				var authors = from a in item.Authors
-					select a.Name;
+							  select a.Name;
 				feedItem.Author =
 					String.Join(",", authors);
 				feedItem.Content = item.Content !=
-				                   null ? item.Content.Text : String.Empty;
+								   null ? item.Content.Text : String.Empty;
 				feedItem.Description = item.Summary !=
-				                       null ? item.Summary.Text : String.Empty;
+									   null ? item.Summary.Text : String.Empty;
 				var links = from l in item.Links
-					select new RSSLink(l.Title, l.Uri);
+							select new RSSLink(l.Title, l.Uri);
 				feedItem.Links = links.ToList();
 				feeds.Items.Add(feedItem);
 			}

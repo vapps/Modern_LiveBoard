@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using Windows.Storage;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
-using LiveBoard.Common;
 using LiveBoard.PageTemplate.Model;
 using Newtonsoft.Json;
 
@@ -67,6 +59,13 @@ namespace LiveBoard.Model
 		public bool IsLoop
 		{
 			get { return LoopCount != 0; }
+			set
+			{
+				if (value)
+					LoopCount = -1;
+				RaisePropertyChanged("IsLoop");
+				RaisePropertyChanged("LoopCount");
+			}
 		}
 
 		/// <summary>
@@ -79,6 +78,7 @@ namespace LiveBoard.Model
 			set
 			{
 				_loopCount = value;
+				RaisePropertyChanged("IsLoop");
 				RaisePropertyChanged("LoopCount");
 			}
 		}
@@ -117,7 +117,11 @@ namespace LiveBoard.Model
 		public ObservableCollection<IPage> Pages
 		{
 			get { return _pages; }
-			set { _pages = value; }
+			set
+			{
+				_pages = value;
+				RaisePropertyChanged("Pages");
+			}
 		}
 
 

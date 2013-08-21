@@ -14,6 +14,7 @@
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>LiveBoard_StoreKey.pfx</PackageCertificateKeyFile>
     <PackageCertificateThumbprint>5612B18335B0C1966F2A33C8F530F99E864E39A5</PackageCertificateThumbprint>
+    <ExpressionBlendVersion>5.0.40218.0</ExpressionBlendVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -104,14 +105,21 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\PropertyDataSummaryConverter.cs" />
+    <Compile Include="Common\LbEditorDataTemplateSelector.cs" />
     <Compile Include="Common\LbMessage.cs" />
     <Compile Include="Common\LbMessageType.cs" />
+    <Compile Include="Common\LbPageToDataListConverter.cs" />
     <Compile Include="Controls\GridViewVariableWrapPanel.cs" />
     <Compile Include="Model\Board.cs" />
+    <Compile Include="PageTemplate\Model\HeaderAndListData.cs" />
     <Compile Include="PageTemplate\Model\IPage.cs" />
     <Compile Include="PageTemplate\Model\RssList.cs" />
     <Compile Include="PageTemplate\Model\SingleStringPage.cs" />
     <Compile Include="PageTemplate\Model\SimpleListPage.cs" />
+    <Compile Include="PageTemplate\View\OneNumberCount.xaml.cs">
+      <DependentUpon>OneNumberCount.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageTemplate\View\SimpleList.xaml.cs">
       <DependentUpon>SimpleList.xaml</DependentUpon>
     </Compile>
@@ -120,6 +128,9 @@
     </Compile>
     <Compile Include="PageTemplate\View\SimpleUrlImage.xaml.cs">
       <DependentUpon>SimpleUrlImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageTemplate\View\StaticWebView.xaml.cs">
+      <DependentUpon>StaticWebView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\BoardViewModel.cs" />
     <Compile Include="View\CreatePage.xaml.cs">
@@ -134,6 +145,15 @@
     <Compile Include="Common\SuspensionManager.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\EditorTemplate\LbDoubleControl.xaml.cs">
+      <DependentUpon>LbDoubleControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditorTemplate\LbIntegerControl.xaml.cs">
+      <DependentUpon>LbIntegerControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditorTemplate\LbStringControl.xaml.cs">
+      <DependentUpon>LbStringControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ShowPage.xaml.cs">
       <DependentUpon>ShowPage.xaml</DependentUpon>
     </Compile>
@@ -156,6 +176,9 @@
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Images\appbar.control.play.png" />
+    <Content Include="Images\appbar.monitor.play.png" />
+    <Content Include="Images\appbar.save.png" />
     <Content Include="MVVMLight.Nuget.Readme.txt" />
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
@@ -164,6 +187,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="PageTemplate\View\OneNumberCount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PageTemplate\View\SimpleList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -176,11 +203,31 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="PageTemplate\View\StaticWebView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\LbBrushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\CreatePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditorTemplate\LbDoubleControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditorTemplate\LbIntegerControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditorTemplate\LbStringControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,6 +253,9 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.5.0.6\lib\netcore45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="WinRTXamlToolkit">
+      <HintPath>packages\WinRTXamlToolkit.1.5.2.0\lib\netcore45\WinRTXamlToolkit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EventFlow.sequencediagram.layout">
@@ -213,6 +263,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
+  <ItemGroup>
+    <SDKReference Include="RadControls for Windows 8, Version=2013.2.716">
+      <Name>RadControls for Windows 8</Name>
+    </SDKReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

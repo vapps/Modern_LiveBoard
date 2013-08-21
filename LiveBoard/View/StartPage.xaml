@@ -31,9 +31,8 @@
         * Row 1 contains the rest of the page layout
     -->
 	<Grid Style="{StaticResource LayoutRootStyle}">
-
 		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Orientation="Horizontal">
-			<Button Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonCreate" Click="ButtonCreate_OnClick">
+			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonCreate" Click="ButtonCreate_OnClick">
 				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 					<ContentControl Style="{StaticResource LbCreateNewICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
 						<ContentControl.RenderTransform>
@@ -41,11 +40,11 @@
 						</ContentControl.RenderTransform>
 					</ContentControl>
 					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0">Create New Board</TextBlock>
+						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF">Create New Board</TextBlock>
 					</Grid>
 				</Grid>
 			</Button>
-			<Button Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonOpen">
+			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonOpen">
 				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 					<ContentControl Style="{StaticResource LbOpenICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
 						<ContentControl.RenderTransform>
@@ -53,11 +52,11 @@
 						</ContentControl.RenderTransform>
 					</ContentControl>
 					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0">Open Board</TextBlock>
+						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF">Open Board</TextBlock>
 					</Grid>
 				</Grid>
 			</Button>
-			<Button Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonPlayRecent">
+			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonPlayRecent">
 				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 					<ContentControl Style="{StaticResource LbPlayICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
 						<ContentControl.RenderTransform>
@@ -65,11 +64,11 @@
 						</ContentControl.RenderTransform>
 					</ContentControl>
 					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0">Play Recent Board</TextBlock>
+						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF">Play Recent Board</TextBlock>
 					</Grid>
 				</Grid>
 			</Button>
-			<Button Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonEditRecent">
+			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonEditRecent">
 				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 					<ContentControl Style="{StaticResource LbEditRecentICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
 						<ContentControl.RenderTransform>
@@ -77,7 +76,7 @@
 						</ContentControl.RenderTransform>
 					</ContentControl>
 					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0">Edit Recent Board</TextBlock>
+						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF">Edit Recent Board</TextBlock>
 					</Grid>
 				</Grid>
 

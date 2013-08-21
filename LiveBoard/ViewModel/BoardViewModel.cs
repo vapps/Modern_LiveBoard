@@ -14,6 +14,10 @@ namespace LiveBoard.ViewModel
 {
 	public class BoardViewModel: ViewModelBase
 	{
+		public void Clear()
+		{
+			Board = new Board();
+		}
 
 		public void Start()
 		{
