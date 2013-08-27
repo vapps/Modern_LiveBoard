@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight.Messaging;
+﻿using GalaSoft.MvvmLight.Messaging;
 
 namespace LiveBoard.Common
 {
@@ -31,7 +26,11 @@ namespace LiveBoard.Common
 	    EVT_SHOW_STARTING,
         EVT_SHOW_STARTED,
 	    EVT_SHOW_FINISHING,
-	    EVT_SHOW_FINISHED
+	    EVT_SHOW_FINISHED,
+		/// <summary>
+		/// 페이지 생성 명령
+		/// </summary>
+	    EVT_PAGE_CREATING
     }
 
 	/// <summary>

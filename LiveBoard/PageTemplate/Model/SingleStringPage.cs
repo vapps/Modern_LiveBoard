@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Windows.Web.Syndication;
 using GalaSoft.MvvmLight;
-using LiveBoard.Model;
 
 namespace LiveBoard.PageTemplate.Model
 {
@@ -12,14 +11,44 @@ namespace LiveBoard.PageTemplate.Model
 	public class SingleStringPage : ObservableObject, IPage
 	{
 		public string Guid { get; set; }
-		public string Title { get; set; }
+
+		public string Title
+		{
+			get { return _title; }
+			set
+			{
+				_title = value; 
+				RaisePropertyChanged("Title");
+			}
+		}
+
 		public string View { get; set; }
 		public string ViewOption { get; set; }
-		public string TemplateOption { get; set; }
-		public TimeSpan Duration { get; set; }
-		public string Description { get; set; }
+
+		public TimeSpan Duration
+		{
+			get { return _duration; }
+			set
+			{
+				_duration = value; 
+				RaisePropertyChanged("Duration");
+			}
+		}
+
+		public string Description
+		{
+			get { return _description; }
+			set
+			{
+				_description = value;
+				RaisePropertyChanged("Description");
+			}
+		}
+
 		public bool IsVisible { get; set; }
-		public async Task<bool> PrepareToLoadAsync()
+		public string TemplateKey { get; set; }
+
+		public virtual async Task<bool> PrepareToLoadAsync()
 		{
 			// do nothing.
 			return true;
@@ -44,5 +73,8 @@ namespace LiveBoard.PageTemplate.Model
 		}
 
 		private object _data;
+		private string _title;
+		private TimeSpan _duration;
+		private string _description;
 	}
 }

@@ -105,13 +105,24 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\NumericMinuteConverter.cs" />
+    <Compile Include="Common\PageExistToVisibilityConverter.cs" />
+    <Compile Include="Common\PageToCountDisplayConverter.cs" />
     <Compile Include="Common\PropertyDataSummaryConverter.cs" />
     <Compile Include="Common\LbEditorDataTemplateSelector.cs" />
     <Compile Include="Common\LbMessage.cs" />
     <Compile Include="Common\LbMessageType.cs" />
     <Compile Include="Common\LbPageToDataListConverter.cs" />
+    <Compile Include="Common\StringFormatConverter.cs" />
+    <Compile Include="Common\TemplateViewToIconImage.cs" />
+    <Compile Include="Common\TimespanZeroFillConverter.cs" />
+    <Compile Include="Common\ZeroToVisibilityConverter.cs" />
     <Compile Include="Controls\GridViewVariableWrapPanel.cs" />
     <Compile Include="Model\Board.cs" />
+    <Compile Include="Model\LbPage.cs" />
+    <Compile Include="Model\LbTemplate.cs" />
+    <Compile Include="Model\LbTemplateData.cs" />
+    <Compile Include="PageTemplate\Model\FacebookLikeCountPage.cs" />
     <Compile Include="PageTemplate\Model\HeaderAndListData.cs" />
     <Compile Include="PageTemplate\Model\IPage.cs" />
     <Compile Include="PageTemplate\Model\RssList.cs" />
@@ -132,7 +143,11 @@
     <Compile Include="PageTemplate\View\StaticWebView.xaml.cs">
       <DependentUpon>StaticWebView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TemplateSelectionControl.xaml.cs">
+      <DependentUpon>TemplateSelectionControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BoardViewModel.cs" />
+    <Compile Include="ViewModel\TemplateListViewModel.cs" />
     <Compile Include="View\CreatePage.xaml.cs">
       <DependentUpon>CreatePage.xaml</DependentUpon>
     </Compile>
@@ -176,10 +191,26 @@
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
+    <Content Include="Images\appbar.add.png" />
+    <Content Include="Images\appbar.browser.wire.png" />
+    <Content Include="Images\appbar.clock.png" />
     <Content Include="Images\appbar.control.play.png" />
+    <Content Include="Images\appbar.image.png" />
+    <Content Include="Images\appbar.lines.horizontal.4.png" />
+    <Content Include="Images\appbar.list.add.below.png" />
+    <Content Include="Images\appbar.minus.png" />
     <Content Include="Images\appbar.monitor.play.png" />
+    <Content Include="Images\appbar.rss.png" />
     <Content Include="Images\appbar.save.png" />
+    <Content Include="Images\appbar.text.sans.png" />
+    <Content Include="Images\appbar.thumbs.up.png" />
+    <Content Include="Images\appbar.timer.png" />
+    <Content Include="Images\appbar.warning.png" />
+    <Content Include="Libs\PopupHelpers.Lib.dll" />
     <Content Include="MVVMLight.Nuget.Readme.txt" />
+    <Content Include="PageTemplate\TemplateList.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -204,6 +235,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="PageTemplate\View\StaticWebView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TemplateSelectionControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -252,6 +287,10 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>packages\Newtonsoft.Json.5.0.6\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PopupHelpers.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libs\PopupHelpers.Lib.dll</HintPath>
     </Reference>
     <Reference Include="WinRTXamlToolkit">
       <HintPath>packages\WinRTXamlToolkit.1.5.2.0\lib\netcore45\WinRTXamlToolkit.dll</HintPath>

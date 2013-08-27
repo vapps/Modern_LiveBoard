@@ -7,6 +7,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:editorTemplate="using:LiveBoard.View.EditorTemplate"
     xmlns:Input="using:Telerik.UI.Xaml.Controls.Input"
+    xmlns:common1="using:Telerik.UI.Xaml.Controls.Primitives.Common"
+    xmlns:numericBox="using:Telerik.UI.Xaml.Controls.Input.NumericBox"
     x:Name="pageRoot"
     x:Class="LiveBoard.View.CreatePage"
     NavigationCacheMode="Required"
@@ -38,7 +40,7 @@
 			<Setter Property="Background" Value="Transparent"/>
 			<Setter Property="TabNavigation" Value="Local"/>
 			<Setter Property="IsHoldingEnabled" Value="True"/>
-			<Setter Property="Margin" Value="0,0,18,2"/>
+			<Setter Property="Margin" Value="1,0,1,0"/>
 			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 			<Setter Property="VerticalContentAlignment" Value="Top"/>
 			<Setter Property="Template">
@@ -290,15 +292,15 @@
 										<Rectangle x:Name="PointerOverBorder" Fill="{StaticResource ListViewItemPointerOverBackgroundThemeBrush}" IsHitTestVisible="False" Margin="1" Opacity="0"/>
 										<Rectangle x:Name="FocusVisual" IsHitTestVisible="False" Opacity="0" Stroke="{StaticResource ListViewItemFocusBorderThemeBrush}" StrokeThickness="2"/>
 										<Rectangle x:Name="SelectionBackground" Fill="{StaticResource ListViewItemSelectedBackgroundThemeBrush}" Margin="4" Opacity="0"/>
-										<Border x:Name="ContentBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="4">
+										<Border x:Name="ContentBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Margin="4,0,4,1">
 											<Grid>
-												<ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+												<ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" ContentTransitions="{TemplateBinding ContentTransitions}" Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="0" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
 												<TextBlock x:Name="PlaceholderTextBlock" Foreground="{x:Null}" IsHitTestVisible="False" Margin="{TemplateBinding Padding}" Opacity="0" Text="Xg"/>
 												<Rectangle x:Name="PlaceholderRect" Fill="{StaticResource ListViewItemPlaceholderBackgroundThemeBrush}" IsHitTestVisible="False" Visibility="Collapsed"/>
 												<Rectangle x:Name="MultiArrangeOverlayBackground" Fill="{StaticResource ListViewItemDragBackgroundThemeBrush}" IsHitTestVisible="False" Opacity="0"/>
 											</Grid>
 										</Border>
-										<Rectangle x:Name="SelectedBorder" IsHitTestVisible="False" Margin="1" Opacity="0" Stroke="{StaticResource ListViewItemSelectedBackgroundThemeBrush}" StrokeThickness="{StaticResource ListViewItemSelectedBorderThemeThickness}"/>
+										<Rectangle x:Name="SelectedBorder" IsHitTestVisible="False" Margin="0" Opacity="0" Stroke="{StaticResource ListViewItemSelectedBackgroundThemeBrush}" StrokeThickness="{StaticResource ListViewItemSelectedBorderThemeThickness}"/>
 										<Border x:Name="SelectedCheckMarkOuter" HorizontalAlignment="Right" IsHitTestVisible="False" Margin="1" VerticalAlignment="Top">
 											<Grid x:Name="SelectedCheckMark" Height="40" Opacity="0" Width="40">
 												<!--<Path x:Name="SelectedEarmark" Data="M0,0 L40,0 L40,40 z" Fill="{StaticResource ListViewItemSelectedBackgroundThemeBrush}" Stretch="Fill"/>-->
@@ -314,6 +316,44 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
+		<Style TargetType="Input:RadNumericBox" x:Key="CustomNumericBoxStyle">
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Input:RadNumericBox">
+						<Grid>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto"/>
+								<RowDefinition Height="*"/>
+							</Grid.RowDefinitions>
+							<ContentControl Content="{TemplateBinding Header}" ContentTemplate="{TemplateBinding HeaderTemplate}" Style="{TemplateBinding HeaderStyle}" IsTabStop="False"/>
+							<Grid Grid.Row="1">
+								<Grid.RowDefinitions>
+									<RowDefinition Height="Auto"/>
+									<RowDefinition Height="Auto"/>
+								</Grid.RowDefinitions>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*"/>
+									<ColumnDefinition Width="*"/>
+								</Grid.ColumnDefinitions>
+								<numericBox:NumericTextBox x:Name="PART_TextBox" Grid.ColumnSpan="2"/>
+								<common1:InlineButton x:Name="PART_DecreaseButton" Content="&#xE0A1;" 
+                                                                      IsRepeatingEnabled="True" Grid.Row="1" HorizontalAlignment="Stretch"
+                                                                      Style="{TemplateBinding DecreaseButtonStyle}" Margin="0,2,2,0"/>
+								<common1:InlineButton x:Name="PART_IncreaseButton" Content="&#xE0A0;" HorizontalAlignment="Stretch"
+                                                                      IsRepeatingEnabled="True" Grid.Row="1" Grid.Column="1" Margin="0,2,0,0"
+                                                                      Style="{TemplateBinding IncreaseButtonStyle}"/>
+							</Grid>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+
+		<common:PageToCountDisplayConverter x:Key="PageCountConverter" />
+		<common:PageExistToVisibilityConverter x:Key="PageExistToVisibility" />
+		<common:TimespanZeroFillConverter x:Key="TimespanZeroFill" />
+		<common:ZeroToVisibilityConverter x:Key="ZeroToVisibility" />
+		<common:StringFormatConverter x:Key="StringFormatConverter" />
 	</common:LayoutAwarePage.Resources>
 
 	<common:LayoutAwarePage.DataContext>
@@ -365,7 +405,7 @@
 			<TextBlock x:Name="pageTitle" Grid.Column="1" Text="Create Board" Style="{StaticResource PageHeaderTextStyle}"/>
 			<TextBlock x:Name="fileNameTitle" Grid.Column="1" Text="File: Untitled.lbd" Margin="170,0,0,15" VerticalAlignment="Bottom" FontSize="14" Foreground="{StaticResource LbTextBrush}" FontFamily="Global User Interface" FontStyle="Italic" />
 
-			<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,50,0">
+			<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,50,0">
 				<Button x:Name="ButtonSave" Command="{Binding SaveCmd}" 
 					Background="{StaticResource LbLightShadowBrush}">
 					<StackPanel Orientation="Horizontal" Margin="3">
@@ -412,8 +452,22 @@
 				</Grid.ColumnDefinitions>
 				<!-- 좌측 Pages 리스트 -->
 				<Grid>
-					<TextBlock HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" Text="Pages" 
+					<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Pages" 
 				   FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" Margin="0,0,0,10" />
+					<StackPanel Margin="85,10,0,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{Binding Path=ActiveBoard.Board.Pages.Count, Converter={StaticResource PageExistToVisibility}, Mode=OneWay}">
+						<!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="(" 
+							FontSize="19" Foreground="{StaticResource LbTextBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />-->
+						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Converter={StaticResource PageCountConverter}, ElementName=ListViewPages, Path=SelectedIndex, Mode=OneWay}" 
+							FontSize="19" Foreground="{StaticResource LbTextBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
+						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="/" 
+							FontSize="19" Foreground="{StaticResource LbTextBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
+						<TextBlock x:Name="TextBlockTotalPageCount" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=ActiveBoard.Board.Pages.Count, Mode=OneWay}" 
+							FontSize="19" Foreground="{StaticResource LbTextBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
+						<!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text=")" 
+							FontSize="19" Foreground="{StaticResource LbTextBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />-->
+
+					</StackPanel>
+
 					<Grid Margin="0">
 						<Grid.RowDefinitions>
 							<RowDefinition />
@@ -424,58 +478,47 @@
 							<StackPanel.RenderTransform>
 								<CompositeTransform ScaleX="0.8" ScaleY="0.8"/>
 							</StackPanel.RenderTransform>
-							<Button  Command="{Binding AddPageCmd}" Background="Transparent" Style="{StaticResource SquareButtonStyle}">
-								<Viewbox>
-									<Grid>
-										<Grid Width="48" Height="48" Visibility="Visible">
-											<Rectangle Fill="{StaticResource LbLightGrayBrush}" Visibility="Visible" />
-										</Grid>
-										<Path Data="M19.833,0L32.5,0 32.5,19.833999 52.334,19.833999 52.334,32.500999 32.5,32.500999 32.5,52.333 19.833,52.333 19.833,32.500999 0,32.500999 0,19.833999 19.833,19.833999z" 
-							Stretch="Uniform" Fill="{StaticResource LbDarkBlueBrush}" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5"/>
-									</Grid>
-								</Viewbox>
+							<Button x:Name="ButtonAddPage" Click="ButtonAddPage_OnClick" Background="Transparent" Style="{StaticResource SquareButtonStyle}">
+								<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
+									<Image Source="../Images/appbar.add.png" Margin="2" />
+								</Grid>
 							</Button>
 							<Rectangle Width="10"></Rectangle>
 							<Button Command="{Binding DeletePageCmd}" CommandParameter="{Binding SelectedItem, ElementName=ListViewPages}" Style="{StaticResource SquareButtonStyle}">
-								<Viewbox>
-									<Grid>
-										<Grid Width="48" Height="48" Visibility="Visible">
-											<Rectangle Fill="#FFD7DADB" Visibility="Visible" />
-										</Grid>
-										<Path Data="M0,0L53.333,0 53.333,8.888 0,8.888z" Stretch="Uniform" Fill="#FF2C3E50" Width="26" Height="26" Margin="0,0,0,0" RenderTransformOrigin="0.5,0.5">
-											<Path.RenderTransform>
-												<TransformGroup>
-													<RotateTransform Angle="0" />
-													<ScaleTransform ScaleX="1" ScaleY="1" />
-												</TransformGroup>
-											</Path.RenderTransform>
-										</Path>
-									</Grid>
-								</Viewbox>
+								<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
+									<Image Source="../Images/appbar.minus.png" Margin="2" />
+								</Grid>
 							</Button>
 						</StackPanel>
-						<!-- 아이템의 드래그앤드롭 기능을 위해 ItemsSource 는 CodeBehind에서 설정한다. -->
+						<!-- Pages 리스트. 아이템의 드래그앤드롭 기능을 위해 ItemsSource 는 CodeBehind에서 설정한다. -->
 						<ListView x:Name="ListViewPages" HorizontalAlignment="Stretch" Background="{StaticResource LbLightShadowBrush}"
 			VerticalAlignment="Stretch" BorderThickness="0" Margin="0,45,0,0"
-			CanReorderItems="True" CanDragItems="True" AllowDrop="True" ItemContainerStyle="{StaticResource ListViewItemStyle1}">
+			CanReorderItems="True" CanDragItems="True" AllowDrop="True" ItemContainerStyle="{StaticResource ListViewItemStyle1}" SelectionChanged="ListViewPages_OnSelectionChanged">
 							<ListView.ItemTemplate>
 								<DataTemplate>
 									<Border BorderBrush="White" BorderThickness="0,0,0,0" Height="60">
 										<Grid Background="White">
 											<Grid.ColumnDefinitions>
-												<ColumnDefinition Width="14*" />
-												<ColumnDefinition Width="67*"/>
-												<ColumnDefinition Width="50" />
+												<ColumnDefinition Width="60" />
+												<ColumnDefinition Width="1*"/>
+												<ColumnDefinition Width="100" />
 											</Grid.ColumnDefinitions>
-											<Grid>
-												<TextBlock Text="{Binding Path=View}"></TextBlock>
+											<Grid Background="{StaticResource LbDarkTextBrush}">
+												<Image Source="{Binding Path=TemplateKey, Mode=OneWay, Converter={StaticResource TemplateViewToIcon}}"></Image>
 											</Grid>
-											<StackPanel Orientation="Vertical" Grid.Column="1">
+											<StackPanel Orientation="Vertical" Grid.Column="1" Margin="5">
 
 												<TextBlock Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Title}"/>
 												<TextBlock Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Data, Converter={StaticResource PropertyDataSummary}}"/>
 											</StackPanel>
-											<TextBlock Grid.Column="2" Foreground="{StaticResource LbDarkBlueBrush}" Text="{Binding Path=Duration}"/>
+											<Grid Grid.Column="2">
+												<StackPanel Orientation="Horizontal" Margin="0,0,13,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+													<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="{Binding Path=Duration.Minutes}" VerticalAlignment="Bottom" Margin="0,0,3,0" FontSize="35" HorizontalAlignment="Right" Visibility="{Binding Path=Duration.Minutes, Converter={StaticResource ZeroToVisibility}, Mode=OneWay}" />
+													<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="m" FontSize="15" VerticalAlignment="Bottom" Visibility="{Binding Path=Duration.Minutes, Converter={StaticResource ZeroToVisibility}, Mode=OneWay}" />
+													<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="{Binding Path=Duration.Seconds, Converter={StaticResource TimespanZeroFill}}" VerticalAlignment="Bottom" Margin="0,0,3,0" FontSize="35" HorizontalAlignment="Right" />
+													<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="s" FontSize="15" VerticalAlignment="Bottom" />
+												</StackPanel>
+											</Grid>
 										</Grid>
 									</Border>
 								</DataTemplate>
@@ -491,7 +534,7 @@
 									OnContent="Loop" OffContent="No Loop" Foreground="{StaticResource LbBackgroundBrush}" />
 								<Input:RadNumericBox x:Name="NumericBoxLoop" Visibility="{Binding IsOn, ConverterParameter=inverse, Converter={StaticResource BoolToVisibility}, ElementName=ToggleLoop}" 
 									Width="30"
-									Watermark="iteration" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+									Watermark="iteration" HorizontalAlignment="Left" VerticalAlignment="Center" ValueFormat="{}{0,0:N0}"/>
 								<Rectangle Width="10"/>
 								<TextBlock FontSize="15" VerticalAlignment="Center" Visibility="{Binding Visibility, ElementName=NumericBoxLoop}">
 									<Run Text="times"/>
@@ -504,7 +547,7 @@
 				<!-- 좌측 Pages 리스트 끝 -->
 
 				<!-- 우측 Properties 시작 -->
-				<Grid Grid.Column="2" Margin="0,0,0,0">
+				<Grid Grid.Column="2" Margin="0,0,0,0" DataContext="{Binding ElementName=ListViewPages, Path=SelectedItem, Mode=TwoWay}">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="230" />
 						<RowDefinition Height="1*" />
@@ -516,8 +559,7 @@
 							<Grid Margin="10">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="1*"/>
-									<RowDefinition Height="1*"/>
-									<RowDefinition Height="1*"/>
+									<RowDefinition Height="2*"/>
 									<RowDefinition Height="1*"/>
 								</Grid.RowDefinitions>
 								<Grid.ColumnDefinitions>
@@ -525,14 +567,24 @@
 									<ColumnDefinition Width="1*"/>
 								</Grid.ColumnDefinitions>
 								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Text="Title" VerticalAlignment="Center"/>
-								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Text="Template" VerticalAlignment="Center"/>
-								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" Text="Duration" VerticalAlignment="Center"/>
-								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="3" Text="Description" VerticalAlignment="Center"/>
-								<TextBox Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="" VerticalAlignment="Center"/>
-								<StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="2" VerticalAlignment="Top" Orientation="Horizontal">
-									<Input:RadNumericBox/>
+							
+								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Text="Duration" VerticalAlignment="Center"/>
+								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" Text="Description" VerticalAlignment="Center"/>
+
+								<TextBox Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=Title, Mode=TwoWay}" VerticalAlignment="Center" />
+								
+
+								<StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Center" Orientation="Horizontal">
+
+									<Input:RadNumericBox x:Name="NumericBoxMinute" Style="{StaticResource CustomNumericBoxStyle}" ValueFormat="{}{0,0:N0}" MinWidth="110" ValueChanged="NumericBoxDuration_OnValueChanged" />
+									<TextBlock Text="min" VerticalAlignment="Bottom" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" FontFamily="Global User Interface" />
+									<Rectangle Width="5"></Rectangle>
+									<Input:RadNumericBox x:Name="NumericBoxSecond" Style="{StaticResource CustomNumericBoxStyle}" ValueFormat="{}{0,0:N0}" MinWidth="110" ValueChanged="NumericBoxDuration_OnValueChanged" />
+									<TextBlock Text="sec" VerticalAlignment="Bottom" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
+
 								</StackPanel>
-								<TextBox Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Center"/>
+								<TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Path=Description}" />
+
 							</Grid>
 						</Grid>
 					</Grid>
@@ -566,19 +618,22 @@
 			</Grid>
 
 			<!-- 우측 Preview 부분 -->
-			<Grid Grid.Column="1">
+			<Grid Grid.Column="1" DataContext="{Binding ElementName=ListViewPages, Path=SelectedItem}">
 				<Grid Margin="20,0,0,0">
 					<Grid>
-						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Draft" 
+						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Preview" 
 			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
-						
-						<Frame x:Name="FramePreview" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="300" MinHeight="200" Margin="10"/>
+
+						<Border BorderThickness="15" BorderBrush="{StaticResource LbLightGrayBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="350" MinHeight="250" CornerRadius="10">
+
+							<Grid>
+								<Frame x:Name="FramePreview"/>
+								<Rectangle Width="30" Height="5" Fill="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-10"></Rectangle>
+							</Grid>
+						</Border>
 					</Grid>
 				</Grid>
 			</Grid>
 		</Grid>
-
-
-
 	</Grid>
 </common:LayoutAwarePage>

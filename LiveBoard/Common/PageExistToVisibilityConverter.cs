@@ -1,27 +1,23 @@
-﻿using System;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
-using LiveBoard.Model;
 using LiveBoard.PageTemplate.Model;
-using LiveBoard.ViewModel;
 
 namespace LiveBoard.Common
 {
-	public class LbPageToDataListConverter: IValueConverter
+	public class PageExistToVisibilityConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
-			var page = value as IPage;
-			if (page == null)
-				return null;
-
-			var list = page.Data as IEnumerable<LbTemplateData>;
-			if (list == null)
-				return null;
-			return list;
+			//return Visibility.Visible;
+			if (!(value is int))
+			{
+				return Visibility.Collapsed;
+			}
+			return ((int) value)>0 ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, string language)

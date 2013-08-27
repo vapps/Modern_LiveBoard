@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using LiveBoard.Model;
 
 namespace LiveBoard.PageTemplate.Model
 {
@@ -37,6 +38,14 @@ namespace LiveBoard.PageTemplate.Model
 		/// </summary>
 		bool IsVisible { get; set; }
 
+		/// <summary>
+		/// 템플릿 키
+		/// </summary>
+		string TemplateKey { get; set; }
+
+		/// <summary>
+		/// 데이터
+		/// </summary>
 		object Data { get; set; }
 
 		/// <summary>

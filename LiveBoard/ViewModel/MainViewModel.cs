@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Input;
-using System.Xml.Linq;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
@@ -14,6 +12,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
+using LiveBoard.Model;
 using LiveBoard.PageTemplate.Model;
 
 namespace LiveBoard.ViewModel
@@ -33,6 +32,7 @@ namespace LiveBoard.ViewModel
 		readonly DispatcherTimer _timer;
 		private bool _currentPageStarted;
 		private string _popupMessage;
+		private TemplateListViewModel _templates;
 
 		/// <summary>
 		/// Initializes a new instance of the MainViewModel class.
@@ -89,9 +89,16 @@ namespace LiveBoard.ViewModel
 						ActiveBoard.Start();
 						CurrentPage = ActiveBoard.Board.Pages[ActiveBoard.CurrentIndex];
 						break;
+					case LbMessageType.EVT_PAGE_CREATING:
+						var page = getPageFromTemaplate(message.Content.Data as LbTemplate);
+						ActiveBoard.Board.Pages.Add(page);
+						break;
 				}
 			});
+
+			Templates = new TemplateListViewModel();
 		}
+
 		#region ICommand
 		public ICommand LoadCmd { get { return new RelayCommand(Load); } }
 		public ICommand SaveCmd { get { return new RelayCommand(Save); } }
@@ -331,8 +338,9 @@ namespace LiveBoard.ViewModel
 
 			var page4 = new SingleStringPage
 			{
+				TemplateKey = "Countdown",
 				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
-				Duration = TimeSpan.FromSeconds(5.0d),
+				Duration = TimeSpan.FromSeconds(6.0d),
 				IsVisible = true,
 				Guid = Guid.NewGuid().ToString(),
 				View = "OneNumberCount",
@@ -352,8 +360,9 @@ namespace LiveBoard.ViewModel
 
 			var page = new SingleStringPage
 			{
-				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
-				Duration = TimeSpan.FromSeconds(5.0d),
+				TemplateKey = "StaticWebView",
+				Title = "타이틀",
+				Duration = TimeSpan.FromSeconds(7.0d),
 				IsVisible = true,
 				Guid = Guid.NewGuid().ToString(),
 				View = "StaticWebView",
@@ -372,6 +381,7 @@ namespace LiveBoard.ViewModel
 
 			var page2 = new RssList()
 			{
+				TemplateKey = "RssList",
 				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
 				Duration = TimeSpan.FromSeconds(5.0d),
 				IsVisible = true,
@@ -413,35 +423,22 @@ namespace LiveBoard.ViewModel
 		/// <returns></returns>
 		private IPage getPageFromTemaplate(LbTemplate template)
 		{
+			if (template == null)
+				throw new ArgumentNullException("template");
+
 			var t = Type.GetType("LiveBoard.PageTemplate.Model." + template.TemplateModel);
 			if (t == null)
 				throw new ArgumentException("Template model not found.");
 
 			var page = (IPage)Activator.CreateInstance(t);
-			var pageStrict = (SingleStringPage)page;
+			page.TemplateKey = template.Key;
 			page.View = template.TemplateView;
-			page.Title = "오 쉣";
+			page.Title = "Page " + ActiveBoard.Board.Pages.Count + 1;
 			page.Duration = TimeSpan.FromSeconds(5.0d);
 			page.IsVisible = true;
 			page.Guid = Guid.NewGuid().ToString();
 			page.Data = template.DataList;
 
-			return page;
-		}
-
-		/// <summary>
-		/// 데이터.
-		/// </summary>
-		/// <param name="page"></param>
-		/// <returns></returns>
-		private IPage setData(IPage page)
-		{
-			switch (page.View)
-			{
-				case "SimpleUrlImage":
-
-					break;
-			}
 			return page;
 		}
 
@@ -461,10 +458,23 @@ namespace LiveBoard.ViewModel
 				ActiveBoard.Board.Pages.Remove((IPage)obj);
 			}
 		}
-		
+
 		private bool CanDeletePage(Object arg)
 		{
 			return arg != null && (!(arg is IEnumerable<IPage>) || !(arg is IPage));
+		}
+
+		/// <summary>
+		/// 템플릿 목록.
+		/// </summary>
+		public TemplateListViewModel Templates
+		{
+			get { return _templates; }
+			set
+			{
+				_templates = value;
+				RaisePropertyChanged("Templates");
+			}
 		}
 
 		#region Properties
@@ -584,36 +594,5 @@ namespace LiveBoard.ViewModel
 
 		#endregion Properties
 
-	}
-
-	/// <summary>
-	/// 템플릿
-	/// </summary>
-	public class LbTemplate
-	{
-		public string Key { get; set; }
-		public string DisplayName { get; set; }
-		public string Description { get; set; }
-		public string TemplateView { get; set; }
-		public string TemplateModel { get; set; }
-
-		public List<LbTemplateData> DataList
-		{
-			get;
-			set;
-		}
-	}
-
-	/// <summary>
-	/// 템플릿 데이터
-	/// </summary>
-	public class LbTemplateData
-	{
-		public string Key { get; set; }
-		public string Name { get; set; }
-		public Type ValueType { get; set; }
-		public object Data { get; set; }
-		public object DefaultData { get; set; }
-		public bool IsHidden { get; set; }
 	}
 }

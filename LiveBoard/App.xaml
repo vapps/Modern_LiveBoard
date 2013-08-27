@@ -3,6 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModel="using:LiveBoard.ViewModel"
              xmlns:interop="using:Windows.UI.Xaml.Interop"
+             xmlns:common="using:LiveBoard.Common"
              mc:Ignorable="d"
 			 RequestedTheme="Light">
 
@@ -21,7 +22,8 @@
 
             <x:String x:Key="AppName">Live Board</x:String>
             <viewModel:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+			<common:TemplateViewToIconImage x:Key="TemplateViewToIcon" />
 
-        </ResourceDictionary>
+		</ResourceDictionary>
     </Application.Resources>
 </Application>

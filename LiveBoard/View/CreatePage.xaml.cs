@@ -7,8 +7,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
-using LiveBoard.Model;
+using LiveBoard.PageTemplate.Model;
 using LiveBoard.ViewModel;
+using SocialEbola.Lib.PopupHelpers;
+using Telerik.UI.Xaml.Controls.Input;
 
 namespace LiveBoard.View
 {
@@ -42,6 +44,27 @@ namespace LiveBoard.View
 		}
 
 		/// <summary>
+		/// 템플릿 로딩.
+		/// </summary>
+		/// <param name="templateCode"><see cref="Windows.UI.Xaml.Controls.IPage"/>내의 View.</param>
+		private void loadFrame(string templateCode)
+		{
+			// 오브젝트 이름에 따라 자동으로 뷰 템플릿 로딩.
+			var t = Type.GetType("LiveBoard.PageTemplate.View." + templateCode);
+			if (t != null)
+				FramePreview.Navigate(t);
+			else
+			{
+				Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
+				{
+					MessageType = LbMessageType.ERROR,
+					Data = LbError.PageTemplateViewTypeNotFound
+				}));
+			}
+
+		}
+
+		/// <summary>
 		/// Populates the page with content passed during navigation.  Any saved state is also
 		/// provided when recreating a page from a prior session.
 		/// </summary>
@@ -69,5 +92,39 @@ namespace LiveBoard.View
 		{
 		}
 
+		private void NumericBoxDuration_OnValueChanged(object sender, EventArgs e)
+		{
+			var numericBox = sender as RadNumericBox;
+			if (numericBox == null)
+				return;
+			var page = numericBox.DataContext as IPage;
+			if (page == null)
+				return;
+
+			page.Duration = new TimeSpan(0, (int)NumericBoxMinute.Value.GetValueOrDefault(page.Duration.Minutes), (int)NumericBoxSecond.Value.GetValueOrDefault(page.Duration.Seconds));
+
+			//NumericBoxMinute.Value = page.Duration.Minutes;
+			//NumericBoxSecond.Value = page.Duration.Seconds;
+		}
+
+		private void ListViewPages_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+		{
+			// Duration 바뀌는 것 처리.
+			var listView = sender as ListView;
+			if (listView == null)
+				return;
+			var page = listView.SelectedItem as IPage;
+			if (page == null)
+				return;
+
+			NumericBoxMinute.Value = page.Duration.Minutes;
+			NumericBoxSecond.Value = page.Duration.Seconds;
+		}
+
+		private void ButtonAddPage_OnClick(object sender, RoutedEventArgs e)
+		{
+			var popup = new PopupHelper(new TemplateSelectionControl());
+			popup.ShowAsync();
+		}
 	}
 }

@@ -10,7 +10,7 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-	<Grid Margin="0,5,0,0">
+	<Grid Margin="0,5,0,5">
 		<StackPanel Orientation="Vertical">
 			<TextBlock Text="{Binding Path=Name}" Style="{StaticResource EditorControlHeader}" Margin="2"></TextBlock>
 			<input:RadNumericBox ValueFormat="{}{0,0:N2}" Margin="10,0" />

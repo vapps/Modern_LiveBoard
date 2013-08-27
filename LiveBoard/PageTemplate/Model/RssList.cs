@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Core;
 using Windows.Web.Syndication;
-using LiveBoard.ViewModel;
+using LiveBoard.Model;
 
 namespace LiveBoard.PageTemplate.Model
 {

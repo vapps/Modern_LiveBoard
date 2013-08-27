@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LiveBoardTemplates>
+	<!-- 한 줄 출력 -->
+	<Template Key="SingleStringPage" DisplayName="1-line text" Description="Show single line of text" TemplateView="SimpleText" TemplateModel="SingleStringPage">
+		<DataList>
+			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="" />
+		</DataList>
+	</Template>
+	<!-- 웹뷰 -->
+	<Template Key="StaticWebView" DisplayName="Web browser" Description="Show web page as a screen-captured manner" TemplateView="StaticWebView" TemplateModel="SingleStringPage">
+		<DataList>
+			<Data Key="Url" Name="Header" ValueType="String" DefaultValue="" />
+		</DataList>
+	</Template>
+	<!-- 한장 이미지 출력 -->
+	<Template Key="SingleUrlImage" DisplayName="Simple image viewer from web" Description="Show single image" TemplateView="SimpleUrlImage" TemplateModel="SingleStringPage">
+		<DataList>
+			<Data Key="Url" Name="Header" ValueType="String" DefaultValue="" />
+		</DataList>
+	</Template>
+	<!-- 카운트다운 -->
+	<Template Key="Countdown" DisplayName="Countdown" Description="Show number to count down per 1 second to zero" TemplateView="OneNumberCount" TemplateModel="SingleStringPage">
+		<DataList>
+			<Data Key="Number" Name="Initial number" ValueType="Int" DefaultValue="5" />
+		</DataList>
+	</Template>
+	<!-- 10개 목록 출력 -->
+	<Template Key="SimpleListPage" DisplayName="Header and 10 string rows" Description="Show single image" TemplateView="SimpleList" TemplateModel="SimpleListPage">
+		<DataList>
+			<Data Key="Header" Name="Header" ValueType="String" DefaultValue="" />
+			<Data Key="Row1" Name="Row 1" ValueType="String" DefaultValue="" />
+			<Data Key="Row2" Name="Row 2" ValueType="String" DefaultValue="" />
+			<Data Key="Row3" Name="Row 3" ValueType="String" DefaultValue="" />
+			<Data Key="Row4" Name="Row 4" ValueType="String" DefaultValue="" />
+			<Data Key="Row5" Name="Row 5" ValueType="String" DefaultValue="" />
+			<Data Key="Row6" Name="Row 6" ValueType="String" DefaultValue="" />
+			<Data Key="Row7" Name="Row 7" ValueType="String" DefaultValue="" />
+			<Data Key="Row8" Name="Row 8" ValueType="String" DefaultValue="" />
+			<Data Key="Row9" Name="Row 9" ValueType="String" DefaultValue="" />
+			<Data Key="Row10" Name="Row 10" ValueType="String" DefaultValue="" />
+			<Data Key="Feeds" Name="Feed List" ValueType="" DefaultValue="" IsHidden="True" />
+		</DataList>
+	</Template>
+	<!-- 10개 목록 출력 -->
+	<Template Key="RssList" DisplayName="Header and 10 string rows" Description="Show single image" TemplateView="SimpleList" TemplateModel="RssList">
+		<DataList>
+			<Data Key="Header" Name="Title" ValueType="String" DefaultValue="다음 View 인기 기사" />
+			<Data Key="RSS" Name="RSS Address" ValueType="String" DefaultValue="http://v.daum.net/best/rss" />
+			<Data Key="Feeds" Name="Feed List" ValueType="System.Collections.Generic.IEnumerable`1[System.String]" DefaultValue="" IsHidden="True" />
+		</DataList>
+	</Template>
+</LiveBoardTemplates>

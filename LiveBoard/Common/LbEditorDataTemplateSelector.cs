@@ -1,5 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using LiveBoard.Model;
 using LiveBoard.ViewModel;
 
 namespace LiveBoard.Common
