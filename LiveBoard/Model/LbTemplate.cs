@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml.Linq;
+using LiveBoard.PageTemplate.Model;
 using LiveBoard.ViewModel;
 
 namespace LiveBoard.Model
@@ -16,7 +17,7 @@ namespace LiveBoard.Model
 		public string TemplateView { get; set; }
 		public string TemplateModel { get; set; }
 
-		public List<LbTemplateData> DataList
+		public List<LbPageData> DataList
 		{
 			get;
 			set;
@@ -39,13 +40,13 @@ namespace LiveBoard.Model
 			template.TemplateModel = xElement.Attribute("TemplateModel").Value;
 
 			if (xElement.Element("DataList") != null && xElement.Element("DataList").HasElements)
-				template.DataList = new List<LbTemplateData>();
+				template.DataList = new List<LbPageData>();
 			else
 				return template;
 
 			foreach (var data in xElement.Element("DataList").Elements("Data"))
 			{
-				template.DataList.Add(LbTemplateData.FromXml(data));
+				template.DataList.Add(LbPageData.FromXml(data));
 			}
 
 			Debug.WriteLine(typeof(IEnumerable<string>));

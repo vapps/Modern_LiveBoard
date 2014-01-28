@@ -18,7 +18,7 @@ namespace LiveBoard.Common
 			if (page == null)
 				return null;
 
-			var list = page.Data as IEnumerable<LbTemplateData>;
+			var list = page.Data;
 			if (list == null)
 				return null;
 			return list;

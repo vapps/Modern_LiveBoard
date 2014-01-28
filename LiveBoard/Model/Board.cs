@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 using GalaSoft.MvvmLight;
 using LiveBoard.PageTemplate.Model;
 using Newtonsoft.Json;
@@ -97,18 +100,6 @@ namespace LiveBoard.Model
 			}
 		}
 
-		/// <summary>
-		/// Blank period when end.
-		/// </summary>
-		public TimeSpan BlankPeriod
-		{
-			get { return _blankPeriod; }
-			set
-			{
-				_blankPeriod = value;
-				RaisePropertyChanged("BlankPeriod");
-			}
-		}
 
 		/// <summary>
 		/// List of page
@@ -133,8 +124,24 @@ namespace LiveBoard.Model
 		private bool _isLoop = true;
 		private int _loopCount = -1; // default -1 (infinite)
 		private DateTime _runUntil;
-		private TimeSpan _blankPeriod;
 
 		#endregion Private Variables
+
+		/// <summary>
+		/// XML로 출력.
+		/// </summary>
+		/// <returns></returns>
+		public XElement ToXml()
+		{
+			var xElement = new XElement("LiveBoard",
+				new XAttribute("IsLoop", IsLoop),
+				new XAttribute("Author", Author),
+				new XAttribute("Title", Title),
+				new XAttribute("AuthorEmail", AuthorEmail),
+				new XElement("Pages", Pages.Select(x => x.ToXml())));
+			return xElement;
+		}
+
+		
 	}
 }

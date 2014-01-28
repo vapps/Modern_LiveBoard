@@ -18,14 +18,13 @@ namespace LiveBoard.PageTemplate.Model
 		/// <returns></returns>
 		public override async Task<bool> PrepareToLoadAsync()
 		{
-			var list = Data as IEnumerable<LbTemplateData>;
-			if (list == null)
+			if (Data == null)
 				return false;
 
 			var feedTitles = new ObservableCollection<string>();
-			foreach (var templateData in list)
+			foreach (var templateData in Data)
 			{
-				if (templateData.Key == "RSS")
+				if (templateData.Key.Equals("RSS"))
 				{
 					var url = templateData.Data as string;
 					var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
@@ -39,7 +38,7 @@ namespace LiveBoard.PageTemplate.Model
 					});
 				}
 
-				if (templateData.Key == "Feeds")
+				if (templateData.Key.Equals("Feeds"))
 				{
 					templateData.Data = feedTitles;
 				}
@@ -48,24 +47,15 @@ namespace LiveBoard.PageTemplate.Model
 		}
 
 
-		public override object Data
-		{
-			get
-			{
-				return _data1;
-			}
-			set
-			{
-				_data1 = value;
-				RaisePropertyChanged("Data");
-			}
-		}
-
-		private object _data1 = new HeaderAndListData();
-
 		// ref: Building a Windows 8 RSS Reader
 		// http://visualstudiomagazine.com/articles/2012/01/04/building-a-windows-8-rss-reader.aspx
 
+		/// <summary>
+		/// RSS 주소에서 피드 가져오기.
+		/// </summary>
+		/// <param name="url"></param>
+		/// <param name="maxItems"></param>
+		/// <returns></returns>
 		public async Task<RSSFeed> GetFeeds(string url, int maxItems = 10)
 		{
 			var feeds = new RSSFeed();

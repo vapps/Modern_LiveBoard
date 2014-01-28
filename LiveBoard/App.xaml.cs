@@ -1,20 +1,12 @@
-﻿using LiveBoard.Common;
+﻿using Windows.System;
+using Windows.UI.ApplicationSettings;
+using LiveBoard.Common;
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 // The Grid App template is documented at http://go.microsoft.com/fwlink/?LinkId=234226
 using LiveBoard.View;
 
@@ -23,7 +15,7 @@ namespace LiveBoard
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    sealed partial class App : Application
+    public sealed partial class App : Application
     {
         /// <summary>
         /// Initializes the singleton Application object.  This is the first line of authored code
@@ -71,6 +63,31 @@ namespace LiveBoard
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+
+				/*
+				 * 참바 설정
+				 * */
+				// Settings 참 설정.
+				//SettingsPane.GetForCurrentView().CommandsRequested += (sender, eventArgs) =>
+				//{
+				//	// Privacy Policy 연결.
+				//	var policyCommand = new SettingsCommand("PrivacySettingsCommand", "Privacy Policy", delegate
+				//	{
+				//		// create a new instance of the flyout
+				//		var settings = new SettingsFlyout
+				//		{
+				//			HeaderBrush = new SolidColorBrush(Color.FromArgb(255, 6, 195, 255)),
+				//			HeaderText = "Privacy Policy",
+				//			SmallLogoImageSource = new BitmapImage(new Uri("ms-appx:///Assets/SmallLogo.png")),
+				//			Content = new PrivacyPolicyControl(),
+				//		};
+				//		// open it
+				//		settings.IsOpen = true;
+				//	});
+
+				//	eventArgs.Request.ApplicationCommands.Add(policyCommand);
+				//};
+
             }
             if (rootFrame.Content == null)
             {
@@ -99,5 +116,26 @@ namespace LiveBoard
             await SuspensionManager.SaveAsync();
             deferral.Complete();
         }
+
+	    protected override void OnWindowCreated(WindowCreatedEventArgs args)
+	    {
+			SettingsPane.GetForCurrentView().CommandsRequested += OnCommandsRequested;
+	    }
+
+		private void OnCommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
+		{
+			// 설정 참바.
+			//args.Request.ApplicationCommands.Add(new SettingsCommand(
+			//	"PrivacySettingsCommand", "Privacy Policy", handler =>
+			//	{
+			//		var customSettingFlyout = new CustomSetting();
+			//		customSettingFlyout.Show();
+			//	}));
+			args.Request.ApplicationCommands.Add(new SettingsCommand(
+				"InquirySettingsCommand", "고객 문의 (이메일)", async handler =>
+				{
+					await Launcher.LaunchUriAsync(new Uri("mailto:master@bapul.net"));
+				}));
+		}
     }
 }

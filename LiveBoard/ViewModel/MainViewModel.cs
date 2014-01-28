@@ -90,7 +90,7 @@ namespace LiveBoard.ViewModel
 						CurrentPage = ActiveBoard.Board.Pages[ActiveBoard.CurrentIndex];
 						break;
 					case LbMessageType.EVT_PAGE_CREATING:
-						var page = getPageFromTemaplate(message.Content.Data as LbTemplate);
+						var page = generatePageFromTemaplate(message.Content.Data as LbTemplate);
 						ActiveBoard.Board.Pages.Add(page);
 						break;
 				}
@@ -260,12 +260,16 @@ namespace LiveBoard.ViewModel
 			savePicker.SuggestedFileName = "LiveBoard " + DateTime.Now.ToString("s").Replace(':', '_');
 			savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
 			StorageFile file = await savePicker.PickSaveFileAsync();
-			if (file != null)
+			if (file == null)
+			{
+				PopupMessage = "Operation cancelled.";
+			}
+			else
 			{
 				// Prevent updates to the remote version of the file until we finish making changes and call CompleteUpdatesAsync.
 				CachedFileManager.DeferUpdates(file);
 				// write to file
-				String content = await ActiveBoard.SaveAsync();
+				String content = ActiveBoard.Board.ToXml().ToString();
 
 				await FileIO.WriteTextAsync(file, content, UnicodeEncoding.Utf8);
 				// Let Windows know that we're finished changing the file so the other app can update the remote version of the file.
@@ -279,10 +283,6 @@ namespace LiveBoard.ViewModel
 				{
 					PopupMessage = "File " + file.Name + " couldn't be saved.";
 				}
-			}
-			else
-			{
-				PopupMessage = "Operation cancelled.";
 			}
 		}
 
@@ -316,36 +316,40 @@ namespace LiveBoard.ViewModel
 			//};
 
 			// test.
-			var t1 = new LbTemplate
+			
+			// 템플릿오브젝트에서 페이지 생성.
+			var t = new LbTemplate
 			{
 				Key = "SingleUrlImage",
 				DisplayName = "Simple image viewer from web",
 				Description = "Show single image",
 				TemplateView = "SimpleUrlImage",
-				TemplateModel = "SingleStringPage"
+				TemplateModel = "SingleStringPage",
+				DataList = new List<LbPageData>()
+				{
+					new LbPageData()
+					{
+						Key = "Url", 
+						DefaultData = "http://inserbia.info/news/wp-content/uploads/2013/05/grizzly-650x487.jpg",
+						Name = "헤더 정보",
+						ValueType = typeof(String)
+					}
+				}
 			};
-			t1.DataList = new List<LbTemplateData>();
-			t1.DataList.Add(new LbTemplateData()
-			{
-				Key = "Url",
-				Data = "http://inserbia.info/news/wp-content/uploads/2013/05/grizzly-650x487.jpg",
-				Name = "헤더 정보",
-				ValueType = typeof(String)
-			});
 
-			var page3 = getPageFromTemaplate(t1);
-			ActiveBoard.Board.Pages.Add(page3);
+			var pageExample1 = generatePageFromTemaplate(t);
+			ActiveBoard.Board.Pages.Add(pageExample1);
 
 			var page4 = new SingleStringPage
 			{
 				TemplateKey = "Countdown",
-				Title = "타이틀 " + DateTime.Now.Ticks.ToString(),
+				Title = "타이틀 " + DateTime.Now.Ticks,
 				Duration = TimeSpan.FromSeconds(6.0d),
 				IsVisible = true,
 				Guid = Guid.NewGuid().ToString(),
 				View = "OneNumberCount",
-				Data = new List<LbTemplateData>(){
-					new LbTemplateData()
+				Data = new List<LbPageData>(){
+					new LbPageData()
 						{
 							Key = "Number",
 							Data = 5,
@@ -357,7 +361,6 @@ namespace LiveBoard.ViewModel
 
 			ActiveBoard.Board.Pages.Add(page4);
 
-
 			var page = new SingleStringPage
 			{
 				TemplateKey = "StaticWebView",
@@ -366,8 +369,8 @@ namespace LiveBoard.ViewModel
 				IsVisible = true,
 				Guid = Guid.NewGuid().ToString(),
 				View = "StaticWebView",
-				Data = new List<LbTemplateData>(){
-					new LbTemplateData()
+				Data = new List<LbPageData>(){
+					new LbPageData()
 						{
 							Key = "URL",
 							Data = "http://www.naver.com",
@@ -387,23 +390,23 @@ namespace LiveBoard.ViewModel
 				IsVisible = true,
 				Guid = Guid.NewGuid().ToString(),
 				View = "SimpleList",
-				Data = new List<LbTemplateData>()
+				Data = new List<LbPageData>()
 				{
-					new LbTemplateData()
+					new LbPageData()
 					{
 						Key = "Header",
 						Name = "타이틀바",
 						ValueType = typeof(string),
 						Data = "다음 View 인기 기사"
 					},
-					new LbTemplateData()
+					new LbPageData()
 					{
 						Key="RSS",
 						Name="RSS 주소",
 						ValueType = typeof(string),
 						Data = "http://v.daum.net/best/rss"
 					},
-					new LbTemplateData()
+					new LbPageData()
 					{
 						Key="Feeds",
 						Name="출력될 Feed 목록",
@@ -421,7 +424,7 @@ namespace LiveBoard.ViewModel
 		/// </summary>
 		/// <param name="template"></param>
 		/// <returns></returns>
-		private IPage getPageFromTemaplate(LbTemplate template)
+		private IPage generatePageFromTemaplate(LbTemplate template)
 		{
 			if (template == null)
 				throw new ArgumentNullException("template");
@@ -433,7 +436,7 @@ namespace LiveBoard.ViewModel
 			var page = (IPage)Activator.CreateInstance(t);
 			page.TemplateKey = template.Key;
 			page.View = template.TemplateView;
-			page.Title = "Page " + ActiveBoard.Board.Pages.Count + 1;
+			page.Title = "Page " + (ActiveBoard.Board.Pages.Count + 1);
 			page.Duration = TimeSpan.FromSeconds(5.0d);
 			page.IsVisible = true;
 			page.Guid = Guid.NewGuid().ToString();

@@ -501,7 +501,7 @@
 											<Grid.ColumnDefinitions>
 												<ColumnDefinition Width="60" />
 												<ColumnDefinition Width="1*"/>
-												<ColumnDefinition Width="100" />
+												<ColumnDefinition Width="150" />
 											</Grid.ColumnDefinitions>
 											<Grid Background="{StaticResource LbDarkTextBrush}">
 												<Image Source="{Binding Path=TemplateKey, Mode=OneWay, Converter={StaticResource TemplateViewToIcon}}"></Image>
@@ -559,7 +559,7 @@
 							<Grid Margin="10">
 								<Grid.RowDefinitions>
 									<RowDefinition Height="1*"/>
-									<RowDefinition Height="2*"/>
+									<RowDefinition Height="3*"/>
 									<RowDefinition Height="1*"/>
 								</Grid.RowDefinitions>
 								<Grid.ColumnDefinitions>
@@ -567,20 +567,25 @@
 									<ColumnDefinition Width="1*"/>
 								</Grid.ColumnDefinitions>
 								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Text="Title" VerticalAlignment="Center"/>
-							
+
 								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Text="Duration" VerticalAlignment="Center"/>
 								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" Text="Description" VerticalAlignment="Center"/>
 
 								<TextBox Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=Title, Mode=TwoWay}" VerticalAlignment="Center" />
-								
 
-								<StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Center" Orientation="Horizontal">
 
-									<Input:RadNumericBox x:Name="NumericBoxMinute" Style="{StaticResource CustomNumericBoxStyle}" ValueFormat="{}{0,0:N0}" MinWidth="110" ValueChanged="NumericBoxDuration_OnValueChanged" />
-									<TextBlock Text="min" VerticalAlignment="Bottom" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" FontFamily="Global User Interface" />
-									<Rectangle Width="5"></Rectangle>
-									<Input:RadNumericBox x:Name="NumericBoxSecond" Style="{StaticResource CustomNumericBoxStyle}" ValueFormat="{}{0,0:N0}" MinWidth="110" ValueChanged="NumericBoxDuration_OnValueChanged" />
-									<TextBlock Text="sec" VerticalAlignment="Bottom" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
+								<StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Center" Orientation="Vertical">
+
+									<Grid>
+										<Slider Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" />
+											<TextBlock Text="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Foreground="{StaticResource LbDarkBlueBrush}" />
+											<TextBlock Text="min" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
+									</Grid>
+									<Grid Margin="0,10,0,0">
+										<Slider Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" />
+											<TextBlock Text="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Foreground="{StaticResource LbDarkBlueBrush}" />
+											<TextBlock Text="sec" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
+									</Grid>
 
 								</StackPanel>
 								<TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Path=Description}" />
@@ -623,9 +628,7 @@
 					<Grid>
 						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Preview" 
 			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
-
-						<Border BorderThickness="15" BorderBrush="{StaticResource LbLightGrayBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="350" MinHeight="250" CornerRadius="10">
-
+						<Border BorderThickness="15" BorderBrush="{StaticResource LbLightGrayBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="250" MinHeight="180" CornerRadius="10">
 							<Grid>
 								<Frame x:Name="FramePreview"/>
 								<Rectangle Width="30" Height="5" Fill="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-10"></Rectangle>

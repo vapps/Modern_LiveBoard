@@ -17,7 +17,7 @@ namespace LiveBoard.PageTemplate.Model
 		/// <returns></returns>
 		public override async Task<bool> PrepareToLoadAsync()
 		{
-			var list = Data as IEnumerable<LbTemplateData>;
+			var list = Data as IEnumerable<LbPageData>;
 			if (list == null)
 				return false;
 

@@ -1,14 +1,13 @@
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Xml.Linq;
 
-namespace LiveBoard.Model
+namespace LiveBoard.PageTemplate.Model
 {
 	/// <summary>
 	/// 템플릿 데이터
 	/// </summary>
-	public class LbTemplateData
+	public class LbPageData
 	{
 		public string Key { get; set; }
 		public string Name { get; set; }
@@ -17,11 +16,16 @@ namespace LiveBoard.Model
 		public object DefaultData { get; set; }
 		public bool IsHidden { get; set; }
 
-		public static LbTemplateData FromXml(XElement xElement)
+		/// <summary>
+		/// XML에서 인스턴스 생성.
+		/// </summary>
+		/// <param name="xElement"></param>
+		/// <returns></returns>
+		public static LbPageData FromXml(XElement xElement)
 		{
 			// <Data Key="Url" Name="Header" ValueType="String" DefaultData="" />
 
-			var tData = new LbTemplateData { Key = xElement.Attribute("Key").Value, Name = xElement.Attribute("Name").Value };
+			var tData = new LbPageData { Key = xElement.Attribute("Key").Value, Name = xElement.Attribute("Name").Value };
 
 			switch (xElement.Attribute("ValueType").Value.ToLower())
 			{

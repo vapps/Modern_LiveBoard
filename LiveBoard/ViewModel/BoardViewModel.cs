@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using Windows.Storage;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
@@ -73,15 +74,6 @@ namespace LiveBoard.ViewModel
 			CurrentIndex = 0;
 		}
 
-		/// <summary>
-		/// JSON 으로 시리얼라이즈.
-		/// 저장용.
-		/// </summary>
-		/// <returns></returns>
-		public Task<string> SaveAsync()
-		{
-			return JsonConvert.SerializeObjectAsync(Board);
-		}
 
 		/// <summary>
 		/// 

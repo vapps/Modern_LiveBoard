@@ -1,6 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.Web.Syndication;
+using System.Xml.Linq;
 using GalaSoft.MvvmLight;
 
 namespace LiveBoard.PageTemplate.Model
@@ -54,10 +55,15 @@ namespace LiveBoard.PageTemplate.Model
 			return true;
 		}
 
+		public XElement ToXml()
+		{
+			throw new NotImplementedException();
+		}
+
 		/// <summary>
 		/// Specific data.
 		/// </summary>
-		public object Data
+		public IEnumerable<LbPageData> Data
 		{
 			get { return _data; }
 			set
@@ -72,7 +78,7 @@ namespace LiveBoard.PageTemplate.Model
 			return String.Format("{0} ({1})", Title, View);
 		}
 
-		private object _data;
+		private IEnumerable<LbPageData> _data;
 		private string _title;
 		private TimeSpan _duration;
 		private string _description;

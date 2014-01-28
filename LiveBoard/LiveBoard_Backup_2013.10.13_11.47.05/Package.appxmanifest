@@ -1,20 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="iCombine.LiveBoard" Publisher="CN=58ABDB10-F0DC-4C68-9C0A-7BB0561CE5A5" Version="1.1.0.0" />
+<Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
+  <Identity Name="iCombine.LiveBoard" Publisher="CN=58ABDB10-F0DC-4C68-9C0A-7BB0561CE5A5" Version="1.0.0.0" />
   <Properties>
     <DisplayName>Live Board</DisplayName>
     <PublisherDisplayName>i&amp;Combine</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
-    <OSMinVersion>6.3.0</OSMinVersion>
-    <OSMaxVersionTested>6.3.0</OSMaxVersionTested>
+    <OSMinVersion>6.2.1</OSMinVersion>
+    <OSMaxVersionTested>6.2.1</OSMaxVersionTested>
   </Prerequisites>
   <Resources>
     <Resource Language="x-generate" />
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="HubApp.App">
+      <VisualElements DisplayName="Live Board" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Best to use for signage display or slide show at conference breaktime." ForegroundText="dark" BackgroundColor="#d7dbdc">
+        <DefaultTile ShowName="allLogos" WideLogo="Assets\WideLogo.png" />
+        <SplashScreen Image="Assets\SplashScreen.png" />
+      </VisualElements>
       <Extensions>
         <Extension Category="windows.fileOpenPicker">
           <FileOpenPicker>
@@ -31,15 +35,6 @@
           </FileSavePicker>
         </Extension>
       </Extensions>
-      <m2:VisualElements DisplayName="Live Board" Description="Best to use for signage display or slide show at conference breaktime." BackgroundColor="#d7dbdc" ForegroundText="dark" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png">
-        <m2:DefaultTile Wide310x150Logo="Assets\WideLogo.png">
-          <m2:ShowNameOnTiles>
-            <m2:ShowOn Tile="square150x150Logo" />
-            <m2:ShowOn Tile="wide310x150Logo" />
-          </m2:ShowNameOnTiles>
-        </m2:DefaultTile>
-        <m2:SplashScreen Image="Assets\SplashScreen.png" />
-      </m2:VisualElements>
     </Application>
   </Applications>
   <Capabilities>

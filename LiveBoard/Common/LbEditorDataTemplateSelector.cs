@@ -1,6 +1,7 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using LiveBoard.Model;
+using LiveBoard.PageTemplate.Model;
 using LiveBoard.ViewModel;
 
 namespace LiveBoard.Common
@@ -14,7 +15,7 @@ namespace LiveBoard.Common
 
 		protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
 		{
-			var data = item as LbTemplateData;
+			var data = item as LbPageData;
 			if (data == null)
 				return DefaultTemplate;
 

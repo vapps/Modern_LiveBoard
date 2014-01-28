@@ -101,10 +101,7 @@ namespace LiveBoard.View
 			if (page == null)
 				return;
 
-			page.Duration = new TimeSpan(0, (int)NumericBoxMinute.Value.GetValueOrDefault(page.Duration.Minutes), (int)NumericBoxSecond.Value.GetValueOrDefault(page.Duration.Seconds));
-
-			//NumericBoxMinute.Value = page.Duration.Minutes;
-			//NumericBoxSecond.Value = page.Duration.Seconds;
+			//page.Duration = new TimeSpan(0, (int)NumericBoxMinute.Value.GetValueOrDefault(page.Duration.Minutes), (int)NumericBoxSecond.Value.GetValueOrDefault(page.Duration.Seconds));
 		}
 
 		private void ListViewPages_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -117,14 +114,15 @@ namespace LiveBoard.View
 			if (page == null)
 				return;
 
-			NumericBoxMinute.Value = page.Duration.Minutes;
-			NumericBoxSecond.Value = page.Duration.Seconds;
+			//NumericBoxMinute.Value = page.Duration.Minutes;
+			//NumericBoxSecond.Value = page.Duration.Seconds;
 		}
 
 		private void ButtonAddPage_OnClick(object sender, RoutedEventArgs e)
 		{
-			var popup = new PopupHelper(new TemplateSelectionControl());
-			popup.ShowAsync();
+			//var popup = new PopupHelper(new TemplateSelectionControl());
+			//popup.ShowAsync();
+			_viewModel.AddPageCmd.Execute(null);
 		}
 	}
 }
