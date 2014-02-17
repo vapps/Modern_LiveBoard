@@ -547,7 +547,8 @@
 				<!-- 좌측 Pages 리스트 끝 -->
 
 				<!-- 우측 Properties 시작 -->
-				<Grid Grid.Column="2" Margin="0,0,0,0" DataContext="{Binding ElementName=ListViewPages, Path=SelectedItem, Mode=TwoWay}">
+				<Grid x:Name="GridDetails" Grid.Column="2" Margin="0,0,0,0" DataContext="{Binding ElementName=ListViewPages, Path=SelectedItem, Mode=TwoWay}"
+					  DataContextChanged="GridDetails_OnDataContextChanged">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="230" />
 						<RowDefinition Height="1*" />
@@ -571,24 +572,26 @@
 								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Text="Duration" VerticalAlignment="Center"/>
 								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" Text="Description" VerticalAlignment="Center"/>
 
-								<TextBox Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=Title, Mode=TwoWay}" VerticalAlignment="Center" />
+								<TextBox Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" PlaceholderText="Input title..." />
 
 
 								<StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Center" Orientation="Vertical">
 
 									<Grid>
-										<Slider x:Name="SliderMinute" Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" />
+										<Slider x:Name="SliderMinute" Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" Value="{Binding Path=Duration, Converter={StaticResource durationTimespanConverter}, ConverterParameter='minute'}"
+												ValueChanged="SliderMinute_OnValueChanged" LargeChange="5"/>
 										<TextBlock Text="{Binding ElementName=SliderMinute, Path=Value, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Foreground="{StaticResource LbDarkBlueBrush}" />
 										<TextBlock Text="min" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
 									</Grid>
 									<Grid Margin="0,10,0,0">
-										<Slider x:Name="SliderSecond" Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" Maximum="59" Minimum="0" />
+										<Slider x:Name="SliderSecond" Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" Maximum="59" Minimum="0"
+												Value="{Binding Path=Duration, Converter={StaticResource durationTimespanConverter}, ConverterParameter='second'}" ValueChanged="SliderSecond_OnValueChanged" LargeChange="5"/>
 										<TextBlock Text="{Binding ElementName=SliderSecond, Path=Value, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Foreground="{StaticResource LbDarkBlueBrush}" />
 										<TextBlock Text="sec" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
 									</Grid>
 
 								</StackPanel>
-								<TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Path=Description}" />
+								<TextBox Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Center" Text="{Binding Path=Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
 							</Grid>
 						</Grid>

@@ -12,7 +12,7 @@
 	<Grid Margin="0,5,0,5">
 		<StackPanel Orientation="Vertical">
 			<TextBlock Text="{Binding Path=Name}" Style="{StaticResource EditorControlHeader}" Margin="2"></TextBlock>
-			<Input:RadNumericBox Value="{Binding Path=Data}" ValueFormat="{}{0,0:N0}" Maximum="9999999999" Minimum="-9999999999" Margin="10,0" />
+			<Input:RadNumericBox Value="{Binding Path=Data, Mode=TwoWay}" ValueFormat="{}{0,0:N0}" Maximum="9999999999" Minimum="-9999999999" Margin="10,0" />
 		</StackPanel>
 	</Grid>
 </UserControl>

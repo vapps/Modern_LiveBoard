@@ -12,8 +12,8 @@
 
 	<Grid Margin="0,5,0,5">
 		<StackPanel Orientation="Vertical">
-			<TextBlock Text="{Binding Path=Name}" Style="{StaticResource EditorControlHeader}" Margin="2"></TextBlock>
-			<input:RadNumericBox ValueFormat="{}{0,0:N2}" Margin="10,0" />
+			<TextBlock Text="{Binding Path=Name, Mode=OneTime}" Style="{StaticResource EditorControlHeader}" Margin="2"></TextBlock>
+			<input:RadNumericBox ValueFormat="{}{0,0:N2}" Margin="10,0" Value="{Binding Path=Data, Mode=TwoWay}" />
 		</StackPanel>
 	</Grid>
 </UserControl>

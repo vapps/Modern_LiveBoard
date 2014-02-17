@@ -8,7 +8,7 @@ namespace LiveBoard.PageTemplate.Model
 	/// <summary>
 	/// 템플릿 데이터
 	/// </summary>
-	public class LbPageData:ObservableObject
+	public class LbPageData : ObservableObject
 	{
 		private object _data;
 		private string _name;
@@ -67,7 +67,7 @@ namespace LiveBoard.PageTemplate.Model
 			get { return _defaultData; }
 			set
 			{
-				_defaultData = value; 
+				_defaultData = value;
 				RaisePropertyChanged("DefaultData");
 			}
 		}

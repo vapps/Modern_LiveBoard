@@ -17,6 +17,7 @@
 			<String x:Key="AppName" xmlns="http://schemas.microsoft.com/winfx/2006/xaml">Live Board</String>
 			<viewModel:ViewModelLocator x:Key="Locator" xmlns="clr-namespace:BapulMetro.ViewModel" />
 			<common:TemplateViewToIconImage x:Key="TemplateViewToIcon" />
+			<common:DurationTimeSpanConverter x:Key="durationTimespanConverter" />
 		</ResourceDictionary>
 	</Application.Resources>
 </Application>

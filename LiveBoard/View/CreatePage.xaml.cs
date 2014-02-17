@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
@@ -120,6 +121,42 @@ namespace LiveBoard.View
 			//var popup = new PopupHelper(new TemplateSelectionControl());
 			//popup.ShowAsync();
 			_viewModel.AddPageCmd.Execute(null);
+		}
+
+
+		private void SliderMinute_OnValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+		{
+			var slider = sender as Slider;
+			if (slider == null)
+				return;
+			var page = slider.DataContext as IPage;
+			if (page == null)
+				return;
+			page.Duration = new TimeSpan(0, (int)SliderMinute.Value, (int)SliderSecond.Value);
+		}
+
+		private void SliderSecond_OnValueChanged(object sender, RangeBaseValueChangedEventArgs e)
+		{
+			var slider = sender as Slider;
+			if (slider == null)
+				return;
+			var page = slider.DataContext as IPage;
+			if (page == null)
+				return;
+			page.Duration = new TimeSpan(0, (int)SliderMinute.Value, (int)SliderSecond.Value);
+		}
+
+		private void GridDetails_OnDataContextChanged(FrameworkElement sender, DataContextChangedEventArgs args)
+		{
+			if (GridDetails == null)
+				return;
+			var page = GridDetails.DataContext as IPage;
+			if (page == null)
+				return;
+
+			// 어쩐지 바인딩이 적용되지 않아서 직접 해줘야 함.
+			SliderMinute.Value = page.Duration.Hours * 60 + page.Duration.Minutes;
+			SliderSecond.Value = page.Duration.Seconds;
 		}
 	}
 }

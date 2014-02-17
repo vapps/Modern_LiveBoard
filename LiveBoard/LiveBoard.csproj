@@ -110,6 +110,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\DurationTimeSpanConverter.cs" />
     <Compile Include="Common\NumericMinuteConverter.cs" />
     <Compile Include="Common\PageExistToVisibilityConverter.cs" />
     <Compile Include="Common\PageToCountDisplayConverter.cs" />
