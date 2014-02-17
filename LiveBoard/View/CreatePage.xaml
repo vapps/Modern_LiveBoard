@@ -577,14 +577,14 @@
 								<StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Center" Orientation="Vertical">
 
 									<Grid>
-										<Slider Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" />
-											<TextBlock Text="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Foreground="{StaticResource LbDarkBlueBrush}" />
-											<TextBlock Text="min" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
+										<Slider x:Name="SliderMinute" Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" />
+										<TextBlock Text="{Binding ElementName=SliderMinute, Path=Value, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Foreground="{StaticResource LbDarkBlueBrush}" />
+										<TextBlock Text="min" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
 									</Grid>
 									<Grid Margin="0,10,0,0">
-										<Slider Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" />
-											<TextBlock Text="0" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Foreground="{StaticResource LbDarkBlueBrush}" />
-											<TextBlock Text="sec" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
+										<Slider x:Name="SliderSecond" Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" Maximum="59" Minimum="0" />
+										<TextBlock Text="{Binding ElementName=SliderSecond, Path=Value, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Foreground="{StaticResource LbDarkBlueBrush}" />
+										<TextBlock Text="sec" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
 									</Grid>
 
 								</StackPanel>

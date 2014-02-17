@@ -113,9 +113,6 @@ namespace LiveBoard.View
 			var page = listView.SelectedItem as IPage;
 			if (page == null)
 				return;
-
-			//NumericBoxMinute.Value = page.Duration.Minutes;
-			//NumericBoxSecond.Value = page.Duration.Seconds;
 		}
 
 		private void ButtonAddPage_OnClick(object sender, RoutedEventArgs e)
