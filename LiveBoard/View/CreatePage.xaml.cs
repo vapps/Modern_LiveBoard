@@ -41,6 +41,10 @@ namespace LiveBoard.View
 					Debug.WriteLine("* CreatePage Received Message: " + message.Content.MessageType.ToString());
 					this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
 				}
+				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_STARTED)
+				{
+					// 프리뷰의 페이지가 로딩되었을 때.
+				}
 			});
 		}
 
@@ -114,6 +118,8 @@ namespace LiveBoard.View
 			var page = listView.SelectedItem as IPage;
 			if (page == null)
 				return;
+			_viewModel.CurrentPage = page;
+			loadFrame(_viewModel.CurrentPage.View);
 		}
 
 		private void ButtonAddPage_OnClick(object sender, RoutedEventArgs e)
@@ -158,5 +164,6 @@ namespace LiveBoard.View
 			SliderMinute.Value = page.Duration.Hours * 60 + page.Duration.Minutes;
 			SliderSecond.Value = page.Duration.Seconds;
 		}
+
 	}
 }

@@ -626,7 +626,7 @@
 			</Grid>
 
 			<!-- 우측 Preview 부분 -->
-			<Grid Grid.Column="1" DataContext="{Binding ElementName=ListViewPages, Path=SelectedItem}">
+			<Grid Grid.Column="1" DataContext="{Binding ElementName=ListViewPages, Path=SelectedItem, Mode=OneWay}">
 				<Grid Margin="20,0,0,0">
 					<Grid>
 						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Preview" 

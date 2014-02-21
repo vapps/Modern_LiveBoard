@@ -197,8 +197,6 @@ namespace LiveBoard.ViewModel
 			Debug.WriteLine("tick at {0} and Elapsed {1}", DateTime.Now.ToString("u"), (DateTime.Now - StartTime).ToString("g"));
 
 			// TODO: 로직이 들어가야 한다.
-			if (!IsPlaying)
-				return;
 
 			--CurrentRemainedSecond;
 			if (CurrentRemainedSecond < 0)
@@ -206,7 +204,10 @@ namespace LiveBoard.ViewModel
 				_timer.Stop();
 				try
 				{
-					CurrentPage = ActiveBoard.Board.Pages[ActiveBoard.MoveNext()];
+					if (IsPlaying)
+					{
+						CurrentPage = ActiveBoard.Board.Pages[ActiveBoard.MoveNext()];
+					}
 					Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 					{
 						MessageType = LbMessageType.EVT_PAGE_FINISHING
@@ -316,7 +317,7 @@ namespace LiveBoard.ViewModel
 			//};
 
 			// test.
-			
+
 			// 템플릿오브젝트에서 페이지 생성.
 			var t = new LbTemplate
 			{
