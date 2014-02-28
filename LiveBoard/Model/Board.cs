@@ -182,7 +182,7 @@ namespace LiveBoard.Model
 
 			for (int i = 0; i < ((List<LbPageData>)page.Data).Count; i++)
 			{
-				foreach (var dataElement in xElement.Elements("DataList"))
+				foreach (var dataElement in xElement.Element("DataList").Elements("Data"))
 				{
 					if (((List<LbPageData>)page.Data)[i].Key.Contains(dataElement.Attribute("Key").Value))
 					{

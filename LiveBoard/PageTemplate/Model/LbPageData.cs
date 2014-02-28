@@ -86,7 +86,7 @@ namespace LiveBoard.PageTemplate.Model
 
 		public static LbPageData Parse(LbPageData pageData, string data)
 		{
-			switch (pageData.ValueType.Name)
+			switch (pageData.ValueType.Name.ToLower())
 			{
 				case "string":
 					pageData.Data = data;
