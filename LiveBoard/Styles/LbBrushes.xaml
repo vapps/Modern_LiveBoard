@@ -4,7 +4,7 @@
     xmlns:local="using:LiveBoard">
     
 	<SolidColorBrush x:Key="LbBackgroundBrush" Color="#262626"/>
-	<SolidColorBrush x:Key="LbShadowBrush" Color="#222222"/>
+	<SolidColorBrush x:Key="LbShadowBrush" Color="#DD222222"/>
 	<SolidColorBrush x:Key="LbTextBrush" Color="#cccccc"/>
 	<SolidColorBrush x:Key="LbDarkTextBrush" Color="#666666"/>
 	<SolidColorBrush x:Key="LbLightGrayBrush" Color="#d7dadb"/>

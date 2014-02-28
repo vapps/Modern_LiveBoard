@@ -9,6 +9,7 @@
     xmlns:Input="using:Telerik.UI.Xaml.Controls.Input"
     xmlns:common1="using:Telerik.UI.Xaml.Controls.Primitives.Common"
     xmlns:numericBox="using:Telerik.UI.Xaml.Controls.Input.NumericBox"
+    xmlns:view="using:LiveBoard.View"
     x:Name="pageRoot"
     x:Class="LiveBoard.View.CreatePage"
     NavigationCacheMode="Required"
@@ -478,11 +479,11 @@
 							<StackPanel.RenderTransform>
 								<CompositeTransform ScaleX="0.8" ScaleY="0.8"/>
 							</StackPanel.RenderTransform>
-							<Button x:Name="ButtonAddPage" Click="ButtonAddPage_OnClick" Background="Transparent" Style="{StaticResource SquareButtonStyle}">
+							<ToggleButton x:Name="ButtonAddPage" Click="ButtonAddPage_OnClick" Background="Transparent" Style="{StaticResource SquareButtonStyle}">
 								<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
 									<Image Source="../Images/appbar.add.png" Margin="2" />
 								</Grid>
-							</Button>
+							</ToggleButton>
 							<Rectangle Width="10"></Rectangle>
 							<Button Command="{Binding DeletePageCmd}" CommandParameter="{Binding SelectedItem, ElementName=ListViewPages}" Style="{StaticResource SquareButtonStyle}">
 								<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
@@ -527,6 +528,10 @@
 								<VirtualizingStackPanel Orientation="Vertical" />
 							</ItemsPanelTemplate>
 						</ListView>
+
+						<Border VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="30,50,10,0" Visibility="{Binding ElementName=ButtonAddPage, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" Background="White" BorderThickness="10" BorderBrush="{StaticResource LbLightGrayBrush}">
+							<view:TemplateSelectionControl></view:TemplateSelectionControl>
+						</Border>
 						<Grid Margin="0,2,0,0" Grid.Row="1" Background="{StaticResource LbLightShadowBrush}">
 							<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 								<ToggleSwitch x:Name="ToggleLoop" HorizontalAlignment="Left" VerticalAlignment="Center" 

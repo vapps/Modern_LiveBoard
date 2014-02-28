@@ -1,8 +1,6 @@
 ﻿using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using LiveBoard.Model;
 using LiveBoard.PageTemplate.Model;
-using LiveBoard.ViewModel;
 
 namespace LiveBoard.Common
 {
@@ -23,9 +21,8 @@ namespace LiveBoard.Common
 				return IntTemplate;
 			if (data.ValueType == typeof(string))
 				return StringTemplate;
-			if (data.ValueType == typeof(string))
+			if (data.ValueType == typeof(double))
 				return DoubleTemplate;
-
 
 			return DefaultTemplate;
 		}

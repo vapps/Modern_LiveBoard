@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using GalaSoft.MvvmLight;
@@ -53,9 +54,20 @@ namespace LiveBoard.PageTemplate.Model
 			return true;
 		}
 
+
 		public XElement ToXml()
 		{
-			throw new NotImplementedException();
+			var xElement = new XElement("Page",
+				new XAttribute("Title", Title ?? ""),
+				new XAttribute("IsVisible", IsVisible),
+				new XAttribute("Description", Description ?? ""),
+				new XAttribute("Guid", Guid ?? new Guid().ToString()),
+				new XAttribute("Duration", Duration.TotalMilliseconds),
+				new XAttribute("TemplateKey", TemplateKey ?? ""),
+				new XAttribute("View", View ?? ""),
+				new XAttribute("ViewOption", ViewOption ?? ""),
+				new XElement("DataList", Data.Select(d => d.ToXml())));
+			return xElement;
 		}
 
 

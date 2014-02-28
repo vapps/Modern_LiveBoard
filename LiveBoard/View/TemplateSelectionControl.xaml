@@ -6,14 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-	Width="400"
-	Height="100"
-    d:DesignHeight="300"
+    d:DesignHeight="130"
     d:DesignWidth="400">
 
 	<Grid>
 		<StackPanel Orientation="Vertical">
-			<TextBlock Style="{StaticResource EditorControlHeader}">Select Template</TextBlock>
+			<TextBlock Margin="10" Style="{StaticResource EditorControlHeader}">Select Template</TextBlock>
 			<ComboBox x:Name="ComboBoxTemplate" Margin="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" ItemsSource="{Binding Main.Templates, Source={StaticResource Locator}}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
@@ -35,7 +33,7 @@
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
 			</ComboBox>
-			<Button x:Name="ButtonOk" Click="ButtonOk_OnClick" Content="OK" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Stretch"/>
+			<Button x:Name="ButtonOk" Click="ButtonOk_OnClick" Content="OK" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Stretch" MinWidth="80"/>
 
 		</StackPanel>
 	</Grid>

@@ -139,6 +139,9 @@
     <Compile Include="PageTemplate\View\SimpleList.xaml.cs">
       <DependentUpon>SimpleList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PageTemplate\View\SimpleColorText.xaml.cs">
+      <DependentUpon>SimpleColorText.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PageTemplate\View\SimpleText.xaml.cs">
       <DependentUpon>SimpleText.xaml</DependentUpon>
     </Compile>
@@ -229,6 +232,7 @@
     <Content Include="Libs\PopupHelpers.Lib.dll" />
     <Content Include="PageTemplate\TemplateList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Package.StoreAssociation.xml" />
   </ItemGroup>
@@ -244,6 +248,10 @@
     <Page Include="PageTemplate\View\SimpleList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageTemplate\View\SimpleColorText.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="PageTemplate\View\SimpleText.xaml">
       <Generator>MSBuild:Compile</Generator>

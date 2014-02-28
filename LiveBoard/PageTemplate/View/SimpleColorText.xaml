@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="LiveBoard.PageTemplate.View.SimpleText"
+    x:Class="LiveBoard.PageTemplate.View.SimpleColorText"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   	DataContext="{Binding Source={StaticResource Locator}, Path=Main.CurrentPage}"
@@ -9,10 +9,10 @@
 
     mc:Ignorable="d">
 
-	<Grid Background="{Binding Path={Binding Data[1].Data}}">
+    <Grid Background="Black">
         <TextBlock HorizontalAlignment="Center"
                    TextWrapping="Wrap" Text="{Binding Path={Binding Data[0].Data}}" 
-                   Foreground="{Binding Path={Binding Data[2].Data}}"
+                   Foreground="White"
                    VerticalAlignment="Center" FontFamily="Malgun Gothic" FontSize="80"/>
 
     </Grid>

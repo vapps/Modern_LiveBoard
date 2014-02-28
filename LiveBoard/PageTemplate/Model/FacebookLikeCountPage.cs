@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Data.Json;
 using Windows.UI.Core;
-using LiveBoard.Model;
 
 namespace LiveBoard.PageTemplate.Model
 {
 	public class FacebookLikeCountPage : SingleStringPage
 	{
 		/// <summary>
-		/// RSS를 불러오는 명령어.
+		/// Facebook Like.
 		/// </summary>
 		/// <returns></returns>
 		public override async Task<bool> PrepareToLoadAsync()

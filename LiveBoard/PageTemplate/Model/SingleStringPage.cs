@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using GalaSoft.MvvmLight;
@@ -7,7 +8,7 @@ using GalaSoft.MvvmLight;
 namespace LiveBoard.PageTemplate.Model
 {
 	/// <summary>
-	/// 페이지 인터페이스
+	/// 텍스트 한 줄 짜리 모델.
 	/// </summary>
 	public class SingleStringPage : ObservableObject, IPage
 	{
@@ -18,7 +19,7 @@ namespace LiveBoard.PageTemplate.Model
 			get { return _title; }
 			set
 			{
-				_title = value; 
+				_title = value;
 				RaisePropertyChanged("Title");
 			}
 		}
@@ -31,7 +32,7 @@ namespace LiveBoard.PageTemplate.Model
 			get { return _duration; }
 			set
 			{
-				_duration = value; 
+				_duration = value;
 				RaisePropertyChanged("Duration");
 			}
 		}
@@ -57,7 +58,17 @@ namespace LiveBoard.PageTemplate.Model
 
 		public XElement ToXml()
 		{
-			throw new NotImplementedException();
+			var xElement = new XElement("Page",
+				new XAttribute("Title", Title ?? ""),
+				new XAttribute("IsVisible", IsVisible),
+				new XAttribute("Description", Description ?? ""),
+				new XAttribute("Guid", Guid ?? new Guid().ToString()),
+				new XAttribute("Duration", Duration.TotalMilliseconds),
+				new XAttribute("TemplateKey", TemplateKey ?? ""),
+				new XAttribute("View", View ?? "SingleStringPage"),
+				new XAttribute("ViewOption", ViewOption ?? ""),
+				new XElement("Data", Data.Select(d => d.ToXml())));
+			return xElement;
 		}
 
 		/// <summary>

@@ -1,19 +1,16 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using Windows.Storage;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
-using LiveBoard.Common;
 using LiveBoard.Model;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace LiveBoard.ViewModel
 {
-	public class BoardViewModel: ViewModelBase
+	public class BoardViewModel : ViewModelBase
 	{
 		public void Clear()
 		{
@@ -78,12 +75,15 @@ namespace LiveBoard.ViewModel
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="json"></param>
+		/// <param name="text"></param>
+		/// <param name="templates"></param>
 		/// <returns></returns>
-		public async Task LoadAsync(string json)
+		public async Task LoadAsync(string text, IEnumerable<LbTemplate> templates)
 		{
-			Board = await JsonConvert.DeserializeObjectAsync<Board>(json);
-			RaisePropertyChanged("Board");
+			await Task.Run(() =>
+			{
+				Board = Board.FromXml(XElement.Parse(text), templates);
+			});
 		}
 
 		private int _currentIndex;

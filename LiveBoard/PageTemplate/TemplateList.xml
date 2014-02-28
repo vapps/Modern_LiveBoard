@@ -13,9 +13,9 @@
 		</DataList>
 	</Template>
 	<!-- 한장 이미지 출력 -->
-	<Template Key="SingleUrlImage" DisplayName="Simple image viewer from web" Description="Show single image" TemplateView="SimpleUrlImage" TemplateModel="SingleStringPage">
+	<Template Key="SingleUrlImage" DisplayName="Simple image view" Description="Show single image" TemplateView="SimpleUrlImage" TemplateModel="SingleStringPage">
 		<DataList>
-			<Data Key="Url" Name="Header" ValueType="String" DefaultValue="" />
+			<Data Key="Url" Name="Image Location (URL)" ValueType="String" DefaultValue="" />
 		</DataList>
 	</Template>
 	<!-- 카운트다운 -->
@@ -44,7 +44,7 @@
 	<!-- 10개 목록 출력 -->
 	<Template Key="RssList" DisplayName="Header and 10 string rows" Description="Show single image" TemplateView="SimpleList" TemplateModel="RssList">
 		<DataList>
-			<Data Key="Header" Name="Title" ValueType="String" DefaultValue="다음 View 인기 기사" />
+			<Data Key="Header" Name="Title" ValueType="String" DefaultValue="" />
 			<Data Key="RSS" Name="RSS Address" ValueType="String" DefaultValue="http://v.daum.net/best/rss" />
 			<Data Key="Feeds" Name="Feed List" ValueType="System.Collections.Generic.IEnumerable`1[System.String]" DefaultValue="" IsHidden="True" />
 		</DataList>

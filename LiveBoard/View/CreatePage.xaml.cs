@@ -10,7 +10,6 @@ using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using LiveBoard.PageTemplate.Model;
 using LiveBoard.ViewModel;
-using SocialEbola.Lib.PopupHelpers;
 using Telerik.UI.Xaml.Controls.Input;
 
 namespace LiveBoard.View
@@ -126,7 +125,7 @@ namespace LiveBoard.View
 		{
 			//var popup = new PopupHelper(new TemplateSelectionControl());
 			//popup.ShowAsync();
-			_viewModel.AddPageCmd.Execute(null);
+			//_viewModel.AddPageCmd.Execute(null);
 		}
 
 

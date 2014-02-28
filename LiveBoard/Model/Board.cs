@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Ioc;
 using LiveBoard.PageTemplate.Model;
 using Newtonsoft.Json;
 
@@ -127,6 +130,71 @@ namespace LiveBoard.Model
 
 		#endregion Private Variables
 
+
+		public static IPage ExportToPage(XElement xElement, IEnumerable<LbTemplate> templates)
+		{
+			/**
+			 * var t = new LbTemplate
+			{
+				Key = "SingleUrlImage",
+				DisplayName = "Simple image viewer from web",
+				Description = "Show single image",
+				TemplateView = "SimpleUrlImage",
+				TemplateModel = "SingleStringPage",
+				DataList = new List<LbPageData>()
+				{
+					new LbPageData()
+					{
+						Key = "Url", 
+						DefaultData = "http://inserbia.info/news/wp-content/uploads/2013/05/grizzly-650x487.jpg",
+						Name = "헤더 정보",
+						ValueType = typeof(String)
+					}
+				}
+			};
+			 * */
+			LbTemplate template = null;
+			foreach (var t in templates)
+			{
+				if (t.Key.Equals(xElement.Attribute("TemplateKey").Value))
+				{
+					template = t;
+					break;
+				}
+			}
+			if (template == null)
+				return null;
+
+			var model = Type.GetType("LiveBoard.PageTemplate.Model." + template.TemplateModel);
+			if (model == null)
+				throw new ArgumentException("Template model not found.");
+
+			var page = (IPage)Activator.CreateInstance(model);
+			page.TemplateKey = template.Key;
+			page.View = template.TemplateView;
+			page.Title = xElement.Attribute("Title").Value;
+			page.Description = xElement.Attribute("Description").Value;
+			page.Duration = TimeSpan.FromMilliseconds(Convert.ToDouble(xElement.Attribute("Duration").Value));
+			page.IsVisible = Convert.ToBoolean(xElement.Attribute("IsVisible").Value);
+			page.Guid = xElement.Attribute("Guid").Value;
+			page.ViewOption = xElement.Attribute("ViewOption").Value;
+			page.Data = template.DataList;
+
+			for (int i = 0; i < ((List<LbPageData>)page.Data).Count; i++)
+			{
+				foreach (var dataElement in xElement.Elements("DataList"))
+				{
+					if (((List<LbPageData>)page.Data)[i].Key.Contains(dataElement.Attribute("Key").Value))
+					{
+						((List<LbPageData>)page.Data)[i]
+							= LbPageData.Parse(((List<LbPageData>)page.Data)[i], dataElement.Attribute("Data").Value);
+						break;
+					}
+				}
+			}
+			return page;
+		}
+
 		/// <summary>
 		/// XML로 출력.
 		/// </summary>
@@ -135,13 +203,34 @@ namespace LiveBoard.Model
 		{
 			var xElement = new XElement("LiveBoard",
 				new XAttribute("IsLoop", IsLoop),
-				new XAttribute("Author", Author),
-				new XAttribute("Title", Title),
-				new XAttribute("AuthorEmail", AuthorEmail),
+				new XAttribute("LoopCount", LoopCount),
+				new XAttribute("RunUntil", RunUntil.ToBinary()),
+				new XAttribute("Author", Author ?? ""),
+				new XAttribute("Title", Title ?? ""),
+				new XAttribute("AuthorEmail", AuthorEmail ?? ""),
 				new XElement("Pages", Pages.Select(x => x.ToXml())));
 			return xElement;
 		}
 
-		
+		/// <summary>
+		/// XML에서 구축.
+		/// </summary>
+		/// <param name="xml"></param>
+		/// <param name="templates"></param>
+		/// <returns></returns>
+		public static Board FromXml(XElement xml, IEnumerable<LbTemplate> templates)
+		{
+			var board = new Board()
+			{
+				Title = xml.Attribute("Title").Value,
+				Author = xml.Attribute("Author").Value,
+				AuthorEmail = xml.Attribute("AuthorEmail").Value,
+				IsLoop = Convert.ToBoolean(xml.Attribute("IsLoop").Value),
+				LoopCount = Convert.ToInt32(xml.Attribute("LoopCount").Value),
+				RunUntil = DateTime.FromBinary(Convert.ToInt64(xml.Attribute("RunUntil").Value)),
+				Pages = new ObservableCollection<IPage>(xml.Element("Pages").Elements("Page").Select(p => ExportToPage(p, templates)))
+			};
+			return board;
+		}
 	}
 }

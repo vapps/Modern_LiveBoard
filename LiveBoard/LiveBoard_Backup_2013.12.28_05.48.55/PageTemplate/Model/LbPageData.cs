@@ -1,8 +1,6 @@
 using System;
 using System.Collections.ObjectModel;
-using System.Globalization;
 using System.Xml.Linq;
-using Windows.UI;
 using GalaSoft.MvvmLight;
 
 namespace LiveBoard.PageTemplate.Model
@@ -10,7 +8,7 @@ namespace LiveBoard.PageTemplate.Model
 	/// <summary>
 	/// 템플릿 데이터
 	/// </summary>
-	public class LbPageData : ObservableObject
+	public class LbPageData:ObservableObject
 	{
 		private object _data;
 		private string _name;
@@ -69,7 +67,7 @@ namespace LiveBoard.PageTemplate.Model
 			get { return _defaultData; }
 			set
 			{
-				_defaultData = value;
+				_defaultData = value; 
 				RaisePropertyChanged("DefaultData");
 			}
 		}
@@ -82,46 +80,6 @@ namespace LiveBoard.PageTemplate.Model
 				_isHidden = value;
 				RaisePropertyChanged("IsHidden");
 			}
-		}
-
-		public static LbPageData Parse(LbPageData pageData, string data)
-		{
-			switch (pageData.ValueType.Name)
-			{
-				case "string":
-					pageData.Data = data;
-					break;
-				case "int":
-				case "integer":
-					pageData.Data = int.Parse(data);
-					break;
-				case "double":
-					pageData.Data = double.Parse(data);
-					break;
-				case "color":
-					string colorcode = data.Replace("#", "");
-					int argb = Int32.Parse(colorcode, NumberStyles.HexNumber);
-					if (colorcode.Length > 6)
-					{
-						pageData.Data = Color.FromArgb((byte)((argb & -16777216) >> 0x18), // 0x18=24
-							(byte) ((argb & 0xff0000) >> 0x10), // 0x10=16
-							(byte) ((argb & 0xff00) >> 8),
-							(byte) (argb & 0xff));
-					}
-					else
-					{
-						pageData.Data = Color.FromArgb(0xff,
-							(byte)((argb & 0xff0000) >> 0x10), // 0x10=16
-							(byte)((argb & 0xff00) >> 8),
-							(byte)(argb & 0xff));						
-					}
-					break;
-				default:
-					// typeof(IEnumerable<string>) 이것이 변환. System.Collections.Generic.IEnumerable`1[System.String]
-					pageData.Data = new ObservableCollection<string>();
-					break;
-			}
-			return pageData;
 		}
 
 		/// <summary>
@@ -150,25 +108,6 @@ namespace LiveBoard.PageTemplate.Model
 					tData.ValueType = typeof(double);
 					tData.DefaultData = double.Parse(xElement.Attribute("DefaultValue").Value);
 					break;
-				case "color":
-					tData.ValueType = typeof(Color);
-					string colorcode = xElement.Attribute("DefaultValue").Value.Replace("#", "");
-					int argb = Int32.Parse(colorcode, NumberStyles.HexNumber);
-					if (colorcode.Length > 6)
-					{
-						tData.DefaultData = Color.FromArgb((byte) ((argb & -16777216) >> 0x18), // 0x18=24
-							(byte) ((argb & 0xff0000) >> 0x10), // 0x10=16
-							(byte) ((argb & 0xff00) >> 8),
-							(byte) (argb & 0xff));
-					}
-					else
-					{
-						tData.DefaultData = Color.FromArgb(0xff,
-							(byte)((argb & 0xff0000) >> 0x10), // 0x10=16
-							(byte)((argb & 0xff00) >> 8),
-							(byte)(argb & 0xff));						
-					}
-					break;
 				default:
 					// typeof(IEnumerable<string>) 이것이 변환. System.Collections.Generic.IEnumerable`1[System.String]
 					tData.ValueType = Type.GetType(xElement.Attribute("ValueType").Value);
@@ -176,15 +115,6 @@ namespace LiveBoard.PageTemplate.Model
 					break;
 			}
 			return tData;
-		}
-
-		public XElement ToXml()
-		{
-			var xElement = new XElement("Data",
-				new XAttribute("Key", Key ?? ""),
-				new XAttribute("Data", Data.ToString() ?? "")
-				);
-			return xElement;
 		}
 	}
 }
