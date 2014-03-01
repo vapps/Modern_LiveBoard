@@ -398,13 +398,16 @@
 
 		<!-- Top bar: Back button and page title -->
 		<Grid>
+			<Grid.Resources>
+				<common:FilenamePrefixConverter x:Key="filenamePrefixConverter" />
+			</Grid.Resources>
 			<Grid.ColumnDefinitions>
 				<ColumnDefinition Width="Auto"/>
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 			<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Path=Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
 			<TextBlock x:Name="pageTitle" Grid.Column="1" Text="Create Board" Style="{StaticResource PageHeaderTextStyle}"/>
-			<TextBlock x:Name="fileNameTitle" Grid.Column="1" Text="File: Untitled.lbd" Margin="170,0,0,15" VerticalAlignment="Bottom" FontSize="14" Foreground="{StaticResource LbTextBrush}" FontFamily="Global User Interface" FontStyle="Italic" />
+			<TextBlock x:Name="fileNameTitle" Grid.Column="1" Text="{Binding Path=ActiveBoard.Board.Filename, Mode=OneWay, Converter={StaticResource filenamePrefixConverter}}" Margin="170,0,0,15" VerticalAlignment="Bottom" FontSize="14" Foreground="{StaticResource LbTextBrush}" FontFamily="Global User Interface" FontStyle="Italic" />
 
 			<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,50,0">
 				<Button x:Name="ButtonSave" Command="{Binding SaveCmd}" 

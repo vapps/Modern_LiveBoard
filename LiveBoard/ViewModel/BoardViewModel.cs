@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using Windows.Storage;
 using GalaSoft.MvvmLight;
 using LiveBoard.Model;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace LiveBoard.ViewModel
 {
@@ -66,6 +65,19 @@ namespace LiveBoard.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// 불러온 파일 경로.
+		/// </summary>
+		public StorageFile Filename
+		{
+			get { return _filename; }
+			set
+			{
+				_filename = value;
+				RaisePropertyChanged("Filename");
+			}
+		}
+
 		public void Stop()
 		{
 			CurrentIndex = 0;
@@ -75,11 +87,14 @@ namespace LiveBoard.ViewModel
 		/// <summary>
 		/// 
 		/// </summary>
-		/// <param name="text"></param>
+		/// <param name="file"></param>
 		/// <param name="templates"></param>
 		/// <returns></returns>
-		public async Task LoadAsync(string text, IEnumerable<LbTemplate> templates)
+		public async Task LoadAsync(StorageFile file, IEnumerable<LbTemplate> templates)
 		{
+			var text = await FileIO.ReadTextAsync(file);
+			Filename = file;
+
 			await Task.Run(() =>
 			{
 				Board = Board.FromXml(XElement.Parse(text), templates);
@@ -88,6 +103,6 @@ namespace LiveBoard.ViewModel
 
 		private int _currentIndex;
 		private Board _board = new Board();
-
+		private StorageFile _filename;
 	}
 }

@@ -102,7 +102,6 @@ namespace LiveBoard.ViewModel
 		}
 
 		#region ICommand
-		public ICommand LoadCmd { get { return new RelayCommand(Load); } }
 		public ICommand SaveCmd { get { return new RelayCommand(Save); } }
 		public ICommand AddPageCmd { get { return new RelayCommand(AddPage); } }
 		public ICommand DeletePageCmd { get { return new RelayCommand<Object>(DeletePage, CanDeletePage); } }
@@ -110,33 +109,6 @@ namespace LiveBoard.ViewModel
 		public ICommand PreviewCmd { get { return new RelayCommand<BoardViewModel>(Preview); } }
 		public ICommand StopCmd { get { return new RelayCommand<BoardViewModel>(Stop); } }
 		#endregion ICommand
-
-		/// <summary>
-		/// 불러오기.
-		/// </summary>
-		public async void Load()
-		{
-			if (!EnsureUnsnapped())
-				return;
-
-			var openPicker = new FileOpenPicker
-			{
-				ViewMode = PickerViewMode.List,
-				SuggestedStartLocation = PickerLocationId.DocumentsLibrary
-			};
-			openPicker.FileTypeFilter.Add(".lbd");
-
-			StorageFile file = await openPicker.PickSingleFileAsync();
-			if (file == null)
-				return;
-
-			if (ActiveBoard == null)
-				ActiveBoard = new BoardViewModel();
-
-			var text = await FileIO.ReadTextAsync(file);
-			await ActiveBoard.LoadAsync(text, Templates);
-			RaisePropertyChanged("ActiveBoard"); // Force UI change
-		}
 
 		/// <summary>
 		/// 종료

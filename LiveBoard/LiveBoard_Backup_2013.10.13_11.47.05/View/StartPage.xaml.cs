@@ -4,9 +4,6 @@ using System.IO;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.Storage;
-using Windows.Storage.Pickers;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -16,9 +13,6 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
-using GalaSoft.MvvmLight.Messaging;
-using LiveBoard.Common;
-using LiveBoard.ViewModel;
 
 namespace LiveBoard.View
 {
@@ -27,14 +21,9 @@ namespace LiveBoard.View
 	/// </summary>
 	public sealed partial class StartPage : LiveBoard.Common.LayoutAwarePage
 	{
-		private MainViewModel _viewModel;
 		public StartPage()
 		{
 			this.InitializeComponent();
-
-			var model = DataContext as MainViewModel;
-			if (model != null)
-				_viewModel = model;
 		}
 
 		/// <summary>
@@ -48,8 +37,6 @@ namespace LiveBoard.View
 		/// session.  This will be null the first time a page is visited.</param>
 		protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
 		{
-			if (_viewModel == null)
-				_viewModel = DataContext as MainViewModel;
 		}
 
 		/// <summary>
@@ -65,54 +52,6 @@ namespace LiveBoard.View
 		private void ButtonCreate_OnClick(object sender, RoutedEventArgs e)
 		{
 			Frame.Navigate(typeof (CreatePage));
-		}
-
-		private void ButtonOpen_OnClick(object sender, RoutedEventArgs e)
-		{
-			Load();
-		}
-
-		/// <summary>
-		/// 불러오기.
-		/// </summary>
-		public async void Load()
-		{
-			if (!EnsureUnsnapped())
-				return;
-
-			var openPicker = new FileOpenPicker
-			{
-				ViewMode = PickerViewMode.List,
-				SuggestedStartLocation = PickerLocationId.DocumentsLibrary
-			};
-			openPicker.FileTypeFilter.Add(".lbd");
-
-			StorageFile file = await openPicker.PickSingleFileAsync();
-			if (file == null)
-				return;
-
-			if (_viewModel.ActiveBoard == null)
-				_viewModel.ActiveBoard = new BoardViewModel();
-
-			await _viewModel.ActiveBoard.LoadAsync(file, _viewModel.Templates);
-			Frame.Navigate(typeof(CreatePage), _viewModel.ActiveBoard);			
-		}
-
-		internal bool EnsureUnsnapped()
-		{
-			// FilePicker APIs will not work if the application is in a snapped state.
-			// If an app wants to show a FilePicker while snapped, it must attempt to unsnap first
-			bool unsnapped = ((ApplicationView.Value != ApplicationViewState.Snapped) || ApplicationView.TryUnsnap());
-			if (!unsnapped)
-			{
-				Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
-				{
-					MessageType = LbMessageType.ERROR,
-					Data = LbError.UnSnappedToSave
-				}));
-			}
-
-			return unsnapped;
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
@@ -82,8 +83,17 @@ namespace LiveBoard.View
 			if (_viewModel == null)
 				_viewModel = DataContext as MainViewModel;
 
-			//if (_viewModel != null && navigationParameter == null)
-			//	_viewModel.ActiveBoard.Clear();
+			if (_viewModel == null)
+				throw new InvalidOperationException("CreatePage.LoadState viewModel is null");
+
+			if (navigationParameter == null)
+			{
+				_viewModel.ActiveBoard = new BoardViewModel();
+			}
+			else if (navigationParameter is BoardViewModel)
+			{
+				_viewModel.ActiveBoard = navigationParameter as BoardViewModel;
+			}
 		}
 
 		/// <summary>
@@ -163,6 +173,5 @@ namespace LiveBoard.View
 			SliderMinute.Value = page.Duration.Hours * 60 + page.Duration.Minutes;
 			SliderSecond.Value = page.Duration.Seconds;
 		}
-
 	}
 }
