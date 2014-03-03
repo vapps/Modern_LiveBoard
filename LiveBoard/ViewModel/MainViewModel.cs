@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows.Input;
@@ -35,6 +36,8 @@ namespace LiveBoard.ViewModel
 		private bool _currentPageStarted;
 		private string _popupMessage;
 		private TemplateListViewModel _templates;
+		private ObservableCollection<string> _recentBoards;
+		private int _maxRecentBoardCount = 5;
 
 		/// <summary>
 		/// Initializes a new instance of the MainViewModel class.

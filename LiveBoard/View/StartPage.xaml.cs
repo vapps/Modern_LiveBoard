@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -64,7 +66,7 @@ namespace LiveBoard.View
 
 		private void ButtonCreate_OnClick(object sender, RoutedEventArgs e)
 		{
-			Frame.Navigate(typeof (CreatePage));
+			Frame.Navigate(typeof(CreatePage));
 		}
 
 		private void ButtonOpen_OnClick(object sender, RoutedEventArgs e)
@@ -95,7 +97,22 @@ namespace LiveBoard.View
 				_viewModel.ActiveBoard = new BoardViewModel();
 
 			await _viewModel.ActiveBoard.LoadAsync(file, _viewModel.Templates);
-			Frame.Navigate(typeof(CreatePage), _viewModel.ActiveBoard);			
+			// 최근 문서로 저장.
+			// http://msdn.microsoft.com/en-us/library/windows/apps/hh972344.aspx
+			string mruToken = StorageApplicationPermissions.MostRecentlyUsedList.Add(file, file.DisplayName);
+			saveOpenedFile(mruToken);
+
+			Frame.Navigate(typeof(CreatePage), _viewModel.ActiveBoard);
+		}
+
+		/// <summary>
+		/// 최근 문서 어레이에 저장.
+		/// </summary>
+		/// <param name="filename"></param>
+		private void saveOpenedFile(string filename)
+		{
+			if (_viewModel == null)
+				throw new ArgumentNullException("filename");
 		}
 
 		internal bool EnsureUnsnapped()
@@ -113,6 +130,29 @@ namespace LiveBoard.View
 			}
 
 			return unsnapped;
+		}
+
+		private async void ButtonPlayRecent_OnClick(object sender, RoutedEventArgs e)
+		{
+			if (_viewModel == null)
+			{
+				await new Windows.UI.Popups.MessageDialog("No recent files. Please creat a new Board.").ShowAsync();
+				return;
+			}
+
+			try
+			{
+				String mruFirstToken = StorageApplicationPermissions.MostRecentlyUsedList.Entries.First().Token;
+				StorageFile storageFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(mruFirstToken);
+				await _viewModel.ActiveBoard.LoadAsync(storageFile, _viewModel.Templates);
+			}
+			catch (Exception exception)
+			{
+				new Windows.UI.Popups.MessageDialog(exception.Message + "File loading error. File is corrupted or wrongly saved").ShowAsync();
+				return;
+			}
+
+			this.Frame.Navigate(typeof(ShowPage), _viewModel.ActiveBoard);
 		}
 	}
 }

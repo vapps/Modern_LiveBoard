@@ -55,7 +55,7 @@
 					</Grid>
 				</Grid>
 			</Button>
-			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonPlayRecent">
+			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonPlayRecent" Click="ButtonPlayRecent_OnClick">
 				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 					<ContentControl Style="{StaticResource LbPlayICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
 						<ContentControl.RenderTransform>
