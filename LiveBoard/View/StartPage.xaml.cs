@@ -134,7 +134,9 @@ namespace LiveBoard.View
 
 		private async void ButtonPlayRecent_OnClick(object sender, RoutedEventArgs e)
 		{
-			if (_viewModel == null)
+			if (_viewModel == null
+				|| StorageApplicationPermissions.MostRecentlyUsedList.Entries == null
+				|| StorageApplicationPermissions.MostRecentlyUsedList.Entries.Count == 0)
 			{
 				await new Windows.UI.Popups.MessageDialog("No recent files. Please creat a new Board.").ShowAsync();
 				return;
