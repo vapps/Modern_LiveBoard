@@ -156,5 +156,10 @@ namespace LiveBoard.View
 
 			this.Frame.Navigate(typeof(ShowPage), _viewModel.ActiveBoard);
 		}
+
+		private void ButtonEditRecent_OnClick(object sender, RoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(RecentOpenedPage));
+		}
 	}
 }

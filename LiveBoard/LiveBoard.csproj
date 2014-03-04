@@ -112,7 +112,9 @@
     </Compile>
     <Compile Include="Common\FilenamePrefixConverter.cs" />
     <Compile Include="Common\DurationTimeSpanConverter.cs" />
+    <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\NumericMinuteConverter.cs" />
+    <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\PageExistToVisibilityConverter.cs" />
     <Compile Include="Common\PageToCountDisplayConverter.cs" />
     <Compile Include="Common\PropertyDataSummaryConverter.cs" />
@@ -126,6 +128,7 @@
     <Compile Include="Common\ZeroToVisibilityConverter.cs" />
     <Compile Include="Controls\GridViewVariableWrapPanel.cs" />
     <Compile Include="Model\Board.cs" />
+    <Compile Include="Model\LbFile.cs" />
     <Compile Include="Model\LbTemplate.cs" />
     <Compile Include="PageTemplate\Model\FacebookLikeCountPage.cs" />
     <Compile Include="PageTemplate\Model\HeaderAndListData.cs" />
@@ -152,10 +155,14 @@
     <Compile Include="PageTemplate\View\StaticWebView.xaml.cs">
       <DependentUpon>StaticWebView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\RecentOpenedListViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\Popup.cs" />
     <Compile Include="View\PrivacyPolicyControl.xaml.cs">
       <DependentUpon>PrivacyPolicyControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\RecentOpenedPage.xaml.cs">
+      <DependentUpon>RecentOpenedPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TemplateSelectionControl.xaml.cs">
       <DependentUpon>TemplateSelectionControl.xaml</DependentUpon>
@@ -219,6 +226,7 @@
     <Content Include="Images\appbar.browser.wire.png" />
     <Content Include="Images\appbar.clock.png" />
     <Content Include="Images\appbar.control.play.png" />
+    <Content Include="Images\appbar.folder.open.png" />
     <Content Include="Images\appbar.image.png" />
     <Content Include="Images\appbar.lines.horizontal.4.png" />
     <Content Include="Images\appbar.list.add.below.png" />
@@ -267,6 +275,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\PrivacyPolicyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\RecentOpenedPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

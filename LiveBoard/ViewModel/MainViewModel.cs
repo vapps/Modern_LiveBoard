@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Input;
 using System.Xml.Linq;
 using Windows.Storage;
+using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.Storage.Provider;
 using Windows.Storage.Streams;
@@ -38,6 +39,7 @@ namespace LiveBoard.ViewModel
 		private TemplateListViewModel _templates;
 		private ObservableCollection<string> _recentBoards;
 		private int _maxRecentBoardCount = 5;
+		private RecentOpenedListViewModel _recentOpenedList;
 
 		/// <summary>
 		/// Initializes a new instance of the MainViewModel class.
@@ -102,6 +104,9 @@ namespace LiveBoard.ViewModel
 
 			// 초기화하면서 TemplateList.xml 파일을 로딩한다.
 			Templates = new TemplateListViewModel();
+
+			// 최근 열어본 문서 불러오기.
+			fillItems();
 		}
 
 		#region ICommand
@@ -112,6 +117,27 @@ namespace LiveBoard.ViewModel
 		public ICommand PreviewCmd { get { return new RelayCommand<BoardViewModel>(Preview); } }
 		public ICommand StopCmd { get { return new RelayCommand<BoardViewModel>(Stop); } }
 		#endregion ICommand
+
+
+		/// <summary>
+		/// 최근 문서 목록 추가.
+		/// </summary>
+		void fillItems()
+		{
+			if (RecentOpenedList == null)
+				RecentOpenedList = new RecentOpenedListViewModel();
+
+			RecentOpenedList.Clear();
+			foreach (var entry in StorageApplicationPermissions.MostRecentlyUsedList.Entries)
+			{
+				RecentOpenedList.Add(new LbFile()
+				{
+					Token = entry.Token,
+					Metadata = entry.Metadata
+				});
+				Debug.WriteLine(entry.Metadata);
+			}
+		}
 
 		/// <summary>
 		/// 종료
@@ -554,6 +580,16 @@ namespace LiveBoard.ViewModel
 			{
 				_currentPageElapsedRatio = value;
 				RaisePropertyChanged("CurrentPageElapsedRatio");
+			}
+		}
+
+		public RecentOpenedListViewModel RecentOpenedList
+		{
+			get { return _recentOpenedList; }
+			set
+			{
+				_recentOpenedList = value;
+				RaisePropertyChanged("RecentOpenedList");
 			}
 		}
 

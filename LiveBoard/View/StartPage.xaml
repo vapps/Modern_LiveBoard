@@ -67,7 +67,7 @@
 					</Grid>
 				</Grid>
 			</Button>
-			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonEditRecent">
+			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonEditRecent" Click="ButtonEditRecent_OnClick">
 				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 					<ContentControl Style="{StaticResource LbEditRecentICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
 						<ContentControl.RenderTransform>
