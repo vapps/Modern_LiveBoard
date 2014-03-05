@@ -1,32 +1,21 @@
 ﻿using System.Collections.ObjectModel;
-using System.Diagnostics;
+using System.ComponentModel;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.ApplicationModel.Core;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
+using Windows.UI.Core;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using LiveBoard.Common;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Windows.Input;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Split Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234234
 using LiveBoard.Model;
+using LiveBoard.PageTemplate.Model;
 using LiveBoard.ViewModel;
 using Microsoft.Practices.ServiceLocation;
 
@@ -36,22 +25,12 @@ namespace LiveBoard.View
 	/// A page that displays a group title, a list of items within the group, and details for
 	/// the currently selected item.
 	/// </summary>
-	public sealed partial class RecentOpenedPage : Page
+	public sealed partial class RecentOpenedPage : Page, INotifyPropertyChanged
 	{
 		private NavigationHelper navigationHelper;
-		private ObservableDictionary _defaultViewModel = new ObservableDictionary();
+		private MainViewModel _viewModel;
+		private BoardViewModel _selectedBoard = new BoardViewModel();
 
-		/// <summary>
-		/// This can be changed to a strongly typed view model.
-		/// </summary>
-		public ObservableDictionary DefaultViewModel
-		{
-			get { return this._defaultViewModel; }
-			set
-			{
-				_defaultViewModel = value;
-			}
-		}
 		/// <summary>
 		/// NavigationHelper is used on each page to aid in navigation and 
 		/// process lifetime management
@@ -64,6 +43,9 @@ namespace LiveBoard.View
 		public RecentOpenedPage()
 		{
 			this.InitializeComponent();
+
+			if (_viewModel == null)
+				_viewModel = DataContext as MainViewModel;
 
 			// Setup the navigation helper
 			this.navigationHelper = new NavigationHelper(this);
@@ -79,7 +61,6 @@ namespace LiveBoard.View
 			// to change from showing two panes to showing a single pane
 			Window.Current.SizeChanged += Window_SizeChanged;
 			this.InvalidateVisualState();
-
 		}
 
 		/// <summary>
@@ -104,15 +85,28 @@ namespace LiveBoard.View
 			this.Frame.Navigate(typeof(ShowPage), viewModel.ActiveBoard);
 		}
 
-		void itemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+		/// <summary>
+		/// 파일 선택했을 때.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		async void itemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var lbFile = itemListView.SelectedItem as LbFile;
 			if (lbFile == null)
 				return;
-			Task.Run(async () =>
+			if (SelectedBoard == null)
+				SelectedBoard = new BoardViewModel();
+
+			StorageFile retrievedFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(lbFile.Token);
+			var text = await FileIO.ReadTextAsync(retrievedFile);
+
+			//var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
+			Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
 			{
-				await parseLiveBoardXml(lbFile);
+				SelectedBoard.Board = Board.FromXml(XElement.Parse(text), _viewModel.Templates);
 			});
+			//await parseLiveBoardXml(lbFile);
 
 			if (this.UsingLogicalPageNavigation())
 			{
@@ -171,16 +165,20 @@ namespace LiveBoard.View
 			//{
 			//	// TODO: Derive a serializable navigation parameter and assign it to
 			//	//       pageState("SelectedItem")
-
 			//}
 		}
 
+		/// <summary>
+		/// XML 파일을 읽어서 필요 정보만 추출한다.
+		/// </summary>
+		/// <param name="file"></param>
+		/// <returns></returns>
 		private async Task parseLiveBoardXml(LbFile file)
 		{
 			// 전체 페이지 수, 전체 실행시간 수를 계산하면 될 듯.
 			StorageFile retrievedFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(file.Token);
 			var text = await FileIO.ReadTextAsync(retrievedFile);
-
+			var pages = new ObservableCollection<IPage>();
 			var xElement = XElement.Parse(text);
 			long totalMilliSecond = 0;
 			int pageCount = 0;
@@ -192,14 +190,37 @@ namespace LiveBoard.View
 			var timeSpan = TimeSpan.FromMilliseconds(totalMilliSecond);
 			var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
 
-			await dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-			{
-				itemRunningTime.Text = String.Format("{0}:{1}:{2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-				itemSlideNumber.Text = pageCount.ToString();
-			});
+			//await dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+			//{
+			//	itemAuthor.Text = "Author: " + (!String.IsNullOrEmpty(xElement.Attribute("Author").Value) ? xElement.Attribute("Author").Value : "Unknown");
+			//	itemRunningTime.Text = "Running Time: " + String.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+			//	itemSlideNumber.Text = "Total Slides: " + pageCount.ToString();
+			//});
+
 		}
 
+		/// <summary>
+		/// 선택한 보드 뷰모델
+		/// </summary>
+		public BoardViewModel SelectedBoard
+		{
+			get { return _selectedBoard; }
+			set
+			{
+				_selectedBoard = value;
+				OnPropertyChanged(new PropertyChangedEventArgs("SelectedBoard"));
+			}
+		}
 
+		public event PropertyChangedEventHandler PropertyChanged;
+
+		public void OnPropertyChanged(PropertyChangedEventArgs e)
+		{
+			if (PropertyChanged != null)
+			{
+				PropertyChanged(this, e);
+			}
+		}
 
 		#region Logical page navigation
 

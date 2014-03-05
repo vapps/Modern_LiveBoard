@@ -84,6 +84,12 @@ namespace LiveBoard.PageTemplate.Model
 			}
 		}
 
+		/// <summary>
+		/// 제공된 페이지 데이터에 데이터를 입력한다.
+		/// </summary>
+		/// <param name="pageData"></param>
+		/// <param name="data"></param>
+		/// <returns></returns>
 		public static LbPageData Parse(LbPageData pageData, string data)
 		{
 			switch (pageData.ValueType.Name.ToLower())

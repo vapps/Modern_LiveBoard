@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Xml.Linq;
-using Windows.UI.Xaml.Controls;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Ioc;
 using LiveBoard.PageTemplate.Model;
 using Newtonsoft.Json;
 
@@ -180,14 +177,16 @@ namespace LiveBoard.Model
 			page.ViewOption = xElement.Attribute("ViewOption").Value;
 			page.Data = template.DataList;
 
-			for (int i = 0; i < ((List<LbPageData>)page.Data).Count; i++)
+			// 데이터 리스트 처리.
+			var pageDataList = ((List<LbPageData>)page.Data);
+			for (int i = 0; i < pageDataList.Count; i++)
 			{
 				foreach (var dataElement in xElement.Element("DataList").Elements("Data"))
 				{
-					if (((List<LbPageData>)page.Data)[i].Key.Contains(dataElement.Attribute("Key").Value))
+					if (pageDataList[i].Key.Equals(dataElement.Attribute("Key").Value, StringComparison.OrdinalIgnoreCase))
 					{
 						((List<LbPageData>)page.Data)[i]
-							= LbPageData.Parse(((List<LbPageData>)page.Data)[i], dataElement.Attribute("Data").Value);
+							= LbPageData.Parse(pageDataList[i], dataElement.Attribute("Data").Value);
 						break;
 					}
 				}

@@ -11,7 +11,7 @@
     mc:Ignorable="d">
 
 	<Page.Resources>
-		<common:FilenamePrefixConverter x:Key="prefixConverter" />
+		<common:PrefixConverter x:Key="Prefix" />
 	</Page.Resources>
 
 	<!--
@@ -57,7 +57,7 @@
             AutomationProperties.Name="Items"
             TabIndex="1"
             Grid.Row="1"
-            Margin="-10,-10,0,0"
+            Margin="-10,20,0,0"
             Padding="120,0,0,60"
             ItemsSource="{Binding Path=RecentOpenedList}"
             IsSwipeEnabled="False"
@@ -105,7 +105,7 @@
 					<ColumnDefinition Width="Auto"/>
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
-				<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,0,0">
+				<StackPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,0,0">
 					<Button x:Name="ButtonSave" Command="{Binding SaveCmd}" 
 					Background="{StaticResource LbLightShadowBrush}">
 						<StackPanel Orientation="Horizontal" Margin="3">
@@ -136,10 +136,51 @@
 					</Button>
 				</StackPanel>
 
-				<StackPanel Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">
-					<TextBlock x:Name="itemTitle" Margin="0,20,0,0" Text="Brief information" Style="{StaticResource SubheaderTextBlockStyle}"/>
-					<TextBlock x:Name="itemSlideNumber" Margin="0,10,0,20" Style="{StaticResource SubtitleTextBlockStyle}"/>
-					<TextBlock x:Name="itemRunningTime" Margin="0,10,0,20" Style="{StaticResource SubtitleTextBlockStyle}"/>
+				<!-- 선택한 것에 따라서 DataContext가 변하고 하부의 아이템들이 바인딩된다. -->
+				<StackPanel DataContext="{Binding ElementName=pageRoot, Path=SelectedBoard}"  x:Name="SelectedFileInfoStackPanel" Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">
+					<TextBlock Margin="0,0,0,0" Text="Brief information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
+					<TextBlock x:Name="itemAuthor" Text="{Binding Path=Board.Author, Converter={StaticResource Prefix}, ConverterParameter='Author'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+					<TextBlock x:Name="itemSlideNumber" Margin="0,5,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+					<TextBlock x:Name="itemRunningTime" Margin="0,5,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+					<TextBlock Margin="0,20,0,0" Text="Detail information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
+					<TextBlock Margin="5,-5,0,0" Text="If your want to edit pages, please select folder icon at the top" Style="{StaticResource SubtitleTextBlockStyle}"/>
+					 <!--Pages 리스트. 아이템의 드래그앤드롭 기능을 위해 ItemsSource 는 CodeBehind에서 설정한다.--> 
+					<ListView x:Name="itemListViewPages" HorizontalAlignment="Stretch" Background="{StaticResource LbLightShadowBrush}" ItemsSource="{Binding Path=Board.Pages}"
+			VerticalAlignment="Stretch" BorderThickness="0" Margin="0,20,50,0"
+			AllowDrop="True" ItemContainerStyle="{StaticResource ListViewItemStyle1}" SelectionMode="None">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<Border BorderBrush="White" BorderThickness="0,0,0,0" Height="60">
+									<Grid Background="White">
+										<Grid.ColumnDefinitions>
+											<ColumnDefinition Width="60" />
+											<ColumnDefinition Width="1*"/>
+											<ColumnDefinition Width="150" />
+										</Grid.ColumnDefinitions>
+										<Grid Background="{StaticResource LbDarkTextBrush}">
+											<Image Source="{Binding Path=TemplateKey, Mode=OneWay, Converter={StaticResource TemplateViewToIcon}}"></Image>
+										</Grid>
+										<StackPanel Orientation="Vertical" Grid.Column="1" Margin="5">
+
+											<TextBlock Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Title}"/>
+											<TextBlock Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Data, Converter={StaticResource PropertyDataSummary}}"/>
+										</StackPanel>
+										<Grid Grid.Column="2">
+											<StackPanel Orientation="Horizontal" Margin="0,0,13,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+												<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="{Binding Path=Duration.Minutes}" VerticalAlignment="Bottom" Margin="0,0,3,0" FontSize="35" HorizontalAlignment="Right" Visibility="{Binding Path=Duration.Minutes, Converter={StaticResource ZeroToVisibility}, Mode=OneWay}" />
+												<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="m" FontSize="15" VerticalAlignment="Bottom" Visibility="{Binding Path=Duration.Minutes, Converter={StaticResource ZeroToVisibility}, Mode=OneWay}" />
+												<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="{Binding Path=Duration.Seconds, Converter={StaticResource TimespanZeroFill}}" VerticalAlignment="Bottom" Margin="0,0,3,0" FontSize="35" HorizontalAlignment="Right" />
+												<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="s" FontSize="15" VerticalAlignment="Bottom" />
+											</StackPanel>
+										</Grid>
+									</Grid>
+								</Border>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+						<ItemsPanelTemplate>
+							<VirtualizingStackPanel Orientation="Vertical" />
+						</ItemsPanelTemplate>
+					</ListView>
 				</StackPanel>
 				<!--<TextBlock x:Name="itemContent" Grid.Row="2" Text="sadfadsfasdfasd" Grid.ColumnSpan="2" Margin="0,30,0,0" Style="{StaticResource BodyTextBlockStyle}"/>-->
 			</Grid>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Windows.System.UserProfile;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -88,12 +90,35 @@ namespace LiveBoard.View
 
 			if (navigationParameter == null)
 			{
+				// 새 파일 셋팅.
 				_viewModel.ActiveBoard = new BoardViewModel();
+				Task.Run(async () =>
+				{
+					_viewModel.ActiveBoard.Board.Author = await getAuthorNameAsync();
+				});
 			}
 			else if (navigationParameter is BoardViewModel)
 			{
 				_viewModel.ActiveBoard = navigationParameter as BoardViewModel;
 			}
+		}
+
+		/// <summary>
+		/// PC 로그인한 사용자 이름 반환.
+		/// </summary>
+		/// <returns></returns>
+		private async Task<string> getAuthorNameAsync()
+		{
+			string displayName = await UserInformation.GetDisplayNameAsync();
+
+			if (string.IsNullOrEmpty(displayName))
+			{
+				var firstName = await UserInformation.GetFirstNameAsync();
+				var lastName = await UserInformation.GetLastNameAsync();
+				var name = firstName + (!String.IsNullOrEmpty(firstName) ? " " : "") + lastName;
+				return name.Trim();
+			}
+			return displayName;
 		}
 
 		/// <summary>

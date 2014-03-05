@@ -110,6 +110,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\PrefixConverter.cs" />
     <Compile Include="Common\FilenamePrefixConverter.cs" />
     <Compile Include="Common\DurationTimeSpanConverter.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
