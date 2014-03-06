@@ -65,7 +65,7 @@ namespace LiveBoard.PageTemplate.Model
 				new XAttribute("Guid", Guid ?? new Guid().ToString()),
 				new XAttribute("Duration", Duration.TotalMilliseconds),
 				new XAttribute("TemplateKey", TemplateKey ?? ""),
-				new XAttribute("View", View ?? "SingleStringPage"),
+				new XAttribute("View", View ?? ""),
 				new XAttribute("ViewOption", ViewOption ?? ""),
 				new XElement("DataList", Data.Select(d => d.ToXml())));
 			return xElement;

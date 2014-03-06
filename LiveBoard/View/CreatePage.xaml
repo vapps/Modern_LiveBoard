@@ -125,7 +125,7 @@
 			<TextBlock x:Name="fileNameTitle" Grid.Column="1" Text="{Binding Path=ActiveBoard.Board.Filename, Mode=OneWay, Converter={StaticResource filenamePrefixConverter}}" Margin="170,0,0,15" VerticalAlignment="Bottom" FontSize="14" Foreground="{StaticResource LbTextBrush}" FontFamily="Global User Interface" FontStyle="Italic" />
 
 			<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,50,0">
-				<Button x:Name="ButtonSave" Command="{Binding SaveCmd}" 
+				<Button x:Name="ButtonSave" Command="{Binding SaveCmd}" CommandParameter="{Binding ActiveBoard}"
 					Background="{StaticResource LbLightShadowBrush}">
 					<StackPanel Orientation="Horizontal" Margin="3">
 						<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
@@ -133,7 +133,7 @@
 						</Grid>
 					</StackPanel>
 				</Button>
-				<Button x:Name="ButtonPreview" Command="{Binding PreviewCmd}"
+				<Button x:Name="ButtonPreview" Command="{Binding PreviewCmd}" CommandParameter="{Binding ActiveBoard}"
 					Background="{StaticResource LbLightShadowBrush}">
 					<StackPanel Orientation="Horizontal" Margin="3">
 						<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
@@ -143,7 +143,7 @@
 						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}">Preview</TextBlock>
 					</StackPanel>
 				</Button>
-				<Button x:Name="ButtonPlay" Command="{Binding PlayCmd}" 
+				<Button x:Name="ButtonPlay" Command="{Binding PlayCmd}" CommandParameter="{Binding ActiveBoard}"
 					Background="{StaticResource LbLightShadowBrush}">
 					<StackPanel Orientation="Horizontal" Margin="3">
 						<Grid Width="40" Height="40" Background="{StaticResource LbRedKeyBrush}">
@@ -197,7 +197,7 @@
 							<StackPanel.RenderTransform>
 								<CompositeTransform ScaleX="0.8" ScaleY="0.8"/>
 							</StackPanel.RenderTransform>
-							<ToggleButton x:Name="ButtonAddPage" Click="ButtonAddPage_OnClick" Background="Transparent" Style="{StaticResource SquareButtonStyle}">
+							<ToggleButton x:Name="ToggleButtonAddPage" Click="ButtonAddPage_OnClick" Background="Transparent" Style="{StaticResource SquareButtonStyle}">
 								<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
 									<Image Source="../Images/appbar.add.png" Margin="2" />
 								</Grid>
@@ -246,9 +246,11 @@
 								<VirtualizingStackPanel Orientation="Vertical" />
 							</ItemsPanelTemplate>
 						</ListView>
-
-						<Border VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="30,50,10,0" Visibility="{Binding ElementName=ButtonAddPage, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" Background="White" BorderThickness="10" BorderBrush="{StaticResource LbLightGrayBrush}">
-							<view:TemplateSelectionControl></view:TemplateSelectionControl>
+						<Border x:Name="BorderTemplateSelection" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="30,50,10,0" Visibility="{Binding ElementName=ToggleButtonAddPage, Path=IsChecked, Converter={StaticResource BoolToVisibility}}" Background="White" BorderThickness="10" BorderBrush="{StaticResource LbLightGrayBrush}">
+							<Grid>
+								<view:TemplateSelectionControl></view:TemplateSelectionControl>
+								<Button x:Name="ButtonCloseTemplateSelection" Click="ButtonCloseTemplateSelection_OnClick" Content="Close" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Bottom" MinWidth="80"/>
+							</Grid>
 						</Border>
 						<Grid Margin="0,2,0,0" Grid.Row="1" Background="{StaticResource LbLightShadowBrush}">
 							<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">

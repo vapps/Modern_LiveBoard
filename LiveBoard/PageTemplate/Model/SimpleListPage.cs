@@ -16,7 +16,7 @@ namespace LiveBoard.PageTemplate.Model
 			get { return _title; }
 			set
 			{
-				_title = value; 
+				_title = value;
 				RaisePropertyChanged("Title");
 			}
 		}
@@ -30,7 +30,7 @@ namespace LiveBoard.PageTemplate.Model
 			get { return _duration; }
 			set
 			{
-				_duration = value; 
+				_duration = value;
 				RaisePropertyChanged("Duration");
 			}
 		}
@@ -40,7 +40,7 @@ namespace LiveBoard.PageTemplate.Model
 			get { return _description; }
 			set
 			{
-				_description = value; 
+				_description = value;
 				RaisePropertyChanged("Description");
 			}
 		}

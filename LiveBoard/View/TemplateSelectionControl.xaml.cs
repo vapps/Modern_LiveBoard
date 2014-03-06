@@ -13,17 +13,13 @@ namespace LiveBoard.View
 			this.InitializeComponent();
 		}
 
-		private void ButtonOk_OnClick(object sender, RoutedEventArgs e)
+		private void ButtonAdd_OnClick(object sender, RoutedEventArgs e)
 		{
 			Messenger.Default.Send(new GenericMessage<LbMessage>(new LbMessage()
 			{
 				MessageType = LbMessageType.EVT_PAGE_CREATING,
 				Data = ComboBoxTemplate.SelectedItem
 			}));
-			//var dummy = _popup.CloseAsync();
 		}
-
-
-
 	}
 }

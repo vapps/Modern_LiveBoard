@@ -158,7 +158,6 @@
     </Compile>
     <Compile Include="ViewModel\RecentOpenedListViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="View\Popup.cs" />
     <Compile Include="View\PrivacyPolicyControl.xaml.cs">
       <DependentUpon>PrivacyPolicyControl.xaml</DependentUpon>
     </Compile>
@@ -227,6 +226,7 @@
     <Content Include="Images\appbar.browser.wire.png" />
     <Content Include="Images\appbar.clock.png" />
     <Content Include="Images\appbar.control.play.png" />
+    <Content Include="Images\appbar.edit.png" />
     <Content Include="Images\appbar.folder.open.png" />
     <Content Include="Images\appbar.image.png" />
     <Content Include="Images\appbar.lines.horizontal.4.png" />
@@ -239,7 +239,6 @@
     <Content Include="Images\appbar.thumbs.up.png" />
     <Content Include="Images\appbar.timer.png" />
     <Content Include="Images\appbar.warning.png" />
-    <Content Include="Libs\PopupHelpers.Lib.dll" />
     <Content Include="PageTemplate\TemplateList.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
@@ -337,13 +336,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\MvvmLightLibs.4.2.30.0\lib\netcore45\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\Newtonsoft.Json.5.0.8\lib\netcore45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="PopupHelpers.Lib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libs\PopupHelpers.Lib.dll</HintPath>
+      <HintPath>packages\Newtonsoft.Json.6.0.1\lib\netcore45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Core, Version=2013.3.1105.45, Culture=neutral, PublicKeyToken=54096b0481e00341, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -380,7 +375,9 @@
       <DependentUpon>EventFlow.sequencediagram</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Libs\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

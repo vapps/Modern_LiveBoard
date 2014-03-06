@@ -240,6 +240,7 @@ namespace LiveBoard.Common
         private static void SaveFrameNavigationState(Frame frame)
         {
             var frameState = SessionStateForFrame(frame);
+			// TODO: exception이 발생한다.
             frameState["Navigation"] = frame.GetNavigationState();
         }
     }

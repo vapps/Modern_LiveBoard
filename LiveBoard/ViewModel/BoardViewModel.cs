@@ -94,11 +94,10 @@ namespace LiveBoard.ViewModel
 		{
 			var text = await FileIO.ReadTextAsync(file);
 			Filename = file;
-
-			await Task.Run(() =>
-			{
-				Board = Board.FromXml(XElement.Parse(text), templates);
-			});
+			Board = Board.FromXml(XElement.Parse(text), templates);
+			//await Task.Run(() =>
+			//{
+			//});
 		}
 
 		private int _currentIndex;

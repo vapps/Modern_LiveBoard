@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
+using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -20,6 +22,7 @@ using Windows.UI.Xaml.Navigation;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
+using LiveBoard.Model;
 using LiveBoard.ViewModel;
 
 namespace LiveBoard.View
@@ -52,6 +55,10 @@ namespace LiveBoard.View
 		{
 			if (_viewModel == null)
 				_viewModel = DataContext as MainViewModel;
+
+			var boardViewModel = navigationParameter as BoardViewModel;
+			if (boardViewModel != null)
+				Frame.Navigate(typeof (CreatePage), boardViewModel);
 		}
 
 		/// <summary>
@@ -92,28 +99,17 @@ namespace LiveBoard.View
 			StorageFile file = await openPicker.PickSingleFileAsync();
 			if (file == null)
 				return;
-
 			if (_viewModel.ActiveBoard == null)
 				_viewModel.ActiveBoard = new BoardViewModel();
-
 			await _viewModel.ActiveBoard.LoadAsync(file, _viewModel.Templates);
+
 			// 최근 문서로 저장.
 			// http://msdn.microsoft.com/en-us/library/windows/apps/hh972344.aspx
 			string mruToken = StorageApplicationPermissions.MostRecentlyUsedList.Add(file, file.DisplayName);
-			saveOpenedFile(mruToken);
 
 			Frame.Navigate(typeof(CreatePage), _viewModel.ActiveBoard);
 		}
 
-		/// <summary>
-		/// 최근 문서 어레이에 저장.
-		/// </summary>
-		/// <param name="filename"></param>
-		private void saveOpenedFile(string filename)
-		{
-			if (_viewModel == null)
-				throw new ArgumentNullException("filename");
-		}
 
 		internal bool EnsureUnsnapped()
 		{

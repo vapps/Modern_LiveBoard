@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.ApplicationModel.Core;
@@ -7,6 +8,7 @@ using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.UI.Core;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using System;
 using Windows.UI.Xaml;
@@ -61,6 +63,21 @@ namespace LiveBoard.View
 			// to change from showing two panes to showing a single pane
 			Window.Current.SizeChanged += Window_SizeChanged;
 			this.InvalidateVisualState();
+
+
+			// 메신저 연결.
+			Messenger.Default.Register<GenericMessage<LbMessage>>(this, message =>
+			{
+				if (message.Content.MessageType == LbMessageType.EVT_SHOW_STARTING)
+				{
+					Debug.WriteLine("* RecentOpenedPage Received Message: " + message.Content.MessageType.ToString());
+					this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+				}
+				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_STARTED)
+				{
+					// 프리뷰의 페이지가 로딩되었을 때.
+				}
+			});
 		}
 
 		/// <summary>
@@ -105,8 +122,23 @@ namespace LiveBoard.View
 			Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
 			{
 				SelectedBoard.Board = Board.FromXml(XElement.Parse(text), _viewModel.Templates);
+				SelectedBoard.Filename = retrievedFile;
 			});
-			//await parseLiveBoardXml(lbFile);
+
+			TimeSpan totalMilliSecond;
+			int pageCount = 0;
+			foreach (var page in SelectedBoard.Board.Pages)
+			{
+				++pageCount;
+				totalMilliSecond += page.Duration;
+			}
+			var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
+
+			//await dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
+			//{
+			//	itemAuthor.Text = "Author: " + (!String.IsNullOrEmpty(xElement.Attribute("Author").Value) ? xElement.Attribute("Author").Value : "Unknown");
+			//	itemRunningTime.Text = "Running Time: " + String.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+			//	itemSlideNumber.Text = "Total Slides: " + pageCount.ToString();
 
 			if (this.UsingLogicalPageNavigation())
 			{
@@ -347,5 +379,10 @@ namespace LiveBoard.View
 		}
 
 		#endregion
+
+		private void ButtonEdit_OnClick(object sender, RoutedEventArgs e)
+		{
+			Frame.Navigate(typeof(CreatePage), SelectedBoard);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using GalaSoft.MvvmLight.Messaging;
+using LiveBoard.Model;
 
 namespace LiveBoard.Common
 {
@@ -28,5 +29,9 @@ namespace LiveBoard.Common
         /// 전송 데이터
         /// </summary>
         public object Data;
+		/// <summary>
+		/// 보드
+		/// </summary>
+	    public Board Board;
     }
 }

@@ -110,7 +110,7 @@ namespace LiveBoard.ViewModel
 		}
 
 		#region ICommand
-		public ICommand SaveCmd { get { return new RelayCommand(Save); } }
+		public ICommand SaveCmd { get { return new RelayCommand<BoardViewModel>(Save); } }
 		public ICommand AddPageCmd { get { return new RelayCommand(AddPage); } }
 		public ICommand DeletePageCmd { get { return new RelayCommand<Object>(DeletePage, CanDeletePage); } }
 		public ICommand PlayCmd { get { return new RelayCommand<BoardViewModel>(Play); } }
@@ -167,6 +167,10 @@ namespace LiveBoard.ViewModel
 		/// <param name="board"></param>
 		public void Play(BoardViewModel board)
 		{
+			if (board == null)
+				board = ActiveBoard;
+			ActiveBoard = board;
+
 			if (!IsPlaying)
 				IsPlaying = true;
 			else
@@ -174,7 +178,8 @@ namespace LiveBoard.ViewModel
 				Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 				{
 					MessageType = LbMessageType.ERROR,
-					Data = LbError.IsPlayingTrue
+					Data = LbError.IsPlayingTrue,
+					Board = board.Board
 				}));
 				return;
 			}
@@ -182,7 +187,8 @@ namespace LiveBoard.ViewModel
 			Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 			{
 				MessageType = LbMessageType.EVT_SHOW_STARTING,
-				Data = ActiveBoard
+				Data = ActiveBoard,
+				Board = board.Board
 			}));
 
 			StartTime = DateTime.Now;
@@ -253,10 +259,14 @@ namespace LiveBoard.ViewModel
 		/// <summary>
 		/// 저장하기.
 		/// </summary>
-		public async void Save()
+		public async void Save(BoardViewModel boardViewModel)
 		{
 			if (!EnsureUnsnapped())
 				return;
+
+			if (boardViewModel == null)
+				boardViewModel = ActiveBoard;
+
 			var savePicker = new FileSavePicker { SuggestedStartLocation = PickerLocationId.DocumentsLibrary };
 			// Dropdown of file types the user can save the file as
 			savePicker.FileTypeChoices.Add("LiveBoard file", new List<string>() { ".lbd" });
@@ -273,7 +283,7 @@ namespace LiveBoard.ViewModel
 				// Prevent updates to the remote version of the file until we finish making changes and call CompleteUpdatesAsync.
 				CachedFileManager.DeferUpdates(file);
 				// write to file
-				String content = ActiveBoard.Board.ToXml().ToString();
+				String content = boardViewModel.Board.ToXml().ToString();
 
 				await FileIO.WriteTextAsync(file, content, UnicodeEncoding.Utf8);
 				// Let Windows know that we're finished changing the file so the other app can update the remote version of the file.

@@ -198,5 +198,13 @@ namespace LiveBoard.View
 			SliderMinute.Value = page.Duration.Hours * 60 + page.Duration.Minutes;
 			SliderSecond.Value = page.Duration.Seconds;
 		}
+
+		private void ButtonCloseTemplateSelection_OnClick(object sender, RoutedEventArgs e)
+		{
+			if (ToggleButtonAddPage.IsChecked.GetValueOrDefault(false))
+			{
+				ToggleButtonAddPage.IsChecked = false;
+			}
+		}
 	}
 }

@@ -106,16 +106,16 @@
 					<ColumnDefinition Width="*"/>
 				</Grid.ColumnDefinitions>
 				<StackPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,0,0">
-					<Button x:Name="ButtonSave" Command="{Binding SaveCmd}" 
-					Background="{StaticResource LbLightShadowBrush}">
+					<Button x:Name="ButtonEdit" Click="ButtonEdit_OnClick" Background="{StaticResource LbLightShadowBrush}">
 						<StackPanel Orientation="Horizontal" Margin="3">
 							<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
-								<Image Source="../Images/appbar.folder.open.png" Margin="2" />
+								<Image Source="../Images/appbar.edit.png" Margin="2" />
 							</Grid>
+							<TextBlock VerticalAlignment="Center" FontSize="24" 
+						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}">Edit</TextBlock>
 						</StackPanel>
 					</Button>
-					<Button x:Name="ButtonPreview" Command="{Binding PreviewCmd}"
-					Background="{StaticResource LbLightShadowBrush}">
+					<Button x:Name="ButtonPreview" Command="{Binding Source={StaticResource Locator}, Path=Main.PreviewCmd}" CommandParameter="{Binding ElementName=pageRoot, Path=SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
 						<StackPanel Orientation="Horizontal" Margin="3">
 							<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
 								<Image Source="../Images/appbar.monitor.play.png" Margin="2" />
@@ -124,8 +124,7 @@
 						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}">Preview</TextBlock>
 						</StackPanel>
 					</Button>
-					<Button x:Name="ButtonPlay" Command="{Binding PlayCmd}" 
-					Background="{StaticResource LbLightShadowBrush}">
+					<Button x:Name="ButtonPlay" Command="{Binding Source={StaticResource Locator}, Path=Main.PlayCmd}" CommandParameter="{Binding ElementName=pageRoot, Path=SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
 						<StackPanel Orientation="Horizontal" Margin="3">
 							<Grid Width="40" Height="40" Background="{StaticResource LbRedKeyBrush}">
 								<Image Source="../Images/appbar.control.play.png" Margin="2" />

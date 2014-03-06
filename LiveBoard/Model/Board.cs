@@ -166,16 +166,19 @@ namespace LiveBoard.Model
 			if (model == null)
 				throw new ArgumentException("Template model not found.");
 
+			// 템플릿에서 가져오는 정보 입력.
 			var page = (IPage)Activator.CreateInstance(model);
 			page.TemplateKey = template.Key;
 			page.View = template.TemplateView;
+			page.Data = template.DataList;
+
+			// 저장된 XML에서 가져오는 정보 추출하여 입력.
 			page.Title = xElement.Attribute("Title").Value;
 			page.Description = xElement.Attribute("Description").Value;
 			page.Duration = TimeSpan.FromMilliseconds(Convert.ToDouble(xElement.Attribute("Duration").Value));
 			page.IsVisible = Convert.ToBoolean(xElement.Attribute("IsVisible").Value);
 			page.Guid = xElement.Attribute("Guid").Value;
 			page.ViewOption = xElement.Attribute("ViewOption").Value;
-			page.Data = template.DataList;
 
 			// 데이터 리스트 처리.
 			var pageDataList = ((List<LbPageData>)page.Data);
