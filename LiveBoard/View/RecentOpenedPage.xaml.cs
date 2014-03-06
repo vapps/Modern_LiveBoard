@@ -115,30 +115,15 @@ namespace LiveBoard.View
 			if (SelectedBoard == null)
 				SelectedBoard = new BoardViewModel();
 
+			// 파일 부르기.
 			StorageFile retrievedFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(lbFile.Token);
 			var text = await FileIO.ReadTextAsync(retrievedFile);
 
-			//var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
 			Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
 			{
 				SelectedBoard.Board = Board.FromXml(XElement.Parse(text), _viewModel.Templates);
 				SelectedBoard.Filename = retrievedFile;
 			});
-
-			TimeSpan totalMilliSecond;
-			int pageCount = 0;
-			foreach (var page in SelectedBoard.Board.Pages)
-			{
-				++pageCount;
-				totalMilliSecond += page.Duration;
-			}
-			var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
-
-			//await dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () =>
-			//{
-			//	itemAuthor.Text = "Author: " + (!String.IsNullOrEmpty(xElement.Attribute("Author").Value) ? xElement.Attribute("Author").Value : "Unknown");
-			//	itemRunningTime.Text = "Running Time: " + String.Format("{0:D2}:{1:D2}:{2:D2}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-			//	itemSlideNumber.Text = "Total Slides: " + pageCount.ToString();
 
 			if (this.UsingLogicalPageNavigation())
 			{

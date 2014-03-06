@@ -12,7 +12,7 @@ namespace LiveBoard.Common
 		{
 			if (parameter == null)
 				return value;
-			return String.Format("{0}: {1}", parameter, value);
+			return String.Format("{0}: {1}", parameter, value ?? "N/A");
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, string language)

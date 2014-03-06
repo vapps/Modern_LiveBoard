@@ -31,8 +31,8 @@ namespace LiveBoard.View
 			if (model != null)
 				_viewModel = model;
 
-			var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Board.Pages };
-			ListViewPages.ItemsSource = viewSource.View;
+			//var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Board.Pages };
+			//ListViewPages.ItemsSource = viewSource.View;
 
 			// 메신저 연결.
 			Messenger.Default.Register<GenericMessage<LbMessage>>(this, message =>
@@ -101,6 +101,10 @@ namespace LiveBoard.View
 			{
 				_viewModel.ActiveBoard = navigationParameter as BoardViewModel;
 			}
+
+			// 리스트 바인딩 직접 해줘야 리프래시가 반영됨.
+			var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Board.Pages };
+			ListViewPages.ItemsSource = viewSource.View;
 		}
 
 		/// <summary>

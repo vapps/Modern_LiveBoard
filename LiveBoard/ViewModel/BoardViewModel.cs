@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.Storage;
@@ -62,6 +63,7 @@ namespace LiveBoard.ViewModel
 			{
 				_board = value;
 				RaisePropertyChanged("Board");
+				RaisePropertyChanged("RunningTime");
 			}
 		}
 
@@ -83,6 +85,19 @@ namespace LiveBoard.ViewModel
 			CurrentIndex = 0;
 		}
 
+		/// <summary>
+		/// 총 실행시간.
+		/// </summary>
+		/// <remarks><see cref="Board"/>가 업데이트될 때 PropertyChanged로 업데이트 된다.</remarks>
+		public TimeSpan RunningTime
+		{
+			get
+			{
+				TimeSpan totalMilliSecond;
+				return Board.Pages.Aggregate(totalMilliSecond, (current, page) => current + page.Duration);
+			}
+		}
+
 
 		/// <summary>
 		/// 
@@ -95,9 +110,6 @@ namespace LiveBoard.ViewModel
 			var text = await FileIO.ReadTextAsync(file);
 			Filename = file;
 			Board = Board.FromXml(XElement.Parse(text), templates);
-			//await Task.Run(() =>
-			//{
-			//});
 		}
 
 		private int _currentIndex;
