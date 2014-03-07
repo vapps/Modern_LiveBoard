@@ -15,6 +15,9 @@ namespace LiveBoard.ViewModel
 		public void Clear()
 		{
 			Board = new Board();
+			if (Board.Pages != null)
+				Board.Pages.Clear();
+			Filename = null;
 		}
 
 		public void Start()
@@ -115,5 +118,10 @@ namespace LiveBoard.ViewModel
 		private int _currentIndex;
 		private Board _board = new Board();
 		private StorageFile _filename;
+
+		public static string CreateNewFilename()
+		{
+			return "LiveBoard " + DateTime.Now.ToString("s").Replace(':', '_');
+		}
 	}
 }

@@ -248,7 +248,7 @@ namespace LiveBoard.ViewModel
 			// Dropdown of file types the user can save the file as
 			savePicker.FileTypeChoices.Add("LiveBoard file", new List<string>() { ".lbd" });
 			// Default file name if the user does not type one in or select a file to replace
-			savePicker.SuggestedFileName = "LiveBoard " + DateTime.Now.ToString("s").Replace(':', '_');
+			savePicker.SuggestedFileName = BoardViewModel.CreateNewFilename();
 			savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
 			StorageFile file = await savePicker.PickSaveFileAsync();
 			if (file == null)

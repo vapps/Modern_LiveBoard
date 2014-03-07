@@ -1,29 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.System.UserProfile;
-using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
-using LiveBoard.Model;
 using LiveBoard.ViewModel;
 
 namespace LiveBoard.View
@@ -70,7 +59,9 @@ namespace LiveBoard.View
 
 		private async void ButtonCreate_OnClick(object sender, RoutedEventArgs e)
 		{
+			_viewModel.SelectedBoard = null;
 			_viewModel.ActiveBoard = new BoardViewModel();
+			_viewModel.ActiveBoard.Clear();
 			_viewModel.ActiveBoard.Board.Author = await getAuthorNameAsync();
 			Frame.Navigate(typeof(CreatePage));
 		}
@@ -118,13 +109,12 @@ namespace LiveBoard.View
 				return;
 			if (_viewModel.ActiveBoard == null)
 				_viewModel.ActiveBoard = new BoardViewModel();
-			await _viewModel.ActiveBoard.LoadAsync(file, _viewModel.Templates);
+			await _viewModel.SelectedBoard.LoadAsync(file, _viewModel.Templates);
 
 			// 최근 문서로 저장.
 			// http://msdn.microsoft.com/en-us/library/windows/apps/hh972344.aspx
 			StorageApplicationPermissions.MostRecentlyUsedList.Add(file, file.Path);
-
-			Frame.Navigate(typeof(CreatePage), _viewModel.ActiveBoard);
+			Frame.Navigate(typeof(CreatePage), _viewModel.SelectedBoard);
 		}
 
 

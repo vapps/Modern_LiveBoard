@@ -113,14 +113,6 @@ namespace LiveBoard.View
 			loadFrame(_viewModel.CurrentPage.View);
 		}
 
-		private void ButtonAddPage_OnClick(object sender, RoutedEventArgs e)
-		{
-			//var popup = new PopupHelper(new TemplateSelectionControl());
-			//popup.ShowAsync();
-			//_viewModel.AddPageCmd.Execute(null);
-		}
-
-
 		private void SliderMinute_OnValueChanged(object sender, RangeBaseValueChangedEventArgs e)
 		{
 			var slider = sender as Slider;
@@ -166,12 +158,9 @@ namespace LiveBoard.View
 
 		private void pageRoot_Loaded(object sender, RoutedEventArgs e)
 		{
-			Debug.WriteLine("loaded");
-
 			if (_viewModel.SelectedBoard != null)
-			{
 				_viewModel.ActiveBoard = _viewModel.SelectedBoard;
-			}
+
 			// 리스트 바인딩 직접 해줘야 리프래시가 반영됨.
 			var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Board.Pages };
 			ListViewPages.ItemsSource = viewSource.View;
