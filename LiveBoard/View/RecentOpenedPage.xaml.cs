@@ -70,35 +70,17 @@ namespace LiveBoard.View
 				if (message.Content.MessageType == LbMessageType.EVT_SHOW_STARTING)
 				{
 					Debug.WriteLine("* RecentOpenedPage Received Message: " + message.Content.MessageType.ToString());
-					this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+					var frame = (Frame)Window.Current.Content;
+					if (!(frame.Content is ShowPage))
+					{
+						this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+					}
 				}
 				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_STARTED)
 				{
 					// 프리뷰의 페이지가 로딩되었을 때.
 				}
 			});
-		}
-
-		/// <summary>
-		/// 재생하기.
-		/// </summary>
-		/// <param name="token"></param>
-		/// <returns></returns>
-		async Task launchItem(string token)
-		{
-			var viewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
-			try
-			{
-				StorageFile storageFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(token);
-				await viewModel.ActiveBoard.LoadAsync(storageFile, viewModel.Templates);
-			}
-			catch (Exception exception)
-			{
-				new Windows.UI.Popups.MessageDialog(exception.Message + "File loading error. File is corrupted or wrongly saved").ShowAsync();
-				return;
-			}
-
-			this.Frame.Navigate(typeof(ShowPage), viewModel.ActiveBoard);
 		}
 
 		/// <summary>

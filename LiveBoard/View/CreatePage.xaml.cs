@@ -37,7 +37,11 @@ namespace LiveBoard.View
 				if (message.Content.MessageType == LbMessageType.EVT_SHOW_STARTING)
 				{
 					Debug.WriteLine("* CreatePage Received Message: " + message.Content.MessageType.ToString());
-					this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+					var frame = (Frame)Window.Current.Content;
+					if (!(frame.Content is ShowPage))
+					{
+						this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+					}
 				}
 				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_STARTED)
 				{
