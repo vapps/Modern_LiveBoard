@@ -25,7 +25,7 @@
 		</DataList>
 	</Template>
 	<!-- 10개 목록 출력 -->
-	<Template Key="SimpleListPage" DisplayName="Simple list" Description="Header and 10 text rows" TemplateView="SimpleList" TemplateModel="SimpleListPage">
+	<!--<Template Key="SimpleListPage" DisplayName="Simple list" Description="Header and 10 text rows" TemplateView="SimpleList" TemplateModel="SimpleListPage">
 		<DataList>
 			<Data Key="Header" Name="Header" ValueType="String" DefaultValue="" />
 			<Data Key="Row1" Name="Row 1" ValueType="String" DefaultValue="" />
@@ -39,8 +39,8 @@
 			<Data Key="Row9" Name="Row 9" ValueType="String" DefaultValue="" />
 			<Data Key="Row10" Name="Row 10" ValueType="String" DefaultValue="" />
 		</DataList>
-	</Template>
-	<!-- 10개 목록 출력 -->
+	</Template>-->
+	<!-- RSS 목록 출력 -->
 	<Template Key="RssList" DisplayName="RSS" Description="Header and 10 titles from RSS" TemplateView="SimpleList" TemplateModel="RssList">
 		<DataList>
 			<Data Key="Header" Name="Title" ValueType="String" DefaultValue="" />
