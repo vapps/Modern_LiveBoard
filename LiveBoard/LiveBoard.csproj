@@ -167,6 +167,9 @@
     <Compile Include="View\PrivacyPolicyControl.xaml.cs">
       <DependentUpon>PrivacyPolicyControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PrivacyPolicySettingsFlyout.xaml.cs">
+      <DependentUpon>PrivacyPolicySettingsFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RecentOpenedPage.xaml.cs">
       <DependentUpon>RecentOpenedPage.xaml</DependentUpon>
     </Compile>
@@ -289,6 +292,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\PrivacyPolicyControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PrivacyPolicySettingsFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

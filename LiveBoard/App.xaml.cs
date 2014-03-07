@@ -133,16 +133,17 @@ namespace LiveBoard
 		private void OnCommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
 		{
 			// 설정 참바.
-			//args.Request.ApplicationCommands.Add(new SettingsCommand(
-			//	"PrivacySettingsCommand", "Privacy Policy", handler =>
-			//	{
-			//		var customSettingFlyout = new CustomSetting();
-			//		customSettingFlyout.Show();
-			//	}));
 			args.Request.ApplicationCommands.Add(new SettingsCommand(
-				"InquirySettingsCommand", "고객 문의 (이메일)", async handler =>
+				"PrivacySettingsCommand", "Privacy Policy", handler =>
 				{
-					await Launcher.LaunchUriAsync(new Uri("mailto:master@bapul.net"));
+					var customSettingFlyout = new PrivacyPolicySettingsFlyout();
+					customSettingFlyout.Show();
+				}));
+
+			args.Request.ApplicationCommands.Add(new SettingsCommand(
+				"InquirySettingsCommand", "문의하기 (이메일)", async handler =>
+				{
+					await Launcher.LaunchUriAsync(new Uri("mailto:hello@bapul.net"));
 				}));
 		}
 	}

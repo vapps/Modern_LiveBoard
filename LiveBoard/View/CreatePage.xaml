@@ -216,7 +216,7 @@
 							</Button>
 						</StackPanel>
 						<!-- Pages 리스트. 아이템의 드래그앤드롭 기능을 위해 ItemsSource 는 CodeBehind에서 설정한다. -->
-						<ListView x:Name="ListViewPages" HorizontalAlignment="Stretch" Background="{StaticResource LbLightShadowBrush}"
+						<ListView Grid.Row="0" x:Name="ListViewPages" HorizontalAlignment="Stretch" Background="{StaticResource LbLightShadowBrush}"
 			VerticalAlignment="Stretch" BorderThickness="0" Margin="0,45,0,0"
 			CanReorderItems="True" CanDragItems="True" AllowDrop="True" ItemContainerStyle="{StaticResource ListViewItemStyle1}" SelectionChanged="ListViewPages_OnSelectionChanged">
 							<ListView.ItemTemplate>
@@ -232,9 +232,8 @@
 												<Image Source="{Binding Path=TemplateKey, Mode=OneWay, Converter={StaticResource TemplateViewToIcon}}"></Image>
 											</Grid>
 											<StackPanel Orientation="Vertical" Grid.Column="1" Margin="5">
-
-												<TextBlock Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Title}"/>
-												<TextBlock Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Data, Converter={StaticResource PropertyDataSummary}}"/>
+												<TextBlock Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Title}" FontFamily="Global User Interface" Margin="0,3" />
+												<TextBlock Foreground="{StaticResource LbLightTextBrush}" Text="{Binding Path=Data, Converter={StaticResource PropertyDataSummary}}"/>
 											</StackPanel>
 											<Grid Grid.Column="2">
 												<StackPanel Orientation="Horizontal" Margin="0,0,13,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">

@@ -8,17 +8,19 @@
 	<Color x:Key="LbTextColor">#cccccc</Color>
 	<Color x:Key="LbDarkTextColor">#666666</Color>
 	<Color x:Key="LbLightGrayColor">#d7dadb</Color>
+	<Color x:Key="LbLightTextColor">#929292</Color>
 	<Color x:Key="LbRedKeyColor">#fc4349</Color>
 	<Color x:Key="LbBlueKeyColor">#6dbcdb</Color>
 	<Color x:Key="LbDarkBlueColor">#2c3e50</Color>
 
 	<SolidColorBrush x:Key="LbBackgroundBrush" Color="{StaticResource LbBackgroundColor}"/>
 	<SolidColorBrush x:Key="LbShadowBrush" Color="#DD222222"/>
-	<SolidColorBrush x:Key="LbTextBrush" Color="#cccccc"/>
+	<SolidColorBrush x:Key="LbTextBrush" Color="{StaticResource LbTextColor}"/>
 	<SolidColorBrush x:Key="LbDarkTextBrush" Color="{StaticResource LbDarkTextColor}"/>
-	<SolidColorBrush x:Key="LbLightGrayBrush" Color="#d7dadb"/>
-	<SolidColorBrush x:Key="LbRedKeyBrush" Color="#fc4349"/>
-	<SolidColorBrush x:Key="LbBlueKeyBrush" Color="#6dbcdb"/>
+	<SolidColorBrush x:Key="LbLightTextBrush" Color="{StaticResource LbLightTextColor}"/>
+	<SolidColorBrush x:Key="LbLightGrayBrush" Color="{StaticResource LbLightGrayColor}"/>
+	<SolidColorBrush x:Key="LbRedKeyBrush" Color="{StaticResource LbRedKeyColor}"/>
+	<SolidColorBrush x:Key="LbBlueKeyBrush" Color="{StaticResource LbBlueKeyColor}"/>
 	<SolidColorBrush x:Key="LbDarkBlueBrush" Color="{StaticResource LbDarkBlueColor}"/>
 	<SolidColorBrush x:Key="LbLightShadowBrush" Color="#f5f5f5"/>
 

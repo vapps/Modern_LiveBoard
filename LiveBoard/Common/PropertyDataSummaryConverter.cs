@@ -10,24 +10,27 @@ using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using LiveBoard.PageTemplate.Model;
 
 namespace LiveBoard.Common
 {
 	/// <summary>
-	/// Value converter that translates true to <see cref="Visibility.Visible"/> and false to
+	/// 데이터 타입에 따라 요약을 보여준다.
 	/// <see cref="Visibility.Collapsed"/>.
 	/// </summary>
 	public sealed class PropertyDataSummaryConverter : IValueConverter
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
-			var visible = (value is bool && (bool)value) ? Visibility.Visible : Visibility.Collapsed;
-			if (parameter == null)
-				return visible;
-			// input whatever thing (such as '!') in XAML converter parameter will change its visiblity output.
-			if (parameter.ToString().Length > 0)
-				return visible == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
-			return visible;
+			var data = value as IEnumerable<LbPageData>;
+			if (data != null)
+			{
+				var lbPageDatas = data as IList<LbPageData> ?? data.ToList();
+				if (lbPageDatas.Count() > 1)
+					return String.Format("Contains {0} values", lbPageDatas.Count());
+				return String.Format("{0}: {1}", (lbPageDatas.ElementAt(0)).Name, (lbPageDatas.ElementAt(0)).Data);
+			}
+			return value;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, string language)

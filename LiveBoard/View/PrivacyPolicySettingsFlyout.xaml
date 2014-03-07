@@ -1,0 +1,21 @@
+﻿<SettingsFlyout
+    x:Class="LiveBoard.View.PrivacyPolicySettingsFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LiveBoard.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+    Title="Privacy Policy"
+    d:DesignWidth="346">
+
+    <!-- This StackPanel acts as a root panel for vertical layout of the content sections -->
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+
+		<local:PrivacyPolicyControl></local:PrivacyPolicyControl>
+
+		<!-- Define more Content Sections below as necessary -->
+
+    </StackPanel>
+</SettingsFlyout>
