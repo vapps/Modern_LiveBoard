@@ -110,16 +110,16 @@ namespace LiveBoard.PageTemplate.Model
 					if (colorcode.Length > 6)
 					{
 						pageData.Data = Color.FromArgb((byte)((argb & -16777216) >> 0x18), // 0x18=24
-							(byte) ((argb & 0xff0000) >> 0x10), // 0x10=16
-							(byte) ((argb & 0xff00) >> 8),
-							(byte) (argb & 0xff));
+							(byte)((argb & 0xff0000) >> 0x10), // 0x10=16
+							(byte)((argb & 0xff00) >> 8),
+							(byte)(argb & 0xff));
 					}
 					else
 					{
 						pageData.Data = Color.FromArgb(0xff,
 							(byte)((argb & 0xff0000) >> 0x10), // 0x10=16
 							(byte)((argb & 0xff00) >> 8),
-							(byte)(argb & 0xff));						
+							(byte)(argb & 0xff));
 					}
 					break;
 				default:
@@ -139,8 +139,14 @@ namespace LiveBoard.PageTemplate.Model
 		{
 			// <Data Key="Url" Name="Header" ValueType="String" DefaultData="" />
 
-			var tData = new LbPageData { Key = xElement.Attribute("Key").Value, Name = xElement.Attribute("Name").Value };
-
+			var tData = new LbPageData
+			{
+				Key = xElement.Attribute("Key").Value,
+				Name = xElement.Attribute("Name").Value,
+				IsHidden = bool.Parse(xElement.Attribute("IsHidden") != null
+					? xElement.Attribute("IsHidden").Value
+					: bool.FalseString)
+			};
 			switch (xElement.Attribute("ValueType").Value.ToLower())
 			{
 				case "string":
@@ -150,11 +156,11 @@ namespace LiveBoard.PageTemplate.Model
 				case "int":
 				case "integer":
 					tData.ValueType = typeof(int);
-					tData.DefaultData = int.Parse(xElement.Attribute("DefaultValue").Value);
+					tData.DefaultData = int.Parse(!String.IsNullOrEmpty(xElement.Attribute("DefaultValue").Value) ? xElement.Attribute("DefaultValue").Value : "0");
 					break;
 				case "double":
 					tData.ValueType = typeof(double);
-					tData.DefaultData = double.Parse(xElement.Attribute("DefaultValue").Value);
+					tData.DefaultData = double.Parse(!String.IsNullOrEmpty(xElement.Attribute("DefaultValue").Value) ? xElement.Attribute("DefaultValue").Value : "0");
 					break;
 				case "color":
 					tData.ValueType = typeof(Color);
@@ -162,17 +168,17 @@ namespace LiveBoard.PageTemplate.Model
 					int argb = Int32.Parse(colorcode, NumberStyles.HexNumber);
 					if (colorcode.Length > 6)
 					{
-						tData.DefaultData = Color.FromArgb((byte) ((argb & -16777216) >> 0x18), // 0x18=24
-							(byte) ((argb & 0xff0000) >> 0x10), // 0x10=16
-							(byte) ((argb & 0xff00) >> 8),
-							(byte) (argb & 0xff));
+						tData.DefaultData = Color.FromArgb((byte)((argb & -16777216) >> 0x18), // 0x18=24
+							(byte)((argb & 0xff0000) >> 0x10), // 0x10=16
+							(byte)((argb & 0xff00) >> 8),
+							(byte)(argb & 0xff));
 					}
 					else
 					{
 						tData.DefaultData = Color.FromArgb(0xff,
 							(byte)((argb & 0xff0000) >> 0x10), // 0x10=16
 							(byte)((argb & 0xff00) >> 8),
-							(byte)(argb & 0xff));						
+							(byte)(argb & 0xff));
 					}
 					break;
 				default:
@@ -184,12 +190,32 @@ namespace LiveBoard.PageTemplate.Model
 			return tData;
 		}
 
-		public XElement ToXml()
+		/// <summary>
+		/// XML로 정보 출력.
+		/// </summary>
+		/// <param name="isVerbose"><c>true</c>, 모든 정보 출력. <c>false</c>, Key와 Data만 출력.</param>
+		/// <returns></returns>
+		public XElement ToXml(bool isVerbose = false)
 		{
-			var xElement = new XElement("Data",
-				new XAttribute("Key", Key ?? ""),
-				new XAttribute("Data", Data.ToString() ?? "")
-				);
+			XElement xElement;
+			if (!isVerbose)
+			{
+				xElement = new XElement("Data",
+					new XAttribute("Key", Key ?? ""),
+					new XAttribute("Data", Data.ToString() ?? "")
+					);
+			}
+			else
+			{
+				xElement = new XElement("Data",
+					new XAttribute("Key", Key ?? ""),
+					new XAttribute("Data", Data.ToString() ?? ""),
+					new XAttribute("DefaultValue", DefaultData.ToString() ?? ""),
+					new XAttribute("ValueType", ValueType.Name ?? "String"),
+					new XAttribute("IsHidden", IsHidden.ToString()),
+					new XAttribute("Name", Name ?? "")
+					);
+			}
 			return xElement;
 		}
 	}

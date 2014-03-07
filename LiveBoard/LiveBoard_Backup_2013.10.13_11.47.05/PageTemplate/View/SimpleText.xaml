@@ -9,17 +9,11 @@
 
     mc:Ignorable="d">
 
-	<!-- 백그라운드를 1번으로, 글자색은 2번으로 지정. -->
-	<Grid>
-		<Grid.Background>
-			<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-				<GradientStop Color="#FF0C0C0C" Offset="0.142"/>
-				<GradientStop Color="#FF575757" Offset="1"/>
-			</LinearGradientBrush>
-		</Grid.Background>
-		<TextBlock HorizontalAlignment="Center"
-                   TextWrapping="Wrap" Text="{Binding Path=Data[0].Data}" 
+    <Grid Background="Black">
+        <TextBlock HorizontalAlignment="Center"
+                   TextWrapping="Wrap" Text="{Binding Path={Binding Data[0].Data}}" 
                    Foreground="White"
-                   VerticalAlignment="Center" FontSize="80"/>
-	</Grid>
+                   VerticalAlignment="Center" FontFamily="Malgun Gothic" FontSize="80"/>
+
+    </Grid>
 </Page>

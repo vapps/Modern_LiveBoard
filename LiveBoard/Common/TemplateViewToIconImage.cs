@@ -36,6 +36,9 @@ namespace LiveBoard.Common
 					case "RssList":
 						uri = new Uri(prefix + "appbar.rss.png");
 						break;
+					case "FacebookLike":
+						uri = new Uri(prefix + "appbar.thumbs.up.png");
+						break;
 				}
 			}
 			catch (Exception)

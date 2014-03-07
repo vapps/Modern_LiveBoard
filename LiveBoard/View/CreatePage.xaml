@@ -13,7 +13,7 @@
     x:Name="pageRoot"
     x:Class="LiveBoard.View.CreatePage"
     NavigationCacheMode="Required"
-    mc:Ignorable="d">
+    mc:Ignorable="d" Loaded="pageRoot_Loaded">
 
 	<common:LayoutAwarePage.Resources>
 		<DataTemplate x:Key="DefaultTemplate" />
@@ -25,12 +25,18 @@
 		</DataTemplate>
 		<DataTemplate x:Key="DoubleTemplate">
 			<editorTemplate:LbDoubleControl />
+		</DataTemplate>		
+		<DataTemplate x:Key="HiddenTemplate">
+			<editorTemplate:LbHiddenControl />
 		</DataTemplate>
 		<common:LbEditorDataTemplateSelector x:Key="EditorTemplateSelector"
                                     DefaultTemplate="{StaticResource DefaultTemplate}"
                                     StringTemplate="{StaticResource StringTemplate}"
 									DoubleTemplate="{StaticResource DoubleTemplate}"
-                                    IntTemplate="{StaticResource IntTemplate}" />
+                                    IntTemplate="{StaticResource IntTemplate}"
+                                    HiddenTemplate="{StaticResource HiddenTemplate}"
+											 
+											 />
 		<common:LbPageToDataListConverter x:Key="PageToDataListConverter" />
 		<common:BooleanToVisibilityConverter x:Key="BoolToVisibility" />
 
@@ -326,9 +332,9 @@
 						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Properties" 
 			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" Margin="0,10,0,0" />
 						<Grid HorizontalAlignment="Stretch" Background="{StaticResource LbLightShadowBrush}" Margin="0,55,0,0">
-							<ItemsControl x:Name="ListViewEditor"
+							<ListView x:Name="ListViewEditor"
 			ItemsSource="{Binding Path=SelectedItem, Converter={StaticResource PageToDataListConverter}, ElementName=ListViewPages}" 
-			ItemTemplateSelector="{StaticResource EditorTemplateSelector}" Margin="10">
+			ItemTemplateSelector="{StaticResource EditorTemplateSelector}" Margin="10" ItemContainerStyle="{StaticResource ListViewItemStyle1}">
 								<!--<ItemsControl.ItemContainerStyle>
 				<Style TargetType="ItemsControl">
 					<Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -341,7 +347,7 @@
 					</Setter>
 				</Style>
 			</ItemsControl.ItemContainerStyle>-->
-							</ItemsControl>
+							</ListView>
 						</Grid>
 					</Grid>
 

@@ -12,6 +12,11 @@ namespace LiveBoard.PageTemplate.Model
 	/// </summary>
 	public class SingleStringPage : ObservableObject, IPage
 	{
+		public SingleStringPage()
+		{
+			Guid = new Guid().ToString();
+		}
+
 		public string Guid { get; set; }
 
 		public string Title

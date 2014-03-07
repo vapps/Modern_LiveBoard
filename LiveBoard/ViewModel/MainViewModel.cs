@@ -40,6 +40,7 @@ namespace LiveBoard.ViewModel
 		private ObservableCollection<string> _recentBoards;
 		private int _maxRecentBoardCount = 5;
 		private RecentOpenedListViewModel _recentOpenedList;
+		private BoardViewModel _selectedBoard = new BoardViewModel();
 
 		/// <summary>
 		/// Initializes a new instance of the MainViewModel class.
@@ -104,9 +105,6 @@ namespace LiveBoard.ViewModel
 
 			// 초기화하면서 TemplateList.xml 파일을 로딩한다.
 			Templates = new TemplateListViewModel();
-
-			// 최근 열어본 문서 불러오기.
-			fillItems();
 		}
 
 		#region ICommand
@@ -117,27 +115,6 @@ namespace LiveBoard.ViewModel
 		public ICommand PreviewCmd { get { return new RelayCommand<BoardViewModel>(Preview); } }
 		public ICommand StopCmd { get { return new RelayCommand<BoardViewModel>(Stop); } }
 		#endregion ICommand
-
-
-		/// <summary>
-		/// 최근 문서 목록 추가.
-		/// </summary>
-		void fillItems()
-		{
-			if (RecentOpenedList == null)
-				RecentOpenedList = new RecentOpenedListViewModel();
-
-			RecentOpenedList.Clear();
-			foreach (var entry in StorageApplicationPermissions.MostRecentlyUsedList.Entries)
-			{
-				RecentOpenedList.Add(new LbFile()
-				{
-					Token = entry.Token,
-					Metadata = entry.Metadata
-				});
-				Debug.WriteLine(entry.Metadata);
-			}
-		}
 
 		/// <summary>
 		/// 종료
@@ -289,6 +266,9 @@ namespace LiveBoard.ViewModel
 				// Let Windows know that we're finished changing the file so the other app can update the remote version of the file.
 				// Completing updates may require Windows to ask for user input.
 				FileUpdateStatus status = await CachedFileManager.CompleteUpdatesAsync(file);
+				StorageApplicationPermissions.MostRecentlyUsedList.Add(file, file.Path);
+
+				// TODO: 완료 팝업. 아직 안함.
 				if (status == FileUpdateStatus.Complete)
 				{
 					PopupMessage = "File " + file.Name + " was saved.";
@@ -526,6 +506,18 @@ namespace LiveBoard.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// 선택한 보드 뷰모델
+		/// </summary>
+		public BoardViewModel SelectedBoard
+		{
+			get { return _selectedBoard; }
+			set
+			{
+				_selectedBoard = value;
+				RaisePropertyChanged("SelectedBoard");
+			}
+		}
 
 		/// <summary>
 		/// 현재 보드.
@@ -595,7 +587,24 @@ namespace LiveBoard.ViewModel
 
 		public RecentOpenedListViewModel RecentOpenedList
 		{
-			get { return _recentOpenedList; }
+			get
+			{
+				if (_recentOpenedList == null)
+					_recentOpenedList = new RecentOpenedListViewModel();
+
+				_recentOpenedList.Clear();
+				foreach (var entry in StorageApplicationPermissions.MostRecentlyUsedList.Entries)
+				{
+					_recentOpenedList.Add(new LbFile()
+					{
+						Token = entry.Token,
+						Metadata = entry.Metadata
+					});
+					Debug.WriteLine(entry.Metadata);
+				}
+
+				return _recentOpenedList;
+			}
 			set
 			{
 				_recentOpenedList = value;

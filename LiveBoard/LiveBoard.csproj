@@ -110,6 +110,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\ExtractFilenameConverter.cs" />
     <Compile Include="Common\PrefixConverter.cs" />
     <Compile Include="Common\FilenamePrefixConverter.cs" />
     <Compile Include="Common\DurationTimeSpanConverter.cs" />
@@ -132,7 +133,6 @@
     <Compile Include="Model\LbFile.cs" />
     <Compile Include="Model\LbTemplate.cs" />
     <Compile Include="PageTemplate\Model\FacebookLikeCountPage.cs" />
-    <Compile Include="PageTemplate\Model\HeaderAndListData.cs" />
     <Compile Include="PageTemplate\Model\IPage.cs" />
     <Compile Include="PageTemplate\Model\LbPageData.cs" />
     <Compile Include="PageTemplate\Model\RssList.cs" />
@@ -140,6 +140,9 @@
     <Compile Include="PageTemplate\Model\SimpleListPage.cs" />
     <Compile Include="PageTemplate\View\OneNumberCount.xaml.cs">
       <DependentUpon>OneNumberCount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageTemplate\View\FacebookCount.xaml.cs">
+      <DependentUpon>FacebookCount.xaml</DependentUpon>
     </Compile>
     <Compile Include="PageTemplate\View\SimpleList.xaml.cs">
       <DependentUpon>SimpleList.xaml</DependentUpon>
@@ -158,6 +161,9 @@
     </Compile>
     <Compile Include="ViewModel\RecentOpenedListViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\EditorTemplate\LbHiddenControl.xaml.cs">
+      <DependentUpon>LbHiddenControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\PrivacyPolicyControl.xaml.cs">
       <DependentUpon>PrivacyPolicyControl.xaml</DependentUpon>
     </Compile>
@@ -254,6 +260,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="PageTemplate\View\FacebookCount.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PageTemplate\View\SimpleList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -273,6 +283,10 @@
     <Page Include="PageTemplate\View\StaticWebView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditorTemplate\LbHiddenControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\PrivacyPolicyControl.xaml">
       <SubType>Designer</SubType>

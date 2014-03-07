@@ -9,6 +9,11 @@ namespace LiveBoard.PageTemplate.Model
 {
 	public class SimpleListPage : ObservableObject, IPage
 	{
+		public SimpleListPage()
+		{
+			Guid = new Guid().ToString();
+		}
+
 		public string Guid { get; set; }
 
 		public string Title

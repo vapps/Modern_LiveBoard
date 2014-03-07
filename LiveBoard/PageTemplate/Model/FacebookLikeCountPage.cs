@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Core;
 using Windows.Data.Json;
@@ -16,29 +17,28 @@ namespace LiveBoard.PageTemplate.Model
 		/// <returns></returns>
 		public override async Task<bool> PrepareToLoadAsync()
 		{
-			var list = Data as IEnumerable<LbPageData>;
-			if (list == null)
+			if (Data == null)
 				return false;
 
-			var feedTitles = new ObservableCollection<string>();
-			foreach (var templateData in list)
+			int count = 0;
+			foreach (var templateData in Data)
 			{
-				if (templateData.Key == "PageName")
+				if (templateData.Key == "Page")
 				{
-					var url = templateData.Data as string;
+					var pageName = templateData.Data as string;
+					var defaultPageName = templateData.DefaultData as string;
 					var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
+					var httpClient = new HttpClient();
 
-					// Load Facebook like json asyncronously.
-					await dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
-					{
-						var json = new JsonObject();
-						// http://graph.facebook.com/mabllabs?fields=likes
-					});
+					// http://graph.facebook.com/mabllabs?fields=likes
+					var address = String.Format("http://graph.facebook.com/{0}?fields=likes", !String.IsNullOrWhiteSpace(pageName) ? pageName : defaultPageName);
+					var json = JsonObject.Parse(await httpClient.GetStringAsync(address));
+					count = (int)json.GetNamedNumber("likes", 0d);
 				}
 
-				if (templateData.Key == "Feeds")
+				if (templateData.Key == "Count")
 				{
-					templateData.Data = feedTitles;
+					templateData.Data = count;
 				}
 			}
 			return true;

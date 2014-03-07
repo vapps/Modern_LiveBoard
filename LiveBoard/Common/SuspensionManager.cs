@@ -241,7 +241,15 @@ namespace LiveBoard.Common
         {
             var frameState = SessionStateForFrame(frame);
 			// TODO: exception이 발생한다.
+	        try
+	        {
             frameState["Navigation"] = frame.GetNavigationState();
+
+	        }
+	        catch (Exception)
+	        {
+		        // do nothing.
+	        }
         }
     }
     public class SuspensionManagerException : Exception

@@ -1,0 +1,26 @@
+﻿<Page
+    x:Class="LiveBoard.PageTemplate.View.FacebookCount"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  	DataContext="{Binding Source={StaticResource Locator}, Path=Main.CurrentPage}"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		NavigationCacheMode="Disabled"
+
+    mc:Ignorable="d">
+
+    <Grid Background="Black">
+		<!-- Title -->
+        <TextBlock HorizontalAlignment="Center" Margin="0,-200,0,0"
+                   TextWrapping="Wrap" Text="{Binding Path=Data[1].Data}" 
+                   Foreground="White"
+                   VerticalAlignment="Center" FontFamily="Malgun Gothic" FontSize="50"/>
+		
+		<!-- Count -->
+		<TextBlock HorizontalAlignment="Center"
+                   TextWrapping="Wrap" Text="{Binding Path=Data[2].Data}" 
+                   Foreground="White"
+                   VerticalAlignment="Center" FontFamily="Malgun Gothic" FontSize="80"/>
+
+    </Grid>
+</Page>

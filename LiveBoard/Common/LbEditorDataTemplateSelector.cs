@@ -10,12 +10,16 @@ namespace LiveBoard.Common
 		public DataTemplate IntTemplate { get; set; }
 		public DataTemplate StringTemplate { get; set; }
 		public DataTemplate DoubleTemplate { get; set; }
+		public DataTemplate HiddenTemplate { get; set; }
 
 		protected override DataTemplate SelectTemplateCore(object item, DependencyObject container)
 		{
 			var data = item as LbPageData;
 			if (data == null)
 				return DefaultTemplate;
+
+			if (data.IsHidden)
+				return HiddenTemplate;
 
 			if (data.ValueType == typeof(int))
 				return IntTemplate;

@@ -9,6 +9,7 @@ using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
+using Windows.System.UserProfile;
 using Windows.UI.Core;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -37,9 +38,8 @@ namespace LiveBoard.View
 		{
 			this.InitializeComponent();
 
-			var model = DataContext as MainViewModel;
-			if (model != null)
-				_viewModel = model;
+			if (_viewModel == null)
+				_viewModel = DataContext as MainViewModel;
 		}
 
 		/// <summary>
@@ -53,9 +53,6 @@ namespace LiveBoard.View
 		/// session.  This will be null the first time a page is visited.</param>
 		protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
 		{
-			if (_viewModel == null)
-				_viewModel = DataContext as MainViewModel;
-
 			var boardViewModel = navigationParameter as BoardViewModel;
 			if (boardViewModel != null)
 				Frame.Navigate(typeof (CreatePage), boardViewModel);
@@ -71,9 +68,29 @@ namespace LiveBoard.View
 		{
 		}
 
-		private void ButtonCreate_OnClick(object sender, RoutedEventArgs e)
+		private async void ButtonCreate_OnClick(object sender, RoutedEventArgs e)
 		{
+			_viewModel.ActiveBoard = new BoardViewModel();
+			_viewModel.ActiveBoard.Board.Author = await getAuthorNameAsync();
 			Frame.Navigate(typeof(CreatePage));
+		}
+
+		/// <summary>
+		/// PC 로그인한 사용자 이름 반환.
+		/// </summary>
+		/// <returns></returns>
+		private async Task<string> getAuthorNameAsync()
+		{
+			string displayName = await UserInformation.GetDisplayNameAsync();
+
+			if (string.IsNullOrEmpty(displayName))
+			{
+				var firstName = await UserInformation.GetFirstNameAsync();
+				var lastName = await UserInformation.GetLastNameAsync();
+				var name = firstName + (!String.IsNullOrEmpty(firstName) ? " " : "") + lastName;
+				return name.Trim();
+			}
+			return displayName;
 		}
 
 		private void ButtonOpen_OnClick(object sender, RoutedEventArgs e)
@@ -105,7 +122,7 @@ namespace LiveBoard.View
 
 			// 최근 문서로 저장.
 			// http://msdn.microsoft.com/en-us/library/windows/apps/hh972344.aspx
-			string mruToken = StorageApplicationPermissions.MostRecentlyUsedList.Add(file, file.DisplayName);
+			StorageApplicationPermissions.MostRecentlyUsedList.Add(file, file.Path);
 
 			Frame.Navigate(typeof(CreatePage), _viewModel.ActiveBoard);
 		}

@@ -31,7 +31,6 @@ namespace LiveBoard.View
 	{
 		private NavigationHelper navigationHelper;
 		private MainViewModel _viewModel;
-		private BoardViewModel _selectedBoard = new BoardViewModel();
 
 		/// <summary>
 		/// NavigationHelper is used on each page to aid in navigation and 
@@ -112,8 +111,8 @@ namespace LiveBoard.View
 			var lbFile = itemListView.SelectedItem as LbFile;
 			if (lbFile == null)
 				return;
-			if (SelectedBoard == null)
-				SelectedBoard = new BoardViewModel();
+			if (_viewModel.SelectedBoard == null)
+				_viewModel.SelectedBoard = new BoardViewModel();
 
 			// 파일 부르기.
 			StorageFile retrievedFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(lbFile.Token);
@@ -121,8 +120,8 @@ namespace LiveBoard.View
 
 			Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
 			{
-				SelectedBoard.Board = Board.FromXml(XElement.Parse(text), _viewModel.Templates);
-				SelectedBoard.Filename = retrievedFile;
+				_viewModel.SelectedBoard.Board = Board.FromXml(XElement.Parse(text), _viewModel.Templates);
+				_viewModel.SelectedBoard.Filename = retrievedFile;
 			});
 
 			if (this.UsingLogicalPageNavigation())
@@ -216,18 +215,6 @@ namespace LiveBoard.View
 
 		}
 
-		/// <summary>
-		/// 선택한 보드 뷰모델
-		/// </summary>
-		public BoardViewModel SelectedBoard
-		{
-			get { return _selectedBoard; }
-			set
-			{
-				_selectedBoard = value;
-				OnPropertyChanged(new PropertyChangedEventArgs("SelectedBoard"));
-			}
-		}
 
 		public event PropertyChangedEventHandler PropertyChanged;
 
@@ -311,6 +298,8 @@ namespace LiveBoard.View
 			}
 			else
 			{
+				// CreatePage에 대응하기 위해서 처리. CreatePage가 Cached이므로, LoadState가 먹지 않는다.
+				_viewModel.SelectedBoard = null;
 				this.navigationHelper.GoBack();
 			}
 		}
@@ -367,7 +356,7 @@ namespace LiveBoard.View
 
 		private void ButtonEdit_OnClick(object sender, RoutedEventArgs e)
 		{
-			Frame.Navigate(typeof(CreatePage), SelectedBoard);
+			Frame.Navigate(typeof(CreatePage), _viewModel.SelectedBoard);
 		}
 	}
 }

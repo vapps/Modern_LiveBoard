@@ -9,11 +9,11 @@
 
     mc:Ignorable="d">
 
-    <Grid Background="Black">
-        <TextBlock HorizontalAlignment="Center"
-                   TextWrapping="Wrap" Text="{Binding Path={Binding Data[0].Data}}" 
-                   Foreground="White"
-                   VerticalAlignment="Center" FontFamily="Malgun Gothic" FontSize="80"/>
+	<Grid Background="{Binding Path=Data[1].Data}">
+		<TextBlock HorizontalAlignment="Center"
+                   TextWrapping="Wrap" Text="{Binding Path=Data[0].Data}" 
+                   Foreground="{Binding Path=Data[2].Data}"
+                   VerticalAlignment="Center" FontSize="80"/>
 
     </Grid>
 </Page>

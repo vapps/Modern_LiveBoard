@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Threading.Tasks;
-using Windows.System.UserProfile;
-using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
@@ -13,7 +10,6 @@ using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using LiveBoard.PageTemplate.Model;
 using LiveBoard.ViewModel;
-using Telerik.UI.Xaml.Controls.Input;
 
 namespace LiveBoard.View
 {
@@ -80,7 +76,7 @@ namespace LiveBoard.View
 		/// </param>
 		/// <param name="pageState">A dictionary of state preserved by this page during an earlier
 		/// session.  This will be null the first time a page is visited.</param>
-		protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+		protected override async void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
 		{
 			if (_viewModel == null)
 				_viewModel = DataContext as MainViewModel;
@@ -88,41 +84,6 @@ namespace LiveBoard.View
 			if (_viewModel == null)
 				throw new InvalidOperationException("CreatePage.LoadState viewModel is null");
 
-			if (navigationParameter == null)
-			{
-				// 새 파일 셋팅.
-				_viewModel.ActiveBoard = new BoardViewModel();
-				Task.Run(async () =>
-				{
-					_viewModel.ActiveBoard.Board.Author = await getAuthorNameAsync();
-				});
-			}
-			else if (navigationParameter is BoardViewModel)
-			{
-				_viewModel.ActiveBoard = navigationParameter as BoardViewModel;
-			}
-
-			// 리스트 바인딩 직접 해줘야 리프래시가 반영됨.
-			var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Board.Pages };
-			ListViewPages.ItemsSource = viewSource.View;
-		}
-
-		/// <summary>
-		/// PC 로그인한 사용자 이름 반환.
-		/// </summary>
-		/// <returns></returns>
-		private async Task<string> getAuthorNameAsync()
-		{
-			string displayName = await UserInformation.GetDisplayNameAsync();
-
-			if (string.IsNullOrEmpty(displayName))
-			{
-				var firstName = await UserInformation.GetFirstNameAsync();
-				var lastName = await UserInformation.GetLastNameAsync();
-				var name = firstName + (!String.IsNullOrEmpty(firstName) ? " " : "") + lastName;
-				return name.Trim();
-			}
-			return displayName;
 		}
 
 		/// <summary>
@@ -133,18 +94,6 @@ namespace LiveBoard.View
 		/// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
 		protected override void SaveState(Dictionary<String, Object> pageState)
 		{
-		}
-
-		private void NumericBoxDuration_OnValueChanged(object sender, EventArgs e)
-		{
-			var numericBox = sender as RadNumericBox;
-			if (numericBox == null)
-				return;
-			var page = numericBox.DataContext as IPage;
-			if (page == null)
-				return;
-
-			//page.Duration = new TimeSpan(0, (int)NumericBoxMinute.Value.GetValueOrDefault(page.Duration.Minutes), (int)NumericBoxSecond.Value.GetValueOrDefault(page.Duration.Seconds));
 		}
 
 		private void ListViewPages_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -209,6 +158,19 @@ namespace LiveBoard.View
 			{
 				ToggleButtonAddPage.IsChecked = false;
 			}
+		}
+
+		private void pageRoot_Loaded(object sender, RoutedEventArgs e)
+		{
+			Debug.WriteLine("loaded");
+
+			if (_viewModel.SelectedBoard != null)
+			{
+				_viewModel.ActiveBoard = _viewModel.SelectedBoard;
+			}
+			// 리스트 바인딩 직접 해줘야 리프래시가 반영됨.
+			var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Board.Pages };
+			ListViewPages.ItemsSource = viewSource.View;
 		}
 	}
 }

@@ -12,6 +12,7 @@
 
 	<Page.Resources>
 		<common:PrefixConverter x:Key="Prefix" />
+		<common:ExtractFilenameConverter x:Key="ExtractFilename" />
 	</Page.Resources>
 
 	<!--
@@ -69,7 +70,8 @@
                             <Image Source="{Binding ImagePath}" Stretch="UniformToFill" AutomationProperties.Name="{Binding Key}"/>
                         </Border>-->
 						<StackPanel Grid.Column="0" Margin="10,0,0,0">
-							<TextBlock Text="{Binding Metadata}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="NoWrap" MaxHeight="40"/>
+							<TextBlock Text="{Binding Metadata, Converter={StaticResource ExtractFilename}}" Style="{StaticResource TitleTextBlockStyle}" Foreground="{StaticResource LbDarkBlueBrush}" TextWrapping="NoWrap" MaxHeight="40"/>
+							<TextBlock Text="{Binding Metadata}" Style="{StaticResource TitleTextBlockStyle}" TextWrapping="NoWrap" MaxHeight="40" FontSize="12" Foreground="{StaticResource LbDarkTextBrush}"/>
 						</StackPanel>
 					</Grid>
 				</DataTemplate>
@@ -115,7 +117,7 @@
 						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}">Edit</TextBlock>
 						</StackPanel>
 					</Button>
-					<Button x:Name="ButtonPreview" Command="{Binding Source={StaticResource Locator}, Path=Main.PreviewCmd}" CommandParameter="{Binding ElementName=pageRoot, Path=SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
+					<Button x:Name="ButtonPreview" Command="{Binding Source={StaticResource Locator}, Path=Main.PreviewCmd}" CommandParameter="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
 						<StackPanel Orientation="Horizontal" Margin="3">
 							<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
 								<Image Source="../Images/appbar.monitor.play.png" Margin="2" />
@@ -124,7 +126,7 @@
 						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}">Preview</TextBlock>
 						</StackPanel>
 					</Button>
-					<Button x:Name="ButtonPlay" Command="{Binding Source={StaticResource Locator}, Path=Main.PlayCmd}" CommandParameter="{Binding ElementName=pageRoot, Path=SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
+					<Button x:Name="ButtonPlay" Command="{Binding Source={StaticResource Locator}, Path=Main.PlayCmd}" CommandParameter="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
 						<StackPanel Orientation="Horizontal" Margin="3">
 							<Grid Width="40" Height="40" Background="{StaticResource LbRedKeyBrush}">
 								<Image Source="../Images/appbar.control.play.png" Margin="2" />
@@ -136,7 +138,7 @@
 				</StackPanel>
 
 				<!-- 선택한 것에 따라서 DataContext가 변하고 하부의 아이템들이 바인딩된다. -->
-				<StackPanel DataContext="{Binding ElementName=pageRoot, Path=SelectedBoard}"  x:Name="SelectedFileInfoStackPanel" Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">
+				<StackPanel DataContext="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}"  x:Name="SelectedFileInfoStackPanel" Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">
 					<TextBlock Margin="0,0,0,0" Text="Brief information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
 					<StackPanel Margin="5,-5,0,0">
 						<TextBlock x:Name="itemTitle" Text="{Binding Path=Board.Title, Converter={StaticResource Prefix}, ConverterParameter='Title', TargetNullValue='unknown'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
@@ -144,8 +146,8 @@
 						<TextBlock x:Name="itemSlideNumber" Text="{Binding Path=Board.Pages.Count, Converter={StaticResource Prefix}, ConverterParameter='Total Slides'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
 						<TextBlock x:Name="itemRunningTime" Text="{Binding Path=RunningTime, Converter={StaticResource Prefix}, ConverterParameter='Running Time'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
 					</StackPanel>
-					<TextBlock Margin="0,25,0,0" Text="Detail information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
-					<TextBlock Margin="5,-5,0,0" Text="If your want to edit pages, please select folder icon at the top" Style="{StaticResource SubtitleTextBlockStyle}"/>
+					<TextBlock Margin="0,30,0,0" Text="Detail information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
+					<TextBlock Margin="5,-5,0,0" Text="If your want to edit pages, please select folder icon at the top" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{StaticResource LbTextBrush}" />
 					<!--Pages 리스트. 아이템의 드래그앤드롭 기능을 위해 ItemsSource 는 CodeBehind에서 설정한다.-->
 					<ListView x:Name="itemListViewPages" HorizontalAlignment="Stretch" Background="{StaticResource LbLightShadowBrush}" ItemsSource="{Binding Path=Board.Pages}"
 			VerticalAlignment="Stretch" BorderThickness="0" Margin="0,20,50,0" ItemContainerStyle="{StaticResource ListViewItemStyle1}" SelectionMode="None">
