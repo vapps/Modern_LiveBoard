@@ -141,7 +141,7 @@ namespace LiveBoard
 				}));
 
 			args.Request.ApplicationCommands.Add(new SettingsCommand(
-				"InquirySettingsCommand", "문의하기 (이메일)", async handler =>
+				"InquirySettingsCommand", "Inquiry (Email)", async handler =>
 				{
 					await Launcher.LaunchUriAsync(new Uri("mailto:hello@bapul.net"));
 				}));
