@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="ko-KR" original="LiveBoard_Multilingual.prilog.xml" tool-id="MultilingualAppToolkit" product-name="LiveBoard" product-version="1.0.0.0" build-num="0">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="2.2.1212.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="Resources">
+        <trans-unit translate="yes" id="Resources\Title" xml:space="preserve">
+          <source>Title</source>
+          <target state="signed-off">제목</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PlayRecentBoard\Text" xml:space="preserve">
+          <source>Play Recent Board</source>
+          <target state="translated">최근 보드 재생</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Page" xml:space="preserve">
+          <source>Page</source>
+          <target state="signed-off" state-qualifier="tm-suggestion">페이지</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\EditRecentBoard\Text" xml:space="preserve">
+          <source>Edit Recent Board</source>
+          <target state="final" state-qualifier="mt-suggestion">최근 보드 편집</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\OpenBoardFile\Text" xml:space="preserve">
+          <source>Open Board File</source>
+          <target state="translated">파일 열기</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Description" xml:space="preserve">
+          <source>Description</source>
+          <target state="signed-off">설명</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\CreateNewBoard\Text" xml:space="preserve">
+          <source>Create New Board</source>
+          <target state="signed-off">새 보드 만들기</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

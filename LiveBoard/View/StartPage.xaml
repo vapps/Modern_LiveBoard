@@ -39,7 +39,7 @@
 						</ContentControl.RenderTransform>
 					</ContentControl>
 					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF">Create New Board</TextBlock>
+						<TextBlock x:Uid="CreateNewBoard" Text="Create New Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
 					</Grid>
 				</Grid>
 			</Button>
@@ -51,7 +51,7 @@
 						</ContentControl.RenderTransform>
 					</ContentControl>
 					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF">Open Board</TextBlock>
+						<TextBlock x:Uid="OpenBoardFile" Text="Open Board File" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
 					</Grid>
 				</Grid>
 			</Button>
@@ -63,7 +63,7 @@
 						</ContentControl.RenderTransform>
 					</ContentControl>
 					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF">Play Recent Board</TextBlock>
+						<TextBlock x:Uid="PlayRecentBoard" Text="Play Recent Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
 					</Grid>
 				</Grid>
 			</Button>
@@ -75,7 +75,7 @@
 						</ContentControl.RenderTransform>
 					</ContentControl>
 					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF">Edit Recent Board</TextBlock>
+						<TextBlock x:Uid="EditRecentBoard" Text="Edit Recent Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
 					</Grid>
 				</Grid>
 
