@@ -10,21 +10,53 @@
           <source>Title</source>
           <target state="signed-off">제목</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\PreviewMode\Text" xml:space="preserve">
+          <source>Preview Mode</source>
+          <target state="signed-off">미리보기 모드</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Preview\Text" xml:space="preserve">
+          <source>Preview</source>
+          <target state="translated">미리보기</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resources\PlayRecentBoard\Text" xml:space="preserve">
           <source>Play Recent Board</source>
           <target state="translated">최근 보드 재생</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PlayBoard\Text" xml:space="preserve">
+          <source>Play Board</source>
+          <target state="translated">쇼 실행</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\Page" xml:space="preserve">
           <source>Page</source>
           <target state="signed-off" state-qualifier="tm-suggestion">페이지</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\EditRecentBoard\Text" xml:space="preserve">
-          <source>Edit Recent Board</source>
-          <target state="final" state-qualifier="mt-suggestion">최근 보드 편집</target>
+          <source>Recent Boards</source>
+          <target state="translated">최근 보드 목록</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\DetailInformation\Text" xml:space="preserve">
+          <source>Detail information</source>
+          <target state="final" state-qualifier="tm-suggestion">세부 정보</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Edit\Text" xml:space="preserve">
+          <source>Edit</source>
+          <target state="final" state-qualifier="tm-suggestion">편집</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\EditPageGuide\Text" xml:space="preserve">
+          <source>If your want to edit pages, please select Edit button at the top</source>
+          <target state="final">페이지를 편집하려면 상단에 편집 버튼을 클릭해주세요</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\OpenBoardFile\Text" xml:space="preserve">
           <source>Open Board File</source>
-          <target state="translated">파일 열기</target>
+          <target state="final">파일 열기</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\NA" xml:space="preserve">
+          <source>N/A</source>
+          <target state="final">정보없음</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\GoBack\Content" xml:space="preserve">
+          <source>Go Back</source>
+          <target state="signed-off" state-qualifier="tm-suggestion">돌아가기</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\Description" xml:space="preserve">
           <source>Description</source>
@@ -33,6 +65,10 @@
         <trans-unit translate="yes" id="Resources\CreateNewBoard\Text" xml:space="preserve">
           <source>Create New Board</source>
           <target state="signed-off">새 보드 만들기</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\BriefInformation\Text" xml:space="preserve">
+          <source>Brief information</source>
+          <target state="final">간략한 정보</target>
         </trans-unit>
       </group>
     </body>

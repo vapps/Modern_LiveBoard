@@ -117,14 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BriefInformation.Text" xml:space="preserve">
+    <value>Brief information</value>
+  </data>
   <data name="CreateNewBoard.Text" xml:space="preserve">
     <value>Create New Board</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
+  <data name="DetailInformation.Text" xml:space="preserve">
+    <value>Detail information</value>
+  </data>
+  <data name="Edit.Text" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditPageGuide.Text" xml:space="preserve">
+    <value>If your want to edit pages, please select Edit button at the top</value>
+  </data>
   <data name="EditRecentBoard.Text" xml:space="preserve">
-    <value>Edit Recent Board</value>
+    <value>Recent Boards</value>
+  </data>
+  <data name="GoBack.Content" xml:space="preserve">
+    <value>Go Back</value>
+  </data>
+  <data name="NA" xml:space="preserve">
+    <value>N/A</value>
   </data>
   <data name="OpenBoardFile.Text" xml:space="preserve">
     <value>Open Board File</value>
@@ -132,8 +150,17 @@
   <data name="Page" xml:space="preserve">
     <value>Page</value>
   </data>
+  <data name="PlayBoard.Text" xml:space="preserve">
+    <value>Play Board</value>
+  </data>
   <data name="PlayRecentBoard.Text" xml:space="preserve">
     <value>Play Recent Board</value>
+  </data>
+  <data name="Preview.Text" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="PreviewMode.Text" xml:space="preserve">
+    <value>Preview Mode</value>
   </data>
   <data name="Title" xml:space="preserve">
     <value>Title</value>

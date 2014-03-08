@@ -47,7 +47,7 @@
                         AutomationProperties.Name="Back"
                         AutomationProperties.AutomationId="BackButton"
                         AutomationProperties.ItemType="Navigation Button"/>
-			<TextBlock x:Name="pageTitle" Text="Recent Boards" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1"
+			<TextBlock x:Name="pageTitle" x:Uid="EditRecentBoard" Text="Recent Boards" Style="{StaticResource HeaderTextBlockStyle}" Grid.Column="1"
                         IsHitTestVisible="false" TextWrapping="NoWrap" VerticalAlignment="Bottom" Margin="0,0,0,40"/>
 		</Grid>
 
@@ -113,8 +113,8 @@
 							<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
 								<Image Source="../Images/appbar.edit.png" Margin="2" />
 							</Grid>
-							<TextBlock VerticalAlignment="Center" FontSize="24" 
-						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}">Edit</TextBlock>
+							<TextBlock x:Uid="Edit" Text="Edit" VerticalAlignment="Center" FontSize="24" 
+						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}" />
 						</StackPanel>
 					</Button>
 					<Button x:Name="ButtonPreview" Command="{Binding Source={StaticResource Locator}, Path=Main.PreviewCmd}" CommandParameter="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
@@ -122,8 +122,8 @@
 							<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
 								<Image Source="../Images/appbar.monitor.play.png" Margin="2" />
 							</Grid>
-							<TextBlock VerticalAlignment="Center" FontSize="24" 
-						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}">Preview</TextBlock>
+							<TextBlock x:Uid="Preview" Text="Preview" VerticalAlignment="Center" FontSize="24" 
+						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}" />
 						</StackPanel>
 					</Button>
 					<Button x:Name="ButtonPlay" Command="{Binding Source={StaticResource Locator}, Path=Main.PlayCmd}" CommandParameter="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
@@ -131,23 +131,23 @@
 							<Grid Width="40" Height="40" Background="{StaticResource LbRedKeyBrush}">
 								<Image Source="../Images/appbar.control.play.png" Margin="2" />
 							</Grid>
-							<TextBlock VerticalAlignment="Center" FontSize="24" 
-						   Margin="10,0,0,0" Foreground="{StaticResource LbRedKeyBrush}">Play Board</TextBlock>
+							<TextBlock x:Uid="PlayBoard" Text="Play Board" VerticalAlignment="Center" FontSize="24" 
+						   Margin="10,0,0,0" Foreground="{StaticResource LbRedKeyBrush}" />
 						</StackPanel>
 					</Button>
 				</StackPanel>
 
 				<!-- 선택한 것에 따라서 DataContext가 변하고 하부의 아이템들이 바인딩된다. -->
-				<StackPanel DataContext="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}"  x:Name="SelectedFileInfoStackPanel" Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">
-					<TextBlock Margin="0,0,0,0" Text="Brief information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
+				<StackPanel DataContext="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">
+					<TextBlock Margin="0,0,0,0" x:Uid="BriefInformation" Text="Brief information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
 					<StackPanel Margin="5,-5,0,0">
 						<TextBlock x:Name="itemTitle" Text="{Binding Path=Board.Title, Converter={StaticResource Prefix}, ConverterParameter='Title', TargetNullValue='unknown'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
 						<TextBlock x:Name="itemAuthor" Text="{Binding Path=Board.Author, Converter={StaticResource Prefix}, ConverterParameter='Author'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
 						<TextBlock x:Name="itemSlideNumber" Text="{Binding Path=Board.Pages.Count, Converter={StaticResource Prefix}, ConverterParameter='Total Slides'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
 						<TextBlock x:Name="itemRunningTime" Text="{Binding Path=RunningTime, Converter={StaticResource Prefix}, ConverterParameter='Running Time'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
 					</StackPanel>
-					<TextBlock Margin="0,30,0,0" Text="Detail information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
-					<TextBlock Margin="5,-5,0,0" Text="If your want to edit pages, please select folder icon at the top" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{StaticResource LbTextBrush}" FontStyle="Italic" />
+					<TextBlock Margin="0,30,0,0" x:Uid="DetailInformation" Text="Detail information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
+					<TextBlock Margin="5,-5,0,0" x:Uid="EditPageGuide" Text="If your want to edit pages, please select folder icon at the top" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{StaticResource LbTextBrush}" FontStyle="Italic" />
 					<!--Pages 리스트. 아이템의 드래그앤드롭 기능을 위해 ItemsSource 는 CodeBehind에서 설정한다.-->
 					<ListView x:Name="itemListViewPages" HorizontalAlignment="Stretch" Background="{StaticResource LbLightShadowBrush}" ItemsSource="{Binding Path=Board.Pages}"
 			VerticalAlignment="Stretch" BorderThickness="0" Margin="0,20,50,0" ItemContainerStyle="{StaticResource ListViewItemStyle1}" SelectionMode="None">

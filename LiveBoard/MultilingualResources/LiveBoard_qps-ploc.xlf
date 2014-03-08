@@ -10,21 +10,53 @@
           <source>Title</source>
           <target state="new">Title</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\PreviewMode\Text" xml:space="preserve">
+          <source>Preview Mode</source>
+          <target state="new">Preview Mode</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Preview\Text" xml:space="preserve">
+          <source>Preview</source>
+          <target state="new">Preview</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resources\PlayRecentBoard\Text" xml:space="preserve">
           <source>Play Recent Board</source>
           <target state="new">Play Recent Board</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PlayBoard\Text" xml:space="preserve">
+          <source>Play Board</source>
+          <target state="new">Play Board</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\Page" xml:space="preserve">
           <source>Page</source>
           <target state="new">Page</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\EditRecentBoard\Text" xml:space="preserve">
-          <source>Edit Recent Board</source>
-          <target state="new">Edit Recent Board</target>
+          <source>Recent Boards</source>
+          <target state="new">Recent Boards</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\DetailInformation\Text" xml:space="preserve">
+          <source>Detail information</source>
+          <target state="new">Detail information</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Edit\Text" xml:space="preserve">
+          <source>Edit</source>
+          <target state="new">Edit</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\EditPageGuide\Text" xml:space="preserve">
+          <source>If your want to edit pages, please select Edit button at the top</source>
+          <target state="new">If your want to edit pages, please select Edit button at the top</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\OpenBoardFile\Text" xml:space="preserve">
           <source>Open Board File</source>
           <target state="new">Open Board File</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\NA" xml:space="preserve">
+          <source>N/A</source>
+          <target state="new">N/A</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\GoBack\Content" xml:space="preserve">
+          <source>Go Back</source>
+          <target state="new">Go Back</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\Description" xml:space="preserve">
           <source>Description</source>
@@ -33,6 +65,10 @@
         <trans-unit translate="yes" id="Resources\CreateNewBoard\Text" xml:space="preserve">
           <source>Create New Board</source>
           <target state="new">Create New Board</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\BriefInformation\Text" xml:space="preserve">
+          <source>Brief information</source>
+          <target state="new">Brief information</target>
         </trans-unit>
       </group>
     </body>
