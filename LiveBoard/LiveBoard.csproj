@@ -118,7 +118,6 @@
     <Compile Include="Common\DurationTimeSpanConverter.cs" />
     <Compile Include="Common\NavigationHelper.cs" />
     <Compile Include="Common\NumericMinuteConverter.cs" />
-    <Compile Include="Common\ObservableDictionary.cs" />
     <Compile Include="Common\PageExistToVisibilityConverter.cs" />
     <Compile Include="Common\PageToCountDisplayConverter.cs" />
     <Compile Include="Common\PropertyDataSummaryConverter.cs" />
