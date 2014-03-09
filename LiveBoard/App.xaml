@@ -21,6 +21,7 @@
 			<common:ZeroToVisibilityConverter x:Key="ZeroToVisibility" />
 			<common:TimespanZeroFillConverter x:Key="TimespanZeroFill" />
 			<common:PropertyDataSummaryConverter x:Key="PropertyDataSummary" />
+			<common:NumberCommaConverter x:Key="numberComma" />
 
 			<Style x:Key="ListViewItemStyle1" TargetType="ListViewItem">
 				<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>

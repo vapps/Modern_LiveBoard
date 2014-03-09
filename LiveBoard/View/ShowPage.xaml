@@ -32,14 +32,14 @@
 			<Grid x:Name="GridPreviewBanner" Height="48" VerticalAlignment="Top" Background="#66AF0000">
 				<StackPanel Orientation="Horizontal" Margin="20,0,0,0">
 					<Button x:Uid="GoBack" Content="Go Back" Click="GoBack" Height="36" />
-					<TextBlock x:Uid="PreviewMode" Text="Preview Mode" FontSize="20" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="LightGray"></TextBlock>
+					<TextBlock x:Uid="PreviewMode" Text="Preview Mode" FontSize="20" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="LightGray" />
 				</StackPanel>
 			</Grid>
 			<Grid x:Name="GridTipBanner" Height="48" VerticalAlignment="Top" Background="#66AF0000" Visibility="Collapsed">
 				<StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-					<Button Click="GoBack" Height="36">Go Back</Button>
-					<StackPanel Orientation="Horizontal">
-						<TextBlock Text="Playing..." FontSize="20" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="LightGray"></TextBlock>
+					<Button x:Uid="GoBack" Content="Go Back" Click="GoBack" Height="36" />
+					<StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+						<TextBlock x:Uid="Playing" Text="Playing..." FontSize="20" VerticalAlignment="Center" Margin="20,0,0,0" Foreground="LightGray" />
 					</StackPanel>
 				</StackPanel>
 			</Grid>

@@ -50,8 +50,8 @@
 	</Template>
 	<Template Key="FacebookLike" DisplayName="Facebook Like count" Description="Show 'Like' count of a Facebook page" TemplateView="FacebookCount" TemplateModel="FacebookLikeCountPage">
 		<DataList>
-			<Data Key="Page" Name="Page Name" ValueType="String" DefaultValue="windows" />
-			<Data Key="Title" Name="Title" ValueType="String" DefaultValue="Windows Facebook Page" />
+			<Data Key="Page" Name="Facebook Page Name" ValueType="String" DefaultValue="windows" />
+			<Data Key="Title" Name="Title to Display" ValueType="String" DefaultValue="Windows Facebook Page" />
 			<Data Key="Count" Name="Count" ValueType="Int" DefaultValue="0" IsHidden="True" />
 		</DataList>
 	</Template>

@@ -9,18 +9,11 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-
 	<Grid>
 		<StackPanel Margin="10">
-			<!--<TextBlock FontSize="20">개인 정보 취급 방침</TextBlock>-->
-			<RichTextBlock Margin="15" FontSize="14">
-				<Paragraph>
-					The Live Board app does NOT gather or require any privacy information. The Live Board app is created by an employee of Bapul, Inc. during his coffee break. 
-					<!--본 프로그램은 바로풀기 서비스 개발사인 <Bold>㈜바풀</Bold>의 직원이 잉여시간을 활용하여 취미로 만들었습니다. 본 프로그램은 어떠한 개인 정보도 수집하지 않습니다.-->
-				</Paragraph>
-				<Paragraph />
-				<Paragraph>Thank you.</Paragraph>
-			</RichTextBlock>
+			<TextBlock x:Uid="PrivacyPolicy" Margin="15" FontSize="14" TextWrapping="Wrap" Text="The Live Board app does NOT gather or require any privacy information. The Live Board app is created by an employee of Bapul, Inc. during his coffee break." />
+
+			<!--본 프로그램은 바로풀기 서비스 개발사인 <Bold>㈜바풀</Bold>의 직원이 잉여시간을 활용하여 취미로 만들었습니다. 본 프로그램은 어떠한 개인 정보도 수집하지 않습니다.-->
 			<!--<HyperlinkButton NavigateUri="http://bapul.net/privacy_agreement">웹에서 내용 모두 보기</HyperlinkButton>-->
 		</StackPanel>
 	</Grid>

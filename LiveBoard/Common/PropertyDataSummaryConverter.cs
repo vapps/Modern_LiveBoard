@@ -27,7 +27,7 @@ namespace LiveBoard.Common
 			{
 				var lbPageDatas = data as IList<LbPageData> ?? data.ToList();
 				if (lbPageDatas.Count() > 1)
-					return String.Format("Contains {0} values", lbPageDatas.Count());
+					return String.Format("Contains {0} values", lbPageDatas.Count(p => p.IsHidden == false));
 				return String.Format("{0}: {1}", (lbPageDatas.ElementAt(0)).Name, (lbPageDatas.ElementAt(0)).Data);
 			}
 			return value;

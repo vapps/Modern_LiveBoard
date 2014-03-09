@@ -88,24 +88,40 @@ namespace LiveBoard.PageTemplate.Model
 		/// 제공된 페이지 데이터에 데이터를 입력한다.
 		/// </summary>
 		/// <param name="pageData"></param>
+		/// <param name="valueType"></param>
 		/// <param name="data"></param>
 		/// <returns></returns>
-		public static LbPageData Parse(LbPageData pageData, string data)
+		public static LbPageData Parse(LbPageData pageData, string valueType, string data)
 		{
-			switch (pageData.ValueType.Name.ToLower())
+			valueType = !String.IsNullOrEmpty(valueType) ? valueType : (pageData.ValueType != null ? pageData.ValueType.Name : null);
+			if (valueType == null)
+				throw new ArgumentNullException("valueType");
+
+			switch (valueType.ToLower())
 			{
+				case "":
 				case "string":
+					pageData.ValueType = typeof(string);
 					pageData.Data = data;
 					break;
 				case "int":
+				case "int16":
+				case "int32":
 				case "integer":
-					pageData.Data = int.Parse(data);
+					pageData.ValueType = typeof(int);
+					pageData.Data = !String.IsNullOrWhiteSpace(data) ? int.Parse(data) : 0;
 					break;
+				case "int64":
+				case "float":
 				case "double":
-					pageData.Data = double.Parse(data);
+					pageData.ValueType = typeof(double);
+					pageData.Data = !String.IsNullOrWhiteSpace(data) ? double.Parse(data) : 0d;
 					break;
 				case "color":
+					pageData.ValueType = typeof(Color);
 					string colorcode = data.Replace("#", "");
+					if (String.IsNullOrWhiteSpace(colorcode)) // 기본값은 검정.
+						colorcode = "000000";
 					int argb = Int32.Parse(colorcode, NumberStyles.HexNumber);
 					if (colorcode.Length > 6)
 					{
@@ -121,9 +137,11 @@ namespace LiveBoard.PageTemplate.Model
 							(byte)((argb & 0xff00) >> 8),
 							(byte)(argb & 0xff));
 					}
+
 					break;
 				default:
 					// typeof(IEnumerable<string>) 이것이 변환. System.Collections.Generic.IEnumerable`1[System.String]
+					pageData.ValueType = Type.GetType(valueType);
 					pageData.Data = new ObservableCollection<string>();
 					break;
 			}
@@ -138,56 +156,16 @@ namespace LiveBoard.PageTemplate.Model
 		public static LbPageData FromXml(XElement xElement)
 		{
 			// <Data Key="Url" Name="Header" ValueType="String" DefaultData="" />
-
 			var tData = new LbPageData
 			{
 				Key = xElement.Attribute("Key").Value,
 				Name = xElement.Attribute("Name").Value,
 				IsHidden = bool.Parse(xElement.Attribute("IsHidden") != null
 					? xElement.Attribute("IsHidden").Value
-					: bool.FalseString)
+					: bool.FalseString),
 			};
-			switch (xElement.Attribute("ValueType").Value.ToLower())
-			{
-				case "string":
-					tData.ValueType = typeof(string);
-					tData.DefaultData = xElement.Attribute("DefaultValue").Value;
-					break;
-				case "int":
-				case "integer":
-					tData.ValueType = typeof(int);
-					tData.DefaultData = int.Parse(!String.IsNullOrEmpty(xElement.Attribute("DefaultValue").Value) ? xElement.Attribute("DefaultValue").Value : "0");
-					break;
-				case "double":
-					tData.ValueType = typeof(double);
-					tData.DefaultData = double.Parse(!String.IsNullOrEmpty(xElement.Attribute("DefaultValue").Value) ? xElement.Attribute("DefaultValue").Value : "0");
-					break;
-				case "color":
-					tData.ValueType = typeof(Color);
-					string colorcode = xElement.Attribute("DefaultValue").Value.Replace("#", "");
-					int argb = Int32.Parse(colorcode, NumberStyles.HexNumber);
-					if (colorcode.Length > 6)
-					{
-						tData.DefaultData = Color.FromArgb((byte)((argb & -16777216) >> 0x18), // 0x18=24
-							(byte)((argb & 0xff0000) >> 0x10), // 0x10=16
-							(byte)((argb & 0xff00) >> 8),
-							(byte)(argb & 0xff));
-					}
-					else
-					{
-						tData.DefaultData = Color.FromArgb(0xff,
-							(byte)((argb & 0xff0000) >> 0x10), // 0x10=16
-							(byte)((argb & 0xff00) >> 8),
-							(byte)(argb & 0xff));
-					}
-					break;
-				default:
-					// typeof(IEnumerable<string>) 이것이 변환. System.Collections.Generic.IEnumerable`1[System.String]
-					tData.ValueType = Type.GetType(xElement.Attribute("ValueType").Value);
-					tData.DefaultData = new ObservableCollection<string>();
-					break;
-			}
-			return tData;
+
+			return Parse(tData, xElement.Attribute("ValueType").Value, xElement.Attribute("DefaultValue").Value);
 		}
 
 		/// <summary>
@@ -202,16 +180,17 @@ namespace LiveBoard.PageTemplate.Model
 			{
 				xElement = new XElement("Data",
 					new XAttribute("Key", Key ?? ""),
-					new XAttribute("Data", Data.ToString() ?? "")
+					new XAttribute("ValueType", ValueType.Name ?? "String"),
+					new XAttribute("Data", Data ?? "")
 					);
 			}
 			else
 			{
 				xElement = new XElement("Data",
 					new XAttribute("Key", Key ?? ""),
-					new XAttribute("Data", Data.ToString() ?? ""),
-					new XAttribute("DefaultValue", DefaultData.ToString() ?? ""),
-					new XAttribute("ValueType", ValueType.Name ?? "String"),
+					new XAttribute("Data", Data ?? ""),
+					new XAttribute("DefaultValue", DefaultData ?? ""),
+					new XAttribute("ValueType", ValueType != null ? ValueType.Name : "String"),
 					new XAttribute("IsHidden", IsHidden.ToString()),
 					new XAttribute("Name", Name ?? "")
 					);

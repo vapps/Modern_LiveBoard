@@ -22,6 +22,7 @@
     <TargetFrameworkVersion />
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>neutral</AppxBundlePlatforms>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -113,6 +114,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Common\ExtractFilenameConverter.cs" />
+    <Compile Include="Common\NumberCommaConverter.cs" />
     <Compile Include="Common\PrefixConverter.cs" />
     <Compile Include="Common\FilenamePrefixConverter.cs" />
     <Compile Include="Common\DurationTimeSpanConverter.cs" />
@@ -400,9 +402,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Libs\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="MultilingualResources\LiveBoard_qps-ploc.xlf" />
   </ItemGroup>
   <ItemGroup>
     <None Include="MultilingualResources\LiveBoard_ko-KR.xlf" />

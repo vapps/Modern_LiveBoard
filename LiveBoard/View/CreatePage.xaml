@@ -25,7 +25,7 @@
 		</DataTemplate>
 		<DataTemplate x:Key="DoubleTemplate">
 			<editorTemplate:LbDoubleControl />
-		</DataTemplate>		
+		</DataTemplate>
 		<DataTemplate x:Key="HiddenTemplate">
 			<editorTemplate:LbHiddenControl />
 		</DataTemplate>
@@ -127,7 +127,7 @@
 				<ColumnDefinition Width="*"/>
 			</Grid.ColumnDefinitions>
 			<Button x:Name="backButton" Click="GoBack" IsEnabled="{Binding Path=Frame.CanGoBack, ElementName=pageRoot}" Style="{StaticResource BackButtonStyle}"/>
-			<TextBlock x:Name="pageTitle" Grid.Column="1" Text="Create Board" Style="{StaticResource PageHeaderTextStyle}"/>
+			<TextBlock x:Name="pageTitle" x:Uid="CreateNewBoard" Grid.Column="1" Text="Create Board" Style="{StaticResource PageHeaderTextStyle}"/>
 			<TextBlock x:Name="fileNameTitle" Grid.Column="1" Text="{Binding Path=ActiveBoard.Board.Filename, Mode=OneWay, Converter={StaticResource filenamePrefixConverter}}" Margin="170,0,0,15" VerticalAlignment="Bottom" FontSize="14" Foreground="{StaticResource LbTextBrush}" FontFamily="Global User Interface" FontStyle="Italic" />
 
 			<StackPanel Grid.Column="1" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,50,0">
@@ -145,8 +145,8 @@
 						<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
 							<Image Source="../Images/appbar.monitor.play.png" Margin="2" />
 						</Grid>
-						<TextBlock VerticalAlignment="Center" FontSize="24" 
-						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}">Preview</TextBlock>
+						<TextBlock x:Uid="Preview" Text="Preview" VerticalAlignment="Center" FontSize="24" 
+						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}" />
 					</StackPanel>
 				</Button>
 				<Button x:Name="ButtonPlay" Command="{Binding Path=PlayCmd}" CommandParameter="{Binding ActiveBoard}"
@@ -155,8 +155,8 @@
 						<Grid Width="40" Height="40" Background="{StaticResource LbRedKeyBrush}">
 							<Image Source="../Images/appbar.control.play.png" Margin="2" />
 						</Grid>
-						<TextBlock VerticalAlignment="Center" FontSize="24" 
-						   Margin="10,0,0,0" Foreground="{StaticResource LbRedKeyBrush}">Play Board</TextBlock>
+						<TextBlock x:Uid="PlayBoard" Text="Play Board" VerticalAlignment="Center" FontSize="24" 
+						   Margin="10,0,0,0" Foreground="{StaticResource LbRedKeyBrush}" />
 					</StackPanel>
 				</Button>
 			</StackPanel>
@@ -177,20 +177,22 @@
 				</Grid.ColumnDefinitions>
 				<!-- 좌측 Pages 리스트 -->
 				<Grid>
-					<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Pages" 
-				   FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" Margin="0,0,0,10" />
-					<StackPanel Margin="85,10,0,0" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Visibility="{Binding Path=ActiveBoard.Board.Pages.Count, Converter={StaticResource PageExistToVisibility}, Mode=OneWay}">
-						<!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="(" 
+					<StackPanel Margin="0,0,0,10" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+						<TextBlock x:Uid="Pages" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Pages" 
+				   FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light" />
+						<StackPanel Margin="10,0,0,0" Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Left" Visibility="{Binding Path=ActiveBoard.Board.Pages.Count, Converter={StaticResource PageExistToVisibility}, Mode=OneWay}">
+							<!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="(" 
 							FontSize="19" Foreground="{StaticResource LbTextBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />-->
-						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Converter={StaticResource PageCountConverter}, ElementName=ListViewPages, Path=SelectedIndex, Mode=OneWay}" 
+							<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Converter={StaticResource PageCountConverter}, ElementName=ListViewPages, Path=SelectedIndex, Mode=OneWay}" 
 							FontSize="19" Foreground="{StaticResource LbTextBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
-						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="/" 
+							<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="/" 
 							FontSize="19" Foreground="{StaticResource LbTextBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
-						<TextBlock x:Name="TextBlockTotalPageCount" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=ActiveBoard.Board.Pages.Count, Mode=OneWay}" 
+							<TextBlock x:Name="TextBlockTotalPageCount" HorizontalAlignment="Left" TextWrapping="Wrap" Text="{Binding Path=ActiveBoard.Board.Pages.Count, Mode=OneWay}" 
 							FontSize="19" Foreground="{StaticResource LbTextBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
-						<!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text=")" 
+							<!--<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text=")" 
 							FontSize="19" Foreground="{StaticResource LbTextBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />-->
 
+						</StackPanel>
 					</StackPanel>
 
 					<Grid Margin="0">
@@ -259,7 +261,7 @@
 						</Border>
 						<Grid Margin="0,2,0,0" Grid.Row="1" Background="{StaticResource LbLightShadowBrush}">
 							<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
-								<ToggleSwitch x:Name="ToggleLoop" HorizontalAlignment="Left" VerticalAlignment="Center" 
+								<ToggleSwitch x:Name="ToggleLoop" x:Uid="Loop" HorizontalAlignment="Left" VerticalAlignment="Center" 
 									IsOn="{Binding ActiveBoard.Board.IsLoop, Mode=TwoWay}"
 									OnContent="Loop" OffContent="No Loop" Foreground="{StaticResource LbBackgroundBrush}" />
 								<Input:RadNumericBox x:Name="NumericBoxLoop" Visibility="{Binding IsOn, ConverterParameter=inverse, Converter={StaticResource BoolToVisibility}, ElementName=ToggleLoop}" 
@@ -284,7 +286,7 @@
 						<RowDefinition Height="1*" />
 					</Grid.RowDefinitions>
 					<Grid Grid.Row="0">
-						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Details" 
+						<TextBlock x:Uid="Details" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Details" 
 			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
 						<Grid Margin="0,45,0,0" Background="{StaticResource LbLightShadowBrush}">
 							<Grid Margin="10">
@@ -297,12 +299,12 @@
 									<ColumnDefinition Width="100"/>
 									<ColumnDefinition Width="1*"/>
 								</Grid.ColumnDefinitions>
-								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Text="Title" VerticalAlignment="Center"/>
+								<TextBlock x:Uid="Title" Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Text="Title" VerticalAlignment="Center"/>
 
-								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Text="Duration" VerticalAlignment="Center"/>
-								<TextBlock Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" Text="Description" VerticalAlignment="Center"/>
+								<TextBlock x:Uid="Duration" Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="1" Text="Duration" VerticalAlignment="Center"/>
+								<TextBlock x:Uid="Description" Foreground="{StaticResource LbBackgroundBrush}" FontSize="16" HorizontalAlignment="Left" Margin="10,0,0,0" Grid.Row="2" Text="Description" VerticalAlignment="Center"/>
 
-								<TextBox Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" PlaceholderText="Input title..." />
+								<TextBox x:Uid="InputTitleHint" Grid.Column="1" HorizontalAlignment="Stretch" TextWrapping="Wrap" Text="{Binding Path=Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" PlaceholderText="Input title..." />
 
 
 								<StackPanel Grid.Column="1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Center" Orientation="Vertical">
@@ -328,7 +330,7 @@
 					</Grid>
 
 					<Grid Grid.Row="1" Margin="0,10,0,0">
-						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Properties" 
+						<TextBlock x:Uid="Properties" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Properties" 
 			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" Margin="0,10,0,0" />
 						<Grid HorizontalAlignment="Stretch" Background="{StaticResource LbLightShadowBrush}" Margin="0,55,0,0">
 							<ListView x:Name="ListViewEditor"
@@ -359,7 +361,7 @@
 			<Grid Grid.Column="1" DataContext="{Binding ElementName=ListViewPages, Path=SelectedItem, Mode=OneWay}">
 				<Grid Margin="20,0,0,0">
 					<Grid>
-						<TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" Text="Preview" 
+						<TextBlock x:Uid="Preview" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Preview" 
 			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
 						<Border BorderThickness="15" BorderBrush="{StaticResource LbLightGrayBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="250" MinHeight="180" CornerRadius="10">
 							<Grid>

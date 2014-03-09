@@ -121,13 +121,19 @@
     <value>Brief information</value>
   </data>
   <data name="CreateNewBoard.Text" xml:space="preserve">
-    <value>Create New Board</value>
+    <value>Create Board</value>
   </data>
-  <data name="Description" xml:space="preserve">
+  <data name="Description.Text" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="DetailInformation.Text" xml:space="preserve">
     <value>Detail information</value>
+  </data>
+  <data name="Details.Text" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="Duration.Text" xml:space="preserve">
+    <value>Duration</value>
   </data>
   <data name="Edit.Text" xml:space="preserve">
     <value>Edit</value>
@@ -141,6 +147,18 @@
   <data name="GoBack.Content" xml:space="preserve">
     <value>Go Back</value>
   </data>
+  <data name="InputTitleHint.PlaceholderText" xml:space="preserve">
+    <value>Input title...</value>
+  </data>
+  <data name="InquiryEmail" xml:space="preserve">
+    <value>Inquiry (Email)</value>
+  </data>
+  <data name="Loop.OffContent" xml:space="preserve">
+    <value>No Loop</value>
+  </data>
+  <data name="Loop.OnContent" xml:space="preserve">
+    <value>Loop</value>
+  </data>
   <data name="NA" xml:space="preserve">
     <value>N/A</value>
   </data>
@@ -150,8 +168,14 @@
   <data name="Page" xml:space="preserve">
     <value>Page</value>
   </data>
+  <data name="Pages.Text" xml:space="preserve">
+    <value>Pages</value>
+  </data>
   <data name="PlayBoard.Text" xml:space="preserve">
     <value>Play Board</value>
+  </data>
+  <data name="Playing.Text" xml:space="preserve">
+    <value>Playing...</value>
   </data>
   <data name="PlayRecentBoard.Text" xml:space="preserve">
     <value>Play Recent Board</value>
@@ -162,7 +186,16 @@
   <data name="PreviewMode.Text" xml:space="preserve">
     <value>Preview Mode</value>
   </data>
-  <data name="Title" xml:space="preserve">
+  <data name="PrivacyPolicy.Text" xml:space="preserve">
+    <value>Live Board app does not gather or require any privacy information. Live Board app is created by an employee of Bapul, Inc. during his coffee break.</value>
+  </data>
+  <data name="Properties.Text" xml:space="preserve">
+    <value>Properties</value>
+  </data>
+  <data name="Title.Text" xml:space="preserve">
     <value>Title</value>
+  </data>
+  <data name="appTitle" xml:space="preserve">
+    <value>Live Board</value>
   </data>
 </root>

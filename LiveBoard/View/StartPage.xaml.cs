@@ -109,6 +109,9 @@ namespace LiveBoard.View
 				return;
 			if (_viewModel.ActiveBoard == null)
 				_viewModel.ActiveBoard = new BoardViewModel();
+			if (_viewModel.SelectedBoard == null)
+				_viewModel.SelectedBoard = new BoardViewModel();
+
 			await _viewModel.SelectedBoard.LoadAsync(file, _viewModel.Templates);
 
 			// 최근 문서로 저장.

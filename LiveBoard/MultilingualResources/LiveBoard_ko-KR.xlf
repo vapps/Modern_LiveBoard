@@ -6,9 +6,21 @@
     </header>
     <body>
       <group id="Resources">
-        <trans-unit translate="yes" id="Resources\Title" xml:space="preserve">
+        <trans-unit translate="yes" id="Resources\appTitle" xml:space="preserve">
+          <source>Live Board</source>
+          <target state="final">라이브 보드</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Title\Text" xml:space="preserve">
           <source>Title</source>
-          <target state="signed-off">제목</target>
+          <target state="translated" state-qualifier="tm-suggestion">제목</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Properties\Text" xml:space="preserve">
+          <source>Properties</source>
+          <target state="translated" state-qualifier="tm-suggestion">속성</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PrivacyPolicy\Text" xml:space="preserve">
+          <source>Live Board app does not gather or require any privacy information. Live Board app is created by an employee of Bapul, Inc. during his coffee break.</source>
+          <target state="translated">본 프로그램은 바로풀기 서비스 개발사인 ㈜바풀의 직원이 잉여시간을 활용하여 취미로 만들었습니다. 본 프로그램은 어떠한 개인 정보도 수집하지 않습니다.</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\PreviewMode\Text" xml:space="preserve">
           <source>Preview Mode</source>
@@ -22,9 +34,17 @@
           <source>Play Recent Board</source>
           <target state="translated">최근 보드 재생</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\Playing\Text" xml:space="preserve">
+          <source>Playing...</source>
+          <target state="translated">재생 중...</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resources\PlayBoard\Text" xml:space="preserve">
           <source>Play Board</source>
           <target state="translated">쇼 실행</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Pages\Text" xml:space="preserve">
+          <source>Pages</source>
+          <target state="translated" state-qualifier="tm-suggestion">페이지</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\Page" xml:space="preserve">
           <source>Page</source>
@@ -38,9 +58,21 @@
           <source>Detail information</source>
           <target state="final" state-qualifier="tm-suggestion">세부 정보</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\Description\Text" xml:space="preserve">
+          <source>Description</source>
+          <target state="translated">설명</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resources\Edit\Text" xml:space="preserve">
           <source>Edit</source>
           <target state="final" state-qualifier="tm-suggestion">편집</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Details\Text" xml:space="preserve">
+          <source>Details</source>
+          <target state="translated">세부사항</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Duration\Text" xml:space="preserve">
+          <source>Duration</source>
+          <target state="translated">재생시간</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\EditPageGuide\Text" xml:space="preserve">
           <source>If your want to edit pages, please select Edit button at the top</source>
@@ -54,17 +86,29 @@
           <source>N/A</source>
           <target state="final">정보없음</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\InputTitleHint\PlaceholderText" xml:space="preserve">
+          <source>Input title...</source>
+          <target state="translated">제목 입력...</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Loop\OffContent" xml:space="preserve">
+          <source>No Loop</source>
+          <target state="translated">한번만 재생</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\InquiryEmail" xml:space="preserve">
+          <source>Inquiry (Email)</source>
+          <target state="translated">문의하기 (이메일)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Loop\OnContent" xml:space="preserve">
+          <source>Loop</source>
+          <target state="final" state-qualifier="tm-suggestion">반복</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resources\GoBack\Content" xml:space="preserve">
           <source>Go Back</source>
           <target state="signed-off" state-qualifier="tm-suggestion">돌아가기</target>
         </trans-unit>
-        <trans-unit translate="yes" id="Resources\Description" xml:space="preserve">
-          <source>Description</source>
-          <target state="signed-off">설명</target>
-        </trans-unit>
         <trans-unit translate="yes" id="Resources\CreateNewBoard\Text" xml:space="preserve">
-          <source>Create New Board</source>
-          <target state="signed-off">새 보드 만들기</target>
+          <source>Create Board</source>
+          <target state="translated">보드 만들기</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\BriefInformation\Text" xml:space="preserve">
           <source>Brief information</source>

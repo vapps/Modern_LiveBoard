@@ -71,31 +71,6 @@ namespace LiveBoard
 
 				// Place the frame in the current Window
 				Window.Current.Content = rootFrame;
-
-				/*
-				 * 참바 설정
-				 * */
-				// Settings 참 설정.
-				//SettingsPane.GetForCurrentView().CommandsRequested += (sender, eventArgs) =>
-				//{
-				//	// Privacy Policy 연결.
-				//	var policyCommand = new SettingsCommand("PrivacySettingsCommand", "Privacy Policy", delegate
-				//	{
-				//		// create a new instance of the flyout
-				//		var settings = new SettingsFlyout
-				//		{
-				//			HeaderBrush = new SolidColorBrush(Color.FromArgb(255, 6, 195, 255)),
-				//			HeaderText = "Privacy Policy",
-				//			SmallLogoImageSource = new BitmapImage(new Uri("ms-appx:///Assets/SmallLogo.png")),
-				//			Content = new PrivacyPolicyControl(),
-				//		};
-				//		// open it
-				//		settings.IsOpen = true;
-				//	});
-
-				//	eventArgs.Request.ApplicationCommands.Add(policyCommand);
-				//};
-
 			}
 			if (rootFrame.Content == null)
 			{
@@ -132,6 +107,8 @@ namespace LiveBoard
 
 		private void OnCommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
 		{
+
+			var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
 			// 설정 참바.
 			args.Request.ApplicationCommands.Add(new SettingsCommand(
 				"PrivacySettingsCommand", "Privacy Policy", handler =>
@@ -141,9 +118,9 @@ namespace LiveBoard
 				}));
 
 			args.Request.ApplicationCommands.Add(new SettingsCommand(
-				"InquirySettingsCommand", "Inquiry (Email)", async handler =>
+				"InquirySettingsCommand", loader.GetString("InquiryEmail"), async handler =>
 				{
-					await Launcher.LaunchUriAsync(new Uri("mailto:hello@bapul.net"));
+					await Launcher.LaunchUriAsync(new Uri("mailto:youngjae@bapul.net"));
 				}));
 		}
 	}

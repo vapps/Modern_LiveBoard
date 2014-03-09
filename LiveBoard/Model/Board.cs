@@ -127,29 +127,14 @@ namespace LiveBoard.Model
 
 		#endregion Private Variables
 
-
+		/// <summary>
+		/// XML데이터를 페이지 오브젝트화 한다.
+		/// </summary>
+		/// <param name="xElement"></param>
+		/// <param name="templates"></param>
+		/// <returns></returns>
 		public static IPage ExportToPage(XElement xElement, IEnumerable<LbTemplate> templates)
 		{
-			/**
-			 * var t = new LbTemplate
-			{
-				Key = "SingleUrlImage",
-				DisplayName = "Simple image viewer from web",
-				Description = "Show single image",
-				TemplateView = "SimpleUrlImage",
-				TemplateModel = "SingleStringPage",
-				DataList = new List<LbPageData>()
-				{
-					new LbPageData()
-					{
-						Key = "Url", 
-						DefaultData = "http://inserbia.info/news/wp-content/uploads/2013/05/grizzly-650x487.jpg",
-						Name = "헤더 정보",
-						ValueType = typeof(String)
-					}
-				}
-			};
-			 * */
 			LbTemplate template = null;
 			foreach (var t in templates)
 			{
@@ -195,7 +180,7 @@ namespace LiveBoard.Model
 					if (pageDataList[i].Key.Equals(dataElement.Attribute("Key").Value, StringComparison.OrdinalIgnoreCase))
 					{
 						((List<LbPageData>)page.Data)[i]
-							= LbPageData.Parse(pageDataList[i], dataElement.Attribute("Data").Value);
+							= LbPageData.Parse(pageDataList[i], dataElement.Attribute("ValueType").Value, dataElement.Attribute("Data").Value);
 						break;
 					}
 				}
