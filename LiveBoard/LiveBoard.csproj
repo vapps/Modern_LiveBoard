@@ -138,6 +138,7 @@
     <Compile Include="PageTemplate\Model\FacebookLikeCountPage.cs" />
     <Compile Include="PageTemplate\Model\IPage.cs" />
     <Compile Include="PageTemplate\Model\LbPageData.cs" />
+    <Compile Include="PageTemplate\Model\OneDrivePage.cs" />
     <Compile Include="PageTemplate\Model\RssList.cs" />
     <Compile Include="PageTemplate\Model\SingleStringPage.cs" />
     <Compile Include="PageTemplate\Model\SimpleListPage.cs" />
@@ -164,6 +165,9 @@
     </Compile>
     <Compile Include="ViewModel\RecentOpenedListViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="View\AccountSettingsFlyout.xaml.cs">
+      <DependentUpon>AccountSettingsFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditorTemplate\LbHiddenControl.xaml.cs">
       <DependentUpon>LbHiddenControl.xaml</DependentUpon>
     </Compile>
@@ -213,6 +217,7 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
+    <Content Include="Fonts\LiveSymbol.ttf" />
     <None Include="HubApp_TemporaryKey.pfx" />
     <None Include="LiveBoard_StoreKey.pfx" />
     <None Include="EventFlow.sequencediagram" />
@@ -291,6 +296,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\AccountSettingsFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditorTemplate\LbHiddenControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -356,6 +365,9 @@
     <Reference Include="GalaSoft.MvvmLight.Win8, Version=4.2.30.23406, Culture=neutral, PublicKeyToken=7f0ea4153a3589fc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\MvvmLightLibs.4.2.30.0\lib\netcore45\GalaSoft.MvvmLight.Win8.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Live">
+      <HintPath>packages\LiveSDK.5.5\WindowsXAML\Microsoft.Live.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=619affe60327fc48, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

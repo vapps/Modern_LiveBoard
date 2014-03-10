@@ -26,7 +26,8 @@
         <Extension Category="windows.fileSavePicker">
           <FileSavePicker>
             <SupportedFileTypes>
-              <FileType>.lbd</FileType>
+              <FileType>.lvbd</FileType>
+              <FileType>.lvd</FileType>
             </SupportedFileTypes>
           </FileSavePicker>
         </Extension>

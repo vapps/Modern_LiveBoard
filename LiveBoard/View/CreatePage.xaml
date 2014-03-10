@@ -361,8 +361,11 @@
 			<Grid Grid.Column="1" DataContext="{Binding ElementName=ListViewPages, Path=SelectedItem, Mode=OneWay}">
 				<Grid Margin="20,0,0,0">
 					<Grid>
-						<TextBlock x:Uid="Preview" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Preview" 
-			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" VerticalAlignment="Top" FontFamily="Segoe UI Light" />
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+							<TextBlock x:Uid="Preview" TextWrapping="Wrap" Text="Preview" 
+			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light" />
+							
+						</StackPanel>
 						<Border BorderThickness="15" BorderBrush="{StaticResource LbLightGrayBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="250" MinHeight="180" CornerRadius="10">
 							<Grid>
 								<Frame x:Name="FramePreview"/>

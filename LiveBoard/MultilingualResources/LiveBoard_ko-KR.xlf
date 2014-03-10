@@ -6,6 +6,10 @@
     </header>
     <body>
       <group id="Resources">
+        <trans-unit translate="yes" id="Resources\MicrosoftAccount\Text" xml:space="preserve">
+          <source>If you want to fetch photo or text from OneDrive, please click Sign In button.</source>
+          <target state="translated">OneDrive에 있는 사진이나 텍스트를 사용하려면, 로그인 단추를 클릭해주세요.</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resources\appTitle" xml:space="preserve">
           <source>Live Board</source>
           <target state="final">라이브 보드</target>

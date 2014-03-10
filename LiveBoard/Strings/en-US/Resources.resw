@@ -198,4 +198,7 @@
   <data name="appTitle" xml:space="preserve">
     <value>Live Board</value>
   </data>
+  <data name="MicrosoftAccount.Text" xml:space="preserve">
+    <value>If you want to fetch photo or text from OneDrive, please click Sign In button.</value>
+  </data>
 </root>

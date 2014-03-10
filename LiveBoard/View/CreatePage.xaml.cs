@@ -54,8 +54,15 @@ namespace LiveBoard.View
 		/// 템플릿 로딩.
 		/// </summary>
 		/// <param name="templateCode"><see cref="Windows.UI.Xaml.Controls.IPage"/>내의 View.</param>
-		private void loadFrame(string templateCode)
+		private void loadFrame(string templateCode = null)
 		{
+			if (String.IsNullOrEmpty(templateCode))
+			{
+				// 비워주기.
+				FramePreview.Content = null;
+				return;
+			}
+
 			// 오브젝트 이름에 따라 자동으로 뷰 템플릿 로딩.
 			var t = Type.GetType("LiveBoard.PageTemplate.View." + templateCode);
 			if (t != null)
@@ -110,6 +117,8 @@ namespace LiveBoard.View
 			if (page == null)
 				return;
 			_viewModel.CurrentPage = page;
+
+			// 미리보기 처리.
 			loadFrame(_viewModel.CurrentPage.View);
 		}
 
@@ -164,6 +173,11 @@ namespace LiveBoard.View
 			// 리스트 바인딩 직접 해줘야 리프래시가 반영됨.
 			var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Board.Pages };
 			ListViewPages.ItemsSource = viewSource.View;
+
+			if (ListViewPages.SelectedIndex <0)
+			{
+				loadFrame(null);
+			}
 		}
 	}
 }

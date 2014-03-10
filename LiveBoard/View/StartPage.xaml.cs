@@ -103,6 +103,7 @@ namespace LiveBoard.View
 				SuggestedStartLocation = PickerLocationId.DocumentsLibrary
 			};
 			openPicker.FileTypeFilter.Add(".lbd");
+			openPicker.FileTypeFilter.Add(".lvbd");
 
 			StorageFile file = await openPicker.PickSingleFileAsync();
 			if (file == null)

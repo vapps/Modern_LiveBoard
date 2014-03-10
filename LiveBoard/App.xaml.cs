@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.System;
 using Windows.UI.ApplicationSettings;
@@ -16,6 +17,7 @@ using Windows.UI.Xaml.Controls;
 // The Grid App template is documented at http://go.microsoft.com/fwlink/?LinkId=234226
 using LiveBoard.View;
 using LiveBoard.ViewModel;
+using Microsoft.Live;
 using Microsoft.Practices.ServiceLocation;
 
 namespace LiveBoard
@@ -34,6 +36,8 @@ namespace LiveBoard
 			this.InitializeComponent();
 			this.Suspending += OnSuspending;
 		}
+
+		public static LiveConnectSession Session { get; set; }
 
 		/// <summary>
 		/// Invoked when the application is launched normally by the end user.  Other entry points
@@ -107,9 +111,15 @@ namespace LiveBoard
 
 		private void OnCommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
 		{
-
+			// 언어 리소스 로더.
 			var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
 			// 설정 참바.
+
+			args.Request.ApplicationCommands.Add(new SettingsCommand("account", "Account", (handler) =>
+			{
+				var accountFlyout = new AccountSettingsFlyout();
+				accountFlyout.Show();
+			}));
 			args.Request.ApplicationCommands.Add(new SettingsCommand(
 				"PrivacySettingsCommand", "Privacy Policy", handler =>
 				{
@@ -123,5 +133,78 @@ namespace LiveBoard
 					await Launcher.LaunchUriAsync(new Uri("mailto:youngjae@bapul.net"));
 				}));
 		}
+
+		public static async Task updateUserName(TextBlock userName, Boolean signIn)
+		{
+			try
+			{
+				// Open Live Connect SDK client.
+				LiveAuthClient LCAuth = new LiveAuthClient();
+				LiveLoginResult LCLoginResult = await LCAuth.InitializeAsync();
+				try
+				{
+					LiveLoginResult loginResult = null;
+					if (signIn)
+					{
+						// Sign in to the user's Microsoft account with the required scope.
+						//  
+						//  This call will display the Microsoft account sign-in screen if 
+						//   the user is not already signed in to their Microsoft account 
+						//   through Windows 8.
+						// 
+						//  This call will also display the consent dialog, if the user has 
+						//   has not already given consent to this app to access the data 
+						//   described by the scope.
+						// 
+						//  Change the parameter of LoginAsync to include the scopes 
+						//   required by your app.
+						loginResult = await LCAuth.LoginAsync(new string[] { "wl.basic" });
+					}
+					else
+					{
+						// If we don't want the user to sign in, continue with the current 
+						//  sign-in state.
+						loginResult = LCLoginResult;
+					}
+					if (loginResult.Status == LiveConnectSessionStatus.Connected)
+					{
+						// Create a client session to get the profile data.
+						LiveConnectClient connect = new LiveConnectClient(LCAuth.Session);
+
+						// Get the profile info of the user.
+						LiveOperationResult operationResult = await connect.GetAsync("me");
+						dynamic result = operationResult.Result;
+						if (result != null)
+						{
+							// Update the text of the object passed in to the method. 
+							userName.Text = string.Join(" ", "Hello", result.name, "!");
+						}
+						else
+						{
+							// Handle the case where the user name was not returned. 
+						}
+					}
+					else
+					{
+						// The user hasn't signed in so display this text 
+						//  in place of his or her name.
+						userName.Text = "You're not signed in.";
+					}
+				}
+				catch (LiveAuthException exception)
+				{
+					// Handle the exception. 
+				}
+			}
+			catch (LiveAuthException exception)
+			{
+				// Handle the exception. 
+			}
+			catch (LiveConnectException exception)
+			{
+				// Handle the exception. 
+			}
+		}
+
 	}
 }
