@@ -217,6 +217,14 @@
       <SubType>Designer</SubType>
     </AppxManifest>
     <None Include="Common\ReadMe.txt" />
+    <Content Include="Assets\Icon.targetsize-16.png" />
+    <Content Include="Assets\Icon.targetsize-256.png" />
+    <Content Include="Assets\Icon.targetsize-32.png" />
+    <Content Include="Assets\Icon.targetsize-48.png" />
+    <Content Include="Assets\SmallLogo.targetsize-16.png" />
+    <Content Include="Assets\SmallLogo.targetsize-256.png" />
+    <Content Include="Assets\SmallLogo.targetsize-32.png" />
+    <Content Include="Assets\SmallLogo.targetsize-48.png" />
     <Content Include="Fonts\LiveSymbol.ttf" />
     <None Include="HubApp_TemporaryKey.pfx" />
     <None Include="LiveBoard_StoreKey.pfx" />

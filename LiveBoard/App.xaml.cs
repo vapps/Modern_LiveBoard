@@ -109,17 +109,70 @@ namespace LiveBoard
 			SettingsPane.GetForCurrentView().CommandsRequested += OnCommandsRequested;
 		}
 
+		/// <summary>
+		// Handle file activations.
+		/// </summary>
+		protected override async void OnFileActivated(FileActivatedEventArgs args)
+		{
+			Frame rootFrame = Window.Current.Content as Frame;
+
+			// Do not repeat app initialization when the Window already has content,
+			// just ensure that the window is active
+
+			if (rootFrame == null)
+			{
+				// Create a Frame to act as the navigation context and navigate to the first page
+				rootFrame = new Frame();
+				// Associate the frame with a SuspensionManager key
+				SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
+
+				if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+				{
+					// Restore the saved session state only when appropriate
+					try
+					{
+						await SuspensionManager.RestoreAsync();
+					}
+					catch (SuspensionManagerException)
+					{
+						//Something went wrong restoring state.
+						//Assume there is no state and continue
+					}
+				}
+
+				// Place the frame in the current Window
+				Window.Current.Content = rootFrame;
+			}
+
+			if (rootFrame.Content == null)
+			{
+				if (!rootFrame.Navigate(typeof(StartPage)))
+				{
+					throw new Exception("Failed to create initial page");
+				}
+			}
+
+			var p = rootFrame.Content as StartPage;
+			if (p != null)
+			{
+				p.FileEvent = args;
+				p.ProtocolEvent = null;
+				await p.NavigateToFilePage();
+			}
+			// Ensure the current window is active
+			Window.Current.Activate();
+		}
 		private void OnCommandsRequested(SettingsPane sender, SettingsPaneCommandsRequestedEventArgs args)
 		{
 			// 언어 리소스 로더.
 			var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
 			// 설정 참바.
 
-			args.Request.ApplicationCommands.Add(new SettingsCommand("account", "Account", (handler) =>
-			{
-				var accountFlyout = new AccountSettingsFlyout();
-				accountFlyout.Show();
-			}));
+			//args.Request.ApplicationCommands.Add(new SettingsCommand("account", "Account", (handler) =>
+			//{
+			//	var accountFlyout = new AccountSettingsFlyout();
+			//	accountFlyout.Show();
+			//}));
 			args.Request.ApplicationCommands.Add(new SettingsCommand(
 				"PrivacySettingsCommand", "Privacy Policy", handler =>
 				{

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
@@ -11,6 +12,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
+using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using LiveBoard.ViewModel;
@@ -57,6 +59,34 @@ namespace LiveBoard.View
 		{
 		}
 
+		private FileActivatedEventArgs _fileEventArgs = null;
+		public FileActivatedEventArgs FileEvent
+		{
+			get { return _fileEventArgs; }
+			set { _fileEventArgs = value; }
+		}
+
+		private ProtocolActivatedEventArgs _protocolEventArgs = null;
+		public ProtocolActivatedEventArgs ProtocolEvent
+		{
+			get { return _protocolEventArgs; }
+			set { _protocolEventArgs = value; }
+		}
+
+		public async Task NavigateToFilePage()
+		{
+			// Display the result of the file activation if we got here as a result of being activated for a file.
+			if (FileEvent != null && FileEvent.Files.Count > 0)
+			{
+				await LoadFileAsync(FileEvent.Files[0] as StorageFile);
+			}
+		}
+
+		public void NavigateToProtocolPage()
+		{
+
+		}
+
 		private async void ButtonCreate_OnClick(object sender, RoutedEventArgs e)
 		{
 			_viewModel.SelectedBoard = null;
@@ -84,15 +114,7 @@ namespace LiveBoard.View
 			return displayName;
 		}
 
-		private void ButtonOpen_OnClick(object sender, RoutedEventArgs e)
-		{
-			Load();
-		}
-
-		/// <summary>
-		/// 불러오기.
-		/// </summary>
-		public async void Load()
+		private async void ButtonOpen_OnClick(object sender, RoutedEventArgs e)
 		{
 			if (!EnsureUnsnapped())
 				return;
@@ -106,8 +128,18 @@ namespace LiveBoard.View
 			openPicker.FileTypeFilter.Add(".lvbd");
 
 			StorageFile file = await openPicker.PickSingleFileAsync();
+
+			await LoadFileAsync(file);
+		}
+
+		/// <summary>
+		/// 불러오기.
+		/// </summary>
+		public async Task LoadFileAsync(StorageFile file)
+		{
 			if (file == null)
 				return;
+
 			if (_viewModel.ActiveBoard == null)
 				_viewModel.ActiveBoard = new BoardViewModel();
 			if (_viewModel.SelectedBoard == null)

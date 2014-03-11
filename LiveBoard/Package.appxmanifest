@@ -12,6 +12,8 @@
   </Prerequisites>
   <Resources>
     <Resource Language="x-generate" />
+    <Resource Language="en-US" />
+    <Resource Language="ko-KR" />
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="HubApp.App">
@@ -20,6 +22,7 @@
           <FileOpenPicker>
             <SupportedFileTypes>
               <FileType>.lbd</FileType>
+              <FileType>.lvbd</FileType>
             </SupportedFileTypes>
           </FileOpenPicker>
         </Extension>
@@ -27,9 +30,18 @@
           <FileSavePicker>
             <SupportedFileTypes>
               <FileType>.lvbd</FileType>
-              <FileType>.lvd</FileType>
             </SupportedFileTypes>
           </FileSavePicker>
+        </Extension>
+        <Extension Category="windows.fileTypeAssociation">
+          <FileTypeAssociation Name=".lvbd">
+            <DisplayName>Live Board File Type</DisplayName>
+            <Logo>Assets\Icon.png</Logo>
+            <InfoTip>Live Board app file</InfoTip>
+            <SupportedFileTypes>
+              <FileType>.lvbd</FileType>
+            </SupportedFileTypes>
+          </FileTypeAssociation>
         </Extension>
       </Extensions>
       <m2:VisualElements DisplayName="ms-resource:appTitle" Description="Best to use for signage display or slide show at conference breaktime." BackgroundColor="#d7dbdc" ForegroundText="dark" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png">
