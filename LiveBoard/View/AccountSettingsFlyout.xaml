@@ -1,0 +1,36 @@
+﻿<SettingsFlyout
+    x:Class="LiveBoard.View.AccountSettingsFlyout"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:LiveBoard.View"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    IconSource="Assets/SmallLogo.png"
+	x:Uid="Account"
+    Title="Account"
+    d:DesignWidth="346">
+
+    <!-- This StackPanel acts as a root panel for vertical layout of the content sections -->
+    <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Stretch" >
+
+        <!-- The StackPanel(s) below define individual content sections -->
+
+        <!-- Content Section 1-->
+        <StackPanel Style="{StaticResource SettingsFlyoutSectionStyle}">
+
+            <!-- Section 1 header -->
+            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="OneDrive 로그인" />
+			<TextBlock x:Uid="MicrosoftAccount" Name="UserNameTextBlock" Style="{StaticResource BodyTextBlockStyle}" TextWrapping="Wrap" 
+            Margin="0,0,0,25" Text=""/>
+			<!-- both buttons are defined to occupy the same place in the UI -->
+			<!-- however only one is visible at a time, to prevent flicker or confusion -->
+			<!-- they are defined as Collapsed so neither is visibly by default -->
+			<Button x:Name="SignInButton" Click="SignInButton_OnClick" Content="Sign in" Visibility="Collapsed"/>
+			<Button x:Name="SignOutButton" Click="SignOutButton_OnClick" Content="Sign out" Visibility="Collapsed"/>
+		</StackPanel>
+
+        <!-- Define more Content Sections below as necessary -->
+
+    </StackPanel>
+</SettingsFlyout>

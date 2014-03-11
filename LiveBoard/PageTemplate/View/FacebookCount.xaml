@@ -11,7 +11,7 @@
 
 	<Grid Background="White">
 		<!-- Title -->
-		<StackPanel HorizontalAlignment="Center" Margin="0,-270,0,0" Orientation="Horizontal">
+		<StackPanel HorizontalAlignment="Center" Margin="0,-170,0,0" Orientation="Horizontal">
 
 			<Canvas x:Name="like_icon" Height="110" UseLayoutRounding="False" Width="110">
 				<Canvas x:Name="Layer_1" Height="90.98" Width="106.068">
@@ -45,12 +45,13 @@
 
 			<TextBlock
                    TextWrapping="Wrap" Text="{Binding Data[1].Data}" 
-                   Foreground="#8b9dc3" Margin="30,0"
+                   Foreground="#8b9dc3" Margin="30,0,0,0"
                    VerticalAlignment="Center" FontFamily="Malgun Gothic" FontSize="50"/>
 		</StackPanel>
 
 		<!-- Count -->
 		<TextBlock HorizontalAlignment="Center"
+				   Margin="0,80,0,0"
                    TextWrapping="Wrap" Text="{Binding Path=Data[2].Data, Converter={StaticResource numberComma}}" 
                    Foreground="#3b5998"
                    VerticalAlignment="Center" FontFamily="Malgun Gothic" FontSize="100"/>
