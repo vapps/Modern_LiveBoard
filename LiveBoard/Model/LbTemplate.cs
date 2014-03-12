@@ -1,8 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Xml.Linq;
 using LiveBoard.PageTemplate.Model;
-using LiveBoard.ViewModel;
 
 namespace LiveBoard.Model
 {
@@ -34,10 +34,25 @@ namespace LiveBoard.Model
 			 * */
 			var template = new LbTemplate();
 			template.Key = xElement.Attribute("Key").Value;
-			template.DisplayName = xElement.Attribute("DisplayName").Value;
+			template.DisplayName = xElement.Attribute("Name").Value;
 			template.Description = xElement.Attribute("Description").Value;
 			template.TemplateView = xElement.Attribute("TemplateView").Value;
 			template.TemplateModel = xElement.Attribute("TemplateModel").Value;
+
+			// 다국어 처리.
+			try
+			{
+				var loader = new Windows.ApplicationModel.Resources.ResourceLoader("TemplateList");
+				var localeName = loader.GetString(String.Format("{0}/{1}", template.Key, "Name"));
+				if (!String.IsNullOrEmpty(localeName))
+					template.DisplayName = localeName;				
+				var localeDescription = loader.GetString(String.Format("{0}/{1}", template.Key, "Description"));
+				if (!String.IsNullOrEmpty(localeDescription))
+					template.Description = localeDescription;
+			}
+			catch (Exception)
+			{
+			}
 
 			if (xElement.Element("DataList") != null && xElement.Element("DataList").HasElements)
 				template.DataList = new List<LbPageData>();
@@ -46,7 +61,7 @@ namespace LiveBoard.Model
 
 			foreach (var data in xElement.Element("DataList").Elements("Data"))
 			{
-				template.DataList.Add(LbPageData.FromXml(data));
+				template.DataList.Add(LbPageData.FromXml(template.Key, data));
 			}
 
 			Debug.WriteLine(typeof(IEnumerable<string>));

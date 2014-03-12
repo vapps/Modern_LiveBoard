@@ -96,7 +96,7 @@
         </trans-unit>
         <trans-unit translate="yes" id="Resources\Loop\OffContent" xml:space="preserve">
           <source>No Loop</source>
-          <target state="translated">한번만 재생</target>
+          <target state="translated">횟수 재생</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\InquiryEmail" xml:space="preserve">
           <source>Inquiry (Email)</source>
@@ -104,7 +104,7 @@
         </trans-unit>
         <trans-unit translate="yes" id="Resources\Loop\OnContent" xml:space="preserve">
           <source>Loop</source>
-          <target state="final" state-qualifier="tm-suggestion">반복</target>
+          <target state="translated">무한반복</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\GoBack\Content" xml:space="preserve">
           <source>Go Back</source>
@@ -117,6 +117,23 @@
         <trans-unit translate="yes" id="Resources\BriefInformation\Text" xml:space="preserve">
           <source>Brief information</source>
           <target state="final">간략한 정보</target>
+        </trans-unit>
+      </group>
+      <group id="TemplateList">
+        <trans-unit translate="yes" id="TemplateList\SingleStringPage\Text\Name" xml:space="preserve">
+          <source>Text</source>
+          <target state="translated">표시할 문구</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\SingleStringPage\Text\Description" xml:space="preserve">
+          <source />
+          <target state="new" />
+        </trans-unit><trans-unit translate="yes" id="TemplateList\SingleStringPage\Name" xml:space="preserve">
+          <source>1-line text</source>
+          <target state="translated">한 문장 표시</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\SingleStringPage\Description" xml:space="preserve">
+          <source>Show single line of text</source>
+          <target state="translated">입력한 짧은 문구를 보여줍니다</target>
         </trans-unit>
       </group>
     </body>

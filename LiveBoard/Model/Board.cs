@@ -158,7 +158,7 @@ namespace LiveBoard.Model
 			page.Data = new List<LbPageData>();
 			foreach (var lbTemplate in template.DataList)
 			{
-				var copyData = LbPageData.FromXml(lbTemplate.ToXml(true));
+				var copyData = LbPageData.FromXml(page.TemplateKey, lbTemplate.ToXml(true));
 				((List<LbPageData>)page.Data).Add(copyData);
 			}
 			//template.DataList.CopyTo((LbPageData[]) page.Data);

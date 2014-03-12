@@ -353,12 +353,12 @@
     <ReservedNames>
       <ReservedName>Live Board</ReservedName>
       <ReservedName>라이브 보드</ReservedName>
-      <ReservedName>인터넷 전광판</ReservedName>
-      <ReservedName>현황판</ReservedName>
       <ReservedName>Live Signage</ReservedName>
+      <ReservedName>LiveBoard</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
+    <MainPackageIdentityName>iCombine.TabStudy</MainPackageIdentityName>
     <MainPackageIdentityName>iCombine.7185E3CFA1F7</MainPackageIdentityName>
   </AccountPackageIdentityNames>
   <PackageInfoList LandingUrl="https://appdev.microsoft.com:443/StorePortals/Developer/Catalog/ReleaseAnchor/da44be23-6e25-4a46-9bb8-486318c94434">
@@ -366,17 +366,17 @@
       <PackageInfo>
         <OsMinVersion>6.3.0.0</OsMinVersion>
         <PackageArchitecture>Neutral</PackageArchitecture>
-        <PackageMaxArchitectureVersion>1.1.0.3</PackageMaxArchitectureVersion>
+        <PackageMaxArchitectureVersion>1.1.0.7</PackageMaxArchitectureVersion>
       </PackageInfo>
       <PackageInfo>
         <OsMinVersion>6.3.0.0</OsMinVersion>
         <PackageArchitecture>Neutral</PackageArchitecture>
-        <PackageMaxArchitectureVersion>1.1.0.3</PackageMaxArchitectureVersion>
+        <PackageMaxArchitectureVersion>1.1.0.7</PackageMaxArchitectureVersion>
       </PackageInfo>
       <PackageInfo>
         <OsMinVersion>6.3.0.0</OsMinVersion>
         <PackageArchitecture>Neutral</PackageArchitecture>
-        <PackageMaxArchitectureVersion>1.1.0.3</PackageMaxArchitectureVersion>
+        <PackageMaxArchitectureVersion>1.1.0.7</PackageMaxArchitectureVersion>
       </PackageInfo>
     </BundleInfo>
   </PackageInfoList>

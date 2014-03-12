@@ -364,11 +364,13 @@
 						<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
 							<TextBlock x:Uid="Preview" TextWrapping="Wrap" Text="Preview" 
 			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light" />
-							
 						</StackPanel>
+						<!-- 미리보기 토글 나중에 하기. 레이아웃이 골치아프군. -->
+							<!--<ToggleSwitch VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,25,0,0" IsOn="True"
+										  OnContent="Enable" OffContent="Disable" Foreground="{StaticResource LbBackgroundBrush}"/>-->
 						<Border BorderThickness="15" BorderBrush="{StaticResource LbLightGrayBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="250" MinHeight="180" CornerRadius="10">
-							<Grid>
-								<Frame x:Name="FramePreview"/>
+								<Grid>
+									<Frame x:Name="FramePreview"/>
 								<Rectangle Width="30" Height="5" Fill="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-10"></Rectangle>
 							</Grid>
 						</Border>

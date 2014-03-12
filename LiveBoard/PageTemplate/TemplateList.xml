@@ -1,31 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <LiveBoardTemplates>
 	<!-- 한 줄 출력 -->
-	<Template Key="SingleStringPage" DisplayName="1-line text" Description="Show single line of text" TemplateView="SimpleText" TemplateModel="SingleStringPage">
+	<Template Key="SingleStringPage" Name="1-line text" Description="Show single line of text"
+			  TemplateView="SimpleText" TemplateModel="SingleStringPage">
 		<DataList>
-			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="" />
+			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="" Description=""
+				  />
 		</DataList>
 	</Template>
 	<!-- 웹뷰 -->
-	<Template Key="StaticWebView" DisplayName="Web browser" Description="Show web page as a screen-captured manner" TemplateView="StaticWebView" TemplateModel="SingleStringPage">
+	<Template Key="StaticWebView" Name="Web browser" Description="Show web page as a screen-captured manner" 
+			  TemplateView="StaticWebView" TemplateModel="SingleStringPage">
 		<DataList>
-			<Data Key="Url" Name="Header" ValueType="String" DefaultValue="" />
+			<Data Key="Url" Name="Header" ValueType="String" DefaultValue="" Description="" />
 		</DataList>
 	</Template>
 	<!-- 한장 이미지 출력 -->
-	<Template Key="SingleUrlImage" DisplayName="Simple image view" Description="Show single image" TemplateView="SimpleUrlImage" TemplateModel="SingleStringPage">
+	<Template Key="SingleUrlImage" Name="Simple image view" Description="Show single image" 
+			  TemplateView="SimpleUrlImage" TemplateModel="SingleStringPage">
 		<DataList>
-			<Data Key="Url" Name="Image Location (URL)" ValueType="String" DefaultValue="" />
+			<Data Key="Url" Name="Image Location (URL)" ValueType="String" DefaultValue="" Description="" />
 		</DataList>
 	</Template>
 	<!-- 카운트다운 -->
-	<Template Key="Countdown" DisplayName="Countdown" Description="Show number to count down per 1 second to zero" TemplateView="OneNumberCount" TemplateModel="SingleStringPage">
+	<Template Key="Countdown" Name="Countdown" Description="Show number to count down per 1 second to zero" 
+			  TemplateView="OneNumberCount" TemplateModel="SingleStringPage">
 		<DataList>
-			<Data Key="Number" Name="Initial number" ValueType="Int" DefaultValue="5" />
+			<Data Key="Number" Name="Initial number" ValueType="Int" DefaultValue="5" Description="" />
 		</DataList>
 	</Template>
 	<!-- 10개 목록 출력 -->
-	<!--<Template Key="SimpleListPage" DisplayName="Simple list" Description="Header and 10 text rows" TemplateView="SimpleList" TemplateModel="SimpleListPage">
+	<!--<Template Key="SimpleListPage" Name="Simple list" Description="Header and 10 text rows" TemplateView="SimpleList" TemplateModel="SimpleListPage">
 		<DataList>
 			<Data Key="Header" Name="Header" ValueType="String" DefaultValue="" />
 			<Data Key="Row1" Name="Row 1" ValueType="String" DefaultValue="" />
@@ -41,18 +46,20 @@
 		</DataList>
 	</Template>-->
 	<!-- RSS 목록 출력 -->
-	<Template Key="RssList" DisplayName="RSS" Description="Header and 10 titles from RSS" TemplateView="SimpleList" TemplateModel="RssList">
+	<Template Key="RssList" Name="RSS" Description="Header and 10 titles from RSS" 
+			  TemplateView="SimpleList" TemplateModel="RssList">
 		<DataList>
-			<Data Key="Header" Name="Title" ValueType="String" DefaultValue="" />
-			<Data Key="RSS" Name="RSS Address" ValueType="String" DefaultValue="http://v.daum.net/best/rss" />
-			<Data Key="Feeds" Name="Feed List" ValueType="System.Collections.Generic.IEnumerable`1[System.String]" DefaultValue="" IsHidden="True" />
+			<Data Key="Header" Name="Title" ValueType="String" DefaultValue="" Description="" />
+			<Data Key="RSS" Name="RSS Address" ValueType="String" DefaultValue="http://v.daum.net/best/rss" Description="" />
+			<Data Key="Feeds" Name="Feed List" ValueType="System.Collections.Generic.IEnumerable`1[System.String]" DefaultValue="" IsHidden="True" Description="" />
 		</DataList>
 	</Template>
-	<Template Key="FacebookLike" DisplayName="Facebook Like count" Description="Show 'Like' count of a Facebook page" TemplateView="FacebookCount" TemplateModel="FacebookLikeCountPage">
+	<Template Key="FacebookLike" Name="Facebook Like count" Description="Show 'Like' count of a Facebook page" 
+			  TemplateView="FacebookCount" TemplateModel="FacebookLikeCountPage">
 		<DataList>
-			<Data Key="Page" Name="Facebook Page Name" ValueType="String" DefaultValue="windows" />
-			<Data Key="Title" Name="Title to Display" ValueType="String" DefaultValue="Windows Facebook Page" />
-			<Data Key="Count" Name="Count" ValueType="Int" DefaultValue="0" IsHidden="True" />
+			<Data Key="Page" Name="Facebook Page Name" ValueType="String" DefaultValue="windows" Description="" />
+			<Data Key="Title" Name="Title to Display" ValueType="String" DefaultValue="Windows Facebook Page" Description="" />
+			<Data Key="Count" Name="Count" ValueType="Int" DefaultValue="0" IsHidden="True" Description="" />
 		</DataList>
 	</Template>
 </LiveBoardTemplates>

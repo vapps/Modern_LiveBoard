@@ -230,6 +230,7 @@
     <None Include="LiveBoard_StoreKey.pfx" />
     <None Include="EventFlow.sequencediagram" />
     <None Include="packages.config" />
+    <PRIResource Include="Strings\en-US\TemplateList.resw" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
   <ItemGroup>

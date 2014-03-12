@@ -18,7 +18,11 @@ namespace LiveBoard.PageTemplate.Model
 		private object _defaultData;
 		private bool _isHidden;
 		private Type _valueType;
+		private string _description;
 
+		/// <summary>
+		/// 값의 고유키 이름.
+		/// </summary>
 		public string Key
 		{
 			get { return _key; }
@@ -29,6 +33,9 @@ namespace LiveBoard.PageTemplate.Model
 			}
 		}
 
+		/// <summary>
+		/// 값 이름.
+		/// </summary>
 		public string Name
 		{
 			get { return _name; }
@@ -39,6 +46,9 @@ namespace LiveBoard.PageTemplate.Model
 			}
 		}
 
+		/// <summary>
+		/// 값. DataType이라고 해야 맞겠지만 못고쳤으니 이렇게 간다.
+		/// </summary>
 		public Type ValueType
 		{
 			get { return _valueType; }
@@ -49,6 +59,9 @@ namespace LiveBoard.PageTemplate.Model
 			}
 		}
 
+		/// <summary>
+		/// 데이터
+		/// </summary>
 		public object Data
 		{
 			get
@@ -64,6 +77,9 @@ namespace LiveBoard.PageTemplate.Model
 			}
 		}
 
+		/// <summary>
+		/// 기본값
+		/// </summary>
 		public object DefaultData
 		{
 			get { return _defaultData; }
@@ -74,6 +90,9 @@ namespace LiveBoard.PageTemplate.Model
 			}
 		}
 
+		/// <summary>
+		/// 숨김 여부
+		/// </summary>
 		public bool IsHidden
 		{
 			get { return _isHidden; }
@@ -81,6 +100,19 @@ namespace LiveBoard.PageTemplate.Model
 			{
 				_isHidden = value;
 				RaisePropertyChanged("IsHidden");
+			}
+		}
+
+		/// <summary>
+		/// 상세 설명
+		/// </summary>
+		public string Description
+		{
+			get { return _description; }
+			set
+			{
+				_description = value;
+				RaisePropertyChanged("Description");
 			}
 		}
 
@@ -151,19 +183,39 @@ namespace LiveBoard.PageTemplate.Model
 		/// <summary>
 		/// XML에서 인스턴스 생성.
 		/// </summary>
+		/// <param name="templateKey">부모 템플릿 키</param>
 		/// <param name="xElement"></param>
 		/// <returns></returns>
-		public static LbPageData FromXml(XElement xElement)
+		public static LbPageData FromXml(string templateKey, XElement xElement)
 		{
 			// <Data Key="Url" Name="Header" ValueType="String" DefaultData="" />
 			var tData = new LbPageData
 			{
 				Key = xElement.Attribute("Key").Value,
 				Name = xElement.Attribute("Name").Value,
+				Description = xElement.Attribute("Description").Value,
 				IsHidden = bool.Parse(xElement.Attribute("IsHidden") != null
 					? xElement.Attribute("IsHidden").Value
 					: bool.FalseString),
 			};
+
+			// 다국어 처리.
+			if (String.IsNullOrEmpty(templateKey))
+			{
+				try
+				{
+					var loader = new Windows.ApplicationModel.Resources.ResourceLoader("TemplateList");
+					var localeName = loader.GetString(String.Format("{0}/{1}/{2}", templateKey, tData.Key, "Name"));
+					if (!String.IsNullOrEmpty(localeName))
+						tData.Name = localeName;
+					var localeDescription = loader.GetString(String.Format("{0}/{1}/{2}", templateKey, tData.Key, "Description"));
+					if (!String.IsNullOrEmpty(localeDescription))
+						tData.Description = localeDescription;
+				}
+				catch (Exception)
+				{
+				}
+			}
 
 			return Parse(tData, xElement.Attribute("ValueType").Value, xElement.Attribute("DefaultValue").Value);
 		}
@@ -192,7 +244,8 @@ namespace LiveBoard.PageTemplate.Model
 					new XAttribute("DefaultValue", DefaultData ?? ""),
 					new XAttribute("ValueType", ValueType != null ? ValueType.Name : "String"),
 					new XAttribute("IsHidden", IsHidden.ToString()),
-					new XAttribute("Name", Name ?? "")
+					new XAttribute("Name", Name ?? ""),
+					new XAttribute("Description", Description ?? "")
 					);
 			}
 			return xElement;

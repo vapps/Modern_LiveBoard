@@ -1,12 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Windows.Storage;
+﻿using System.Threading.Tasks;
 using Windows.System;
 using Windows.UI.ApplicationSettings;
-using GalaSoft.MvvmLight.Ioc;
 using LiveBoard.Common;
 
 using System;
@@ -16,9 +10,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 // The Grid App template is documented at http://go.microsoft.com/fwlink/?LinkId=234226
 using LiveBoard.View;
-using LiveBoard.ViewModel;
 using Microsoft.Live;
-using Microsoft.Practices.ServiceLocation;
 
 namespace LiveBoard
 {
