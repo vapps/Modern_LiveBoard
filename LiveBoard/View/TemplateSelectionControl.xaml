@@ -11,7 +11,7 @@
 
 	<Grid>
 		<StackPanel Orientation="Vertical">
-			<TextBlock Margin="10" Style="{StaticResource EditorControlHeader}">Select Template</TextBlock>
+			<TextBlock x:Uid="SelectTemplate" Text="Select Template" Margin="10" Style="{StaticResource EditorControlHeader}" />
 			<ComboBox x:Name="ComboBoxTemplate" Margin="10,0" HorizontalAlignment="Stretch" VerticalAlignment="Center" ItemsSource="{Binding Main.Templates, Source={StaticResource Locator}}">
 				<ComboBox.ItemTemplate>
 					<DataTemplate>
@@ -33,7 +33,7 @@
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
 			</ComboBox>
-			<Button x:Name="ButtonAdd" Click="ButtonAdd_OnClick" Content="Add" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Stretch" MinWidth="80"/>
+			<Button x:Name="ButtonAdd" x:Uid="Add" Click="ButtonAdd_OnClick" Content="Add" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Stretch" MinWidth="80"/>
 
 		</StackPanel>
 	</Grid>

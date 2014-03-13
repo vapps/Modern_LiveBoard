@@ -201,4 +201,28 @@
   <data name="MicrosoftAccount.Text" xml:space="preserve">
     <value>If you want to fetch photo or text from OneDrive, please click Sign In button.</value>
   </data>
+  <data name="LoopCount.Watermark" xml:space="preserve">
+    <value>iteration</value>
+  </data>
+  <data name="Times.Text" xml:space="preserve">
+    <value>times</value>
+  </data>
+  <data name="test" xml:space="preserve">
+    <value>test</value>
+  </data>
+  <data name="MinuteAbbr.Text" xml:space="preserve">
+    <value>min</value>
+  </data>
+  <data name="SecondAbbr.Text" xml:space="preserve">
+    <value>sec</value>
+  </data>
+  <data name="SelectTemplate.Text" xml:space="preserve">
+    <value>Select Template</value>
+  </data>
+  <data name="Add.Content" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Close.Content" xml:space="preserve">
+    <value>Close</value>
+  </data>
 </root>

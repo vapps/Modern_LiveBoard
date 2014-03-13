@@ -10,11 +10,12 @@
     mc:Ignorable="d">
 
 	<Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
-		<TextBlock HorizontalAlignment="Left" Margin="100,100,0,0" TextWrapping="Wrap" Text="{Binding Path=Data[0].Data}" VerticalAlignment="Top" FontSize="40"/>
+		<TextBlock HorizontalAlignment="Left" Margin="100,90,0,0" TextWrapping="Wrap" Text="{Binding Path=Data[0].Data}" VerticalAlignment="Top" FontSize="60" 
+				  Foreground="{StaticResource LbDarkBlueBrush}" />
 		<ItemsControl Height="587" Margin="100,170,100,50" ItemsSource="{Binding Path=Data[2].Data}" IsTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsDoubleTapEnabled="False">
 			<ItemsControl.ItemTemplate>
 				<DataTemplate>
-					<TextBlock Text="{Binding}" FontSize="25" Margin="10,15,15,10"></TextBlock>
+					<TextBlock Text="{Binding}" FontSize="25" Margin="10,15,15,10" Foreground="{StaticResource LbDarkTextBrush}"></TextBlock>
 				</DataTemplate>
 			</ItemsControl.ItemTemplate>
 

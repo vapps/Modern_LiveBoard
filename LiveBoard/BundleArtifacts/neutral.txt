@@ -1,5 +1,5 @@
-MainPackage=C:\Users\Youngjae\Documents\GitHub\Modern_LiveBoard\LiveBoard\bin\Release\LiveBoard_1.1.0.11_Bundle\LiveBoard_1.1.0.11_AnyCPU.appx
-SymbolPackage=C:\Users\Youngjae\Documents\GitHub\Modern_LiveBoard\LiveBoard\AppPackages\LiveBoard_1.1.0.11_Test\LiveBoard_1.1.0.11_AnyCPU.appxsym
-ResourcePack=C:\Users\Youngjae\Documents\GitHub\Modern_LiveBoard\LiveBoard\bin\Release\LiveBoard_1.1.0.11_Bundle\LiveBoard_1.1.0.11_language-ko.appx
-ResourcePack=C:\Users\Youngjae\Documents\GitHub\Modern_LiveBoard\LiveBoard\bin\Release\LiveBoard_1.1.0.11_Bundle\LiveBoard_1.1.0.11_scale-140.appx
-ResourcePack=C:\Users\Youngjae\Documents\GitHub\Modern_LiveBoard\LiveBoard\bin\Release\LiveBoard_1.1.0.11_Bundle\LiveBoard_1.1.0.11_scale-180.appx
+MainPackage=C:\Users\Youngjae\Documents\GitHub\Modern_LiveBoard\LiveBoard\bin\Release\LiveBoard_1.1.0.13_Bundle\LiveBoard_1.1.0.13_AnyCPU.appx
+SymbolPackage=C:\Users\Youngjae\Documents\GitHub\Modern_LiveBoard\LiveBoard\AppPackages\LiveBoard_1.1.0.13_Test\LiveBoard_1.1.0.13_AnyCPU.appxsym
+ResourcePack=C:\Users\Youngjae\Documents\GitHub\Modern_LiveBoard\LiveBoard\bin\Release\LiveBoard_1.1.0.13_Bundle\LiveBoard_1.1.0.13_language-ko.appx
+ResourcePack=C:\Users\Youngjae\Documents\GitHub\Modern_LiveBoard\LiveBoard\bin\Release\LiveBoard_1.1.0.13_Bundle\LiveBoard_1.1.0.13_scale-140.appx
+ResourcePack=C:\Users\Youngjae\Documents\GitHub\Modern_LiveBoard\LiveBoard\bin\Release\LiveBoard_1.1.0.13_Bundle\LiveBoard_1.1.0.13_scale-180.appx

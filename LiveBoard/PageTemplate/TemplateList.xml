@@ -4,12 +4,11 @@
 	<Template Key="SingleStringPage" Name="1-line text" Description="Show single line of text"
 			  TemplateView="SimpleText" TemplateModel="SingleStringPage">
 		<DataList>
-			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="" Description=""
-				  />
+			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="" Description="" />
 		</DataList>
 	</Template>
 	<!-- 웹뷰 -->
-	<Template Key="StaticWebView" Name="Web browser" Description="Show web page as a screen-captured manner" 
+	<Template Key="StaticWebView" Name="Web page" Description="Show web page as a screen-captured manner" 
 			  TemplateView="StaticWebView" TemplateModel="SingleStringPage">
 		<DataList>
 			<Data Key="Url" Name="Header" ValueType="String" DefaultValue="" Description="" />
@@ -49,8 +48,8 @@
 	<Template Key="RssList" Name="RSS" Description="Header and 10 titles from RSS" 
 			  TemplateView="SimpleList" TemplateModel="RssList">
 		<DataList>
-			<Data Key="Header" Name="Title" ValueType="String" DefaultValue="" Description="" />
-			<Data Key="RSS" Name="RSS Address" ValueType="String" DefaultValue="http://v.daum.net/best/rss" Description="" />
+			<Data Key="Header" Name="Title" ValueType="String" DefaultValue="CNN Top Stories" Description="" />
+			<Data Key="RSS" Name="RSS Address" ValueType="String" DefaultValue="http://rss.cnn.com/rss/edition.rss" Description="" />
 			<Data Key="Feeds" Name="Feed List" ValueType="System.Collections.Generic.IEnumerable`1[System.String]" DefaultValue="" IsHidden="True" Description="" />
 		</DataList>
 	</Template>

@@ -6,6 +6,26 @@
     </header>
     <body>
       <group id="Resources">
+        <trans-unit translate="yes" id="Resources\SecondAbbr\Text" xml:space="preserve">
+          <source>sec</source>
+          <target state="translated">초</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\LoopCount\Watermark" xml:space="preserve">
+          <source>iteration</source>
+          <target state="translated">횟수 입력</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Times\Text" xml:space="preserve">
+          <source>times</source>
+          <target state="translated">회 반복</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\test" xml:space="preserve">
+          <source>test</source>
+          <target state="new">test</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\MinuteAbbr\Text" xml:space="preserve">
+          <source>min</source>
+          <target state="translated">분</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resources\MicrosoftAccount\Text" xml:space="preserve">
           <source>If you want to fetch photo or text from OneDrive, please click Sign In button.</source>
           <target state="translated">OneDrive에 있는 사진이나 텍스트를 사용하려면, 로그인 단추를 클릭해주세요.</target>
@@ -118,8 +138,36 @@
           <source>Brief information</source>
           <target state="final">간략한 정보</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\SelectTemplate\Text" xml:space="preserve">
+          <source>Select Template</source>
+          <target state="signed-off">템플릿 선택</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Add\Content" xml:space="preserve">
+          <source>Add</source>
+          <target state="signed-off">추가</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Close\Content" xml:space="preserve">
+          <source>Close</source>
+          <target state="signed-off">닫기</target>
+        </trans-unit>
       </group>
       <group id="TemplateList">
+        <trans-unit translate="yes" id="TemplateList\StaticWebView\Name" xml:space="preserve">
+          <source>Web page</source>
+          <target state="translated">웹페이지</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\StaticWebView\Description" xml:space="preserve">
+          <source>Show web page as a screen-captured manner</source>
+<target state="translated">웹페이지를 스크린샷처럼 보여줍니다.</target>
+		</trans-unit>
+        <trans-unit translate="yes" id="TemplateList\SingleUrlImage\Name" xml:space="preserve">
+          <source>Simple image view</source>
+          <target state="translated">웹에 있는 이미지를 보여줍니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\SingleUrlImage\Description" xml:space="preserve">
+          <source>Show single image</source>
+          <target state="translated">이미지 뷰어</target>
+        </trans-unit>
         <trans-unit translate="yes" id="TemplateList\SingleStringPage\Text\Name" xml:space="preserve">
           <source>Text</source>
           <target state="translated">표시할 문구</target>
@@ -133,7 +181,31 @@
         </trans-unit>
         <trans-unit translate="yes" id="TemplateList\SingleStringPage\Description" xml:space="preserve">
           <source>Show single line of text</source>
-          <target state="translated">입력한 짧은 문구를 보여줍니다</target>
+          <target state="translated">입력한 짧은 문구를 보여줍니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\RssList\Name" xml:space="preserve">
+          <source>RSS</source>
+          <target state="new">RSS</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\RssList\Description" xml:space="preserve">
+          <source>Header and 10 titles from RSS</source>
+          <target state="final">RSS의 제목과 10개의 목록을 보여줍니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\FacebookLike\Name" xml:space="preserve">
+          <source>Facebook Like count</source>
+          <target state="final">페이스북 '좋아요' 숫자</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\FacebookLike\Description" xml:space="preserve">
+          <source>Show 'Like' count of a Facebook page</source>
+          <target state="final">페이스북 페이지의 '좋아요' 수를 나타냅니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\Countdown\Name" xml:space="preserve">
+          <source>Countdown</source>
+          <target state="final">카운트다운</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\Countdown\Description" xml:space="preserve">
+          <source>Show number to count down per 1 second to zero</source>
+          <target state="translated">매초마다 카운트다운하여 0까지 도달합니다.</target>
         </trans-unit>
       </group>
     </body>

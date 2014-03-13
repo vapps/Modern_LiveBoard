@@ -179,5 +179,11 @@ namespace LiveBoard.View
 				loadFrame(null);
 			}
 		}
+
+		private void PreviewBorder_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			var ratio = this.ActualWidth / this.ActualHeight;
+			FramePreview.Height = FramePreview.ActualWidth / ratio;
+		}
 	}
 }

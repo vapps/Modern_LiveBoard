@@ -28,6 +28,9 @@ namespace LiveBoard.PageTemplate.Model
 					var url = templateData.Data as string;
 					var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
 
+					if (String.IsNullOrEmpty(url))
+						continue;
+
 					// Load RSS feed asyncronously.
 					await dispatcher.RunAsync(CoreDispatcherPriority.Normal, async () =>
 					{

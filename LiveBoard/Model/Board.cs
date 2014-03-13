@@ -161,7 +161,6 @@ namespace LiveBoard.Model
 				var copyData = LbPageData.FromXml(page.TemplateKey, lbTemplate.ToXml(true));
 				((List<LbPageData>)page.Data).Add(copyData);
 			}
-			//template.DataList.CopyTo((LbPageData[]) page.Data);
 
 			// 저장된 XML에서 가져오는 정보 추출하여 입력.
 			page.Title = xElement.Attribute("Title").Value;
