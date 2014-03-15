@@ -365,11 +365,17 @@
 			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light" />
 						</StackPanel>
 						<!-- 미리보기 토글 나중에 하기. 레이아웃이 골치아프군. -->
-							<!--<ToggleSwitch VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,25,0,0" IsOn="True"
+						<!--<ToggleSwitch VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,25,0,0" IsOn="True"
 										  OnContent="Enable" OffContent="Disable" Foreground="{StaticResource LbBackgroundBrush}"/>-->
 						<Border x:Name="PreviewBorder"  BorderThickness="15" BorderBrush="{StaticResource LbLightGrayBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="250" MinHeight="180" CornerRadius="10" SizeChanged="PreviewBorder_SizeChanged">
-								<Grid>
-									<Frame x:Name="FramePreview" />
+							<Grid>
+								<!--<Viewbox>
+								</Viewbox>-->
+								<Frame x:Name="FramePreview" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5" >
+									<Frame.RenderTransform>
+										<CompositeTransform ScaleX="1.0" ScaleY="1.0"/>
+									</Frame.RenderTransform>
+								</Frame>
 								<Rectangle Width="30" Height="5" Fill="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-10"></Rectangle>
 							</Grid>
 						</Border>

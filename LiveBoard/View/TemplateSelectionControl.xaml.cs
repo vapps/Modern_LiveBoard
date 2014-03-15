@@ -20,6 +20,7 @@ namespace LiveBoard.View
 				MessageType = LbMessageType.EVT_PAGE_CREATING,
 				Data = ComboBoxTemplate.SelectedItem
 			}));
+			// 창 닫기
 		}
 	}
 }

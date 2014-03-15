@@ -33,8 +33,9 @@
 					</DataTemplate>
 				</ComboBox.ItemTemplate>
 			</ComboBox>
-			<Button x:Name="ButtonAdd" x:Uid="Add" Click="ButtonAdd_OnClick" Content="Add" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Stretch" MinWidth="80"/>
-
+			<StackPanel Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
+				<Button x:Name="ButtonAdd" x:Uid="Add" Click="ButtonAdd_OnClick" Content="Add" VerticalAlignment="Center" MinWidth="80"/>
+			</StackPanel>
 		</StackPanel>
 	</Grid>
 </UserControl>

@@ -43,6 +43,12 @@ namespace LiveBoard.View
 						this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
 					}
 				}
+				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_CREATING)
+				{
+					// 템플릿에서 하나의 페이지를 추가할 때: 템플릿 선택 창을 닫는다.
+					if(BorderTemplateSelection.Visibility == Visibility.Visible)
+						ToggleButtonAddPage.IsChecked = false;
+				}
 				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_STARTED)
 				{
 					// 프리뷰의 페이지가 로딩되었을 때.
