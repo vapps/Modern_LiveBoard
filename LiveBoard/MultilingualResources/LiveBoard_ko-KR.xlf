@@ -150,6 +150,26 @@
           <source>Close</source>
           <target state="signed-off">닫기</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\AskToPlayFile" xml:space="preserve">
+          <source>Would you like to play "{0}"?</source>
+          <target state="signed-off">최근 작업한 "{0}" 파일을 바로 재생할까요?</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\NoRecentFile" xml:space="preserve">
+          <source>No recent files. Please creat a new Board.</source>
+          <target state="signed-off">최근에 작업한 파일이 없습니다. 새 보드를 만들어주세요.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Cancel\Text" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="new">취소</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\ErrorFileLoading" xml:space="preserve">
+          <source>File loading error. File is corrupted or wrongly saved.</source>
+          <target state="new">파일 로딩에 실패했습니다. 파일이 깨졌거나 잘 못 저장되었습니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PlayNow" xml:space="preserve">
+          <source>Play Now</source>
+          <target state="signed-off">바로 재생</target>
+        </trans-unit>
       </group>
       <group id="TemplateList">
         <trans-unit translate="yes" id="TemplateList\StaticWebView\Name" xml:space="preserve">
@@ -162,11 +182,11 @@
 		</trans-unit>
         <trans-unit translate="yes" id="TemplateList\SingleUrlImage\Name" xml:space="preserve">
           <source>Simple image view</source>
-          <target state="translated">웹에 있는 이미지를 보여줍니다.</target>
+          <target state="translated">웹이미지 뷰어</target>
         </trans-unit>
         <trans-unit translate="yes" id="TemplateList\SingleUrlImage\Description" xml:space="preserve">
           <source>Show single image</source>
-          <target state="translated">이미지 뷰어</target>
+          <target state="translated">웹에 있는 이미지를 보여줍니다.</target>
         </trans-unit>
         <trans-unit translate="yes" id="TemplateList\SingleStringPage\Text\Name" xml:space="preserve">
           <source>Text</source>

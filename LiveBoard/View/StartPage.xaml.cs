@@ -7,6 +7,7 @@ using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.System.UserProfile;
+using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -46,7 +47,7 @@ namespace LiveBoard.View
 		{
 			var boardViewModel = navigationParameter as BoardViewModel;
 			if (boardViewModel != null)
-				Frame.Navigate(typeof (CreatePage), boardViewModel);
+				Frame.Navigate(typeof(CreatePage), boardViewModel);
 		}
 
 		/// <summary>
@@ -171,29 +172,46 @@ namespace LiveBoard.View
 			return unsnapped;
 		}
 
+		StorageFile _playStorageFile;
 		private async void ButtonPlayRecent_OnClick(object sender, RoutedEventArgs e)
 		{
+			// 언어 리소스 로더.
+			var loader = new Windows.ApplicationModel.Resources.ResourceLoader("Resources");
+
 			if (_viewModel == null
 				|| StorageApplicationPermissions.MostRecentlyUsedList.Entries == null
 				|| StorageApplicationPermissions.MostRecentlyUsedList.Entries.Count == 0)
 			{
-				await new Windows.UI.Popups.MessageDialog("No recent files. Please creat a new Board.").ShowAsync();
+				await new MessageDialog(loader.GetString("NoRecentFile")).ShowAsync();
 				return;
 			}
 
 			try
 			{
 				String mruFirstToken = StorageApplicationPermissions.MostRecentlyUsedList.Entries.First().Token;
-				StorageFile storageFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(mruFirstToken);
-				await _viewModel.ActiveBoard.LoadAsync(storageFile, _viewModel.Templates);
+				_playStorageFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(mruFirstToken);
 			}
 			catch (Exception exception)
 			{
-				new Windows.UI.Popups.MessageDialog(exception.Message + "File loading error. File is corrupted or wrongly saved").ShowAsync();
+				new MessageDialog(loader.GetString("ErrorFileLoading"), loader.GetString("PlayRecentBoard/Text")).ShowAsync();
 				return;
 			}
 
-			this.Frame.Navigate(typeof(ShowPage), _viewModel.ActiveBoard);
+			var dialog = new MessageDialog(String.Format(loader.GetString("AskToPlayFile"), _playStorageFile.DisplayName), loader.GetString("PlayRecentBoard/Text"));
+			dialog.Commands.Add(new UICommand(loader.GetString("PlayNow"), playClickHandler));
+			dialog.Commands.Add(new UICommand(loader.GetString("Cancel/Text")));
+			dialog.DefaultCommandIndex = 0;
+			dialog.CancelCommandIndex = 1;
+			await dialog.ShowAsync();
+		}
+
+		private async void playClickHandler(IUICommand command)
+		{
+			if (_playStorageFile != null)
+			{
+				await _viewModel.ActiveBoard.LoadAsync(_playStorageFile, _viewModel.Templates);
+				this.Frame.Navigate(typeof(ShowPage), _viewModel.ActiveBoard);				
+			}
 		}
 
 		private void ButtonEditRecent_OnClick(object sender, RoutedEventArgs e)

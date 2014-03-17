@@ -371,7 +371,7 @@
 							<Grid>
 								<!--<Viewbox>
 								</Viewbox>-->
-								<Frame x:Name="FramePreview" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5" >
+								<Frame x:Name="FramePreview" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5" Navigated="FramePreview_Navigated" >
 									<Frame.RenderTransform>
 										<CompositeTransform ScaleX="1.0" ScaleY="1.0"/>
 									</Frame.RenderTransform>

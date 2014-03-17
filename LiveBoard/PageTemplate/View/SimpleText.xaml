@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		NavigationCacheMode="Disabled"
-
     mc:Ignorable="d">
 
 	<!-- 백그라운드를 1번으로, 글자색은 2번으로 지정. -->
@@ -20,6 +19,7 @@
 		<TextBlock HorizontalAlignment="Center"
                    TextWrapping="Wrap" Text="{Binding Path=Data[0].Data}" 
                    Foreground="White"
-                   VerticalAlignment="Center" FontSize="80"/>
+                   VerticalAlignment="Center" FontSize="80">
+		</TextBlock>
 	</Grid>
 </Page>

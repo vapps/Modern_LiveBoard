@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
+using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using LiveBoard.PageTemplate.Model;
 using LiveBoard.ViewModel;
+using WinRTXamlToolkit.Controls.Extensions;
 
 namespace LiveBoard.View
 {
@@ -40,13 +45,21 @@ namespace LiveBoard.View
 					var frame = (Frame)Window.Current.Content;
 					if (!(frame.Content is ShowPage))
 					{
-						this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+						if (!PreviewLock)
+						{
+							lockPreview();
+							this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+						}
+						else
+						{
+							// TODO: 사용자에게 preview중인걸 알리기.
+						}
 					}
 				}
 				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_CREATING)
 				{
 					// 템플릿에서 하나의 페이지를 추가할 때: 템플릿 선택 창을 닫는다.
-					if(BorderTemplateSelection.Visibility == Visibility.Visible)
+					if (BorderTemplateSelection.Visibility == Visibility.Visible)
 						ToggleButtonAddPage.IsChecked = false;
 				}
 				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_STARTED)
@@ -180,7 +193,7 @@ namespace LiveBoard.View
 			var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Board.Pages };
 			ListViewPages.ItemsSource = viewSource.View;
 
-			if (ListViewPages.SelectedIndex <0)
+			if (ListViewPages.SelectedIndex < 0)
 			{
 				loadFrame(null);
 			}
@@ -191,5 +204,46 @@ namespace LiveBoard.View
 			var ratio = this.ActualWidth / this.ActualHeight;
 			FramePreview.Height = FramePreview.ActualWidth / ratio;
 		}
+
+		private void FramePreview_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
+		{
+			Debug.WriteLine("navigated");
+			PreviewLock = false;
+
+			var ratio = Window.Current.Bounds.Width / FramePreview.ActualWidth;
+
+			var page = (FramePreview.Content as Page);
+			if (page != null)
+			{
+				//page.Width = FramePreview.ActualWidth;
+				//page.Height = FramePreview.ActualHeight;
+				var myScaleTransform = new ScaleTransform
+				{
+					ScaleY = 1 / ratio,
+					ScaleX = 1 / ratio
+				};
+				var myTransformGroup = new TransformGroup();
+				myTransformGroup.Children.Add(myScaleTransform);
+				//page.RenderTransform = myTransformGroup;
+				foreach (var o in page.Content.GetChildren().Where(c => c is UIElement))
+				{
+					var element = (UIElement) o;
+					element.RenderTransformOrigin = new Point(0.5, 0.5);
+					element.RenderTransform = myTransformGroup;
+					// do something with tb here
+					//Debug.WriteLine(tb);
+				}
+			}
+		}
+
+		/// <summary>
+		/// 프리뷰 잠금.
+		/// </summary>
+		private void lockPreview()
+		{
+			PreviewLock = true;
+		}
+
+		public bool PreviewLock { get; set; }
 	}
 }

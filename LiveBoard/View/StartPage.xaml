@@ -43,30 +43,6 @@
 					</Grid>
 				</Grid>
 			</Button>
-			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonOpen" Click="ButtonOpen_OnClick">
-				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-					<ContentControl Style="{StaticResource LbOpenICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
-						<ContentControl.RenderTransform>
-							<CompositeTransform ScaleX="2" ScaleY="2"/>
-						</ContentControl.RenderTransform>
-					</ContentControl>
-					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock x:Uid="OpenBoardFile" Text="Open Board File" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
-					</Grid>
-				</Grid>
-			</Button>
-			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonPlayRecent" Click="ButtonPlayRecent_OnClick">
-				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-					<ContentControl Style="{StaticResource LbPlayICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
-						<ContentControl.RenderTransform>
-							<CompositeTransform ScaleX="2" ScaleY="2"/>
-						</ContentControl.RenderTransform>
-					</ContentControl>
-					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock x:Uid="PlayRecentBoard" Text="Play Recent Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
-					</Grid>
-				</Grid>
-			</Button>
 			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonEditRecent" Click="ButtonEditRecent_OnClick">
 				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
 					<ContentControl Style="{StaticResource LbEditRecentICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
@@ -80,6 +56,33 @@
 				</Grid>
 
 			</Button>
+
+			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonPlayRecent" Click="ButtonPlayRecent_OnClick">
+				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+					<ContentControl Style="{StaticResource LbPlayICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
+						<ContentControl.RenderTransform>
+							<CompositeTransform ScaleX="2" ScaleY="2"/>
+						</ContentControl.RenderTransform>
+					</ContentControl>
+					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
+						<TextBlock x:Uid="PlayRecentBoard" Text="Play Recent Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
+					</Grid>
+				</Grid>
+			</Button>
+			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonOpen" Click="ButtonOpen_OnClick">
+				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+					<ContentControl Style="{StaticResource LbOpenICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
+						<ContentControl.RenderTransform>
+							<CompositeTransform ScaleX="2" ScaleY="2"/>
+						</ContentControl.RenderTransform>
+					</ContentControl>
+					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
+						<TextBlock x:Uid="OpenBoardFile" Text="Open Board File" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
+					</Grid>
+				</Grid>
+			</Button>
+
+
 		</StackPanel>
 
 		<VisualStateManager.VisualStateGroups>

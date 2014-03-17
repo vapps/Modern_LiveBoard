@@ -45,7 +45,7 @@ namespace LiveBoard.View
 				// At this point, the user should be disconnected and signed out, so
 				//  update the UI.
 				var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
-				this.UserNameTextBlock.Text = loader.GetString("MicrosoftAccount.Text");
+				this.UserNameTextBlock.Text = loader.GetString("MicrosoftAccount/Text");
 
 				// Show sign-in button.
 				SignInButton.Visibility = Visibility.Visible;
@@ -76,7 +76,7 @@ namespace LiveBoard.View
 			var loader = new Windows.ApplicationModel.Resources.ResourceLoader();
 
 			if (String.IsNullOrEmpty(UserNameTextBlock.Text) 
-				|| UserNameTextBlock.Text.Equals(loader.GetString("MicrosoftAccount.Text")))
+				|| UserNameTextBlock.Text.Equals(loader.GetString("MicrosoftAccount/Text")))
 			{
 				// Show sign-in button.
 				SignInButton.Visibility = Visibility.Visible;

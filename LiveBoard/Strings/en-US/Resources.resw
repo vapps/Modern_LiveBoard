@@ -225,4 +225,19 @@
   <data name="Close.Content" xml:space="preserve">
     <value>Close</value>
   </data>
+  <data name="AskToPlayFile" xml:space="preserve">
+    <value>Would you like to play "{0}"?</value>
+  </data>
+  <data name="Cancel.Text" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ErrorFileLoading" xml:space="preserve">
+    <value>File loading error. File is corrupted or wrongly saved.</value>
+  </data>
+  <data name="NoRecentFile" xml:space="preserve">
+    <value>No recent files. Please creat a new Board.</value>
+  </data>
+  <data name="PlayNow" xml:space="preserve">
+    <value>Play Now</value>
+  </data>
 </root>

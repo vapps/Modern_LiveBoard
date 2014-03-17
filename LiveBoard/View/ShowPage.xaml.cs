@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -148,6 +149,11 @@ namespace LiveBoard.View
 				return;
 			GridTipBanner.Visibility = Visibility.Visible;
 			_counterForTipShowing = 3;
+		}
+
+		private void pageRoot_Loaded(object sender, RoutedEventArgs e)
+		{
+			Debug.WriteLine("ShowPage loaded: {0}x{1}", this.ActualWidth, this.ActualHeight);
 		}
 	}
 }
