@@ -240,4 +240,7 @@
   <data name="PlayNow" xml:space="preserve">
     <value>Play Now</value>
   </data>
+  <data name="PreviewWarning.Text" xml:space="preserve">
+    <value>Preview may not be identical with show playing.</value>
+  </data>
 </root>

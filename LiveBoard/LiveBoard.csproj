@@ -113,6 +113,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\WebColorToColorConverter.cs.cs" />
     <Compile Include="Common\ExtractFilenameConverter.cs" />
     <Compile Include="Common\NumberCommaConverter.cs" />
     <Compile Include="Common\PrefixConverter.cs" />
@@ -170,6 +171,9 @@
     </Compile>
     <Compile Include="View\EditorTemplate\LbHiddenControl.xaml.cs">
       <DependentUpon>LbHiddenControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditorTemplate\LbColorControl.xaml.cs">
+      <DependentUpon>LbColorControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PrivacyPolicyControl.xaml.cs">
       <DependentUpon>PrivacyPolicyControl.xaml</DependentUpon>
@@ -313,6 +317,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\EditorTemplate\LbColorControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\PrivacyPolicyControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -388,6 +396,12 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Newtonsoft.Json.6.0.1\lib\netcore45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="PerpetuumSoft.Controls">
+      <HintPath>packages\PerpetuumSoft.Controls.2.0.1\lib\winrt\PerpetuumSoft.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="PerpetuumSoft.WinRT.Framework">
+      <HintPath>packages\PerpetuumSoft.Controls.2.0.1\lib\winrt\PerpetuumSoft.WinRT.Framework.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.Core, Version=2013.3.1105.45, Culture=neutral, PublicKeyToken=54096b0481e00341, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

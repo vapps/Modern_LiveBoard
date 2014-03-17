@@ -13,7 +13,7 @@
     x:Name="pageRoot"
     x:Class="LiveBoard.View.CreatePage"
     NavigationCacheMode="Required"
-    mc:Ignorable="d" Loaded="pageRoot_Loaded" FontFamily="Global User Interface">
+    mc:Ignorable="d" Loaded="pageRoot_Loaded">
 
 	<common:LayoutAwarePage.Resources>
 		<DataTemplate x:Key="DefaultTemplate" />
@@ -26,6 +26,9 @@
 		<DataTemplate x:Key="DoubleTemplate">
 			<editorTemplate:LbDoubleControl />
 		</DataTemplate>
+		<DataTemplate x:Key="ColorTemplate">
+			<editorTemplate:LbColorControl />
+		</DataTemplate>
 		<DataTemplate x:Key="HiddenTemplate">
 			<editorTemplate:LbHiddenControl />
 		</DataTemplate>
@@ -34,6 +37,7 @@
                                     StringTemplate="{StaticResource StringTemplate}"
 									DoubleTemplate="{StaticResource DoubleTemplate}"
                                     IntTemplate="{StaticResource IntTemplate}"
+                                    ColorTemplate="{StaticResource ColorTemplate}"
                                     HiddenTemplate="{StaticResource HiddenTemplate}"
 											 />
 		<common:LbPageToDataListConverter x:Key="PageToDataListConverter" />
@@ -358,27 +362,34 @@
 
 			<!-- 우측 Preview 부분 -->
 			<Grid Grid.Column="1" DataContext="{Binding ElementName=ListViewPages, Path=SelectedItem, Mode=OneWay}">
-				<Grid Margin="20,0,0,0">
+				<Grid Margin="20,0,20,0">
 					<Grid>
-						<StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+						<StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
 							<TextBlock x:Uid="Preview" TextWrapping="Wrap" Text="Preview" 
 			FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light" />
+							
 						</StackPanel>
 						<!-- 미리보기 토글 나중에 하기. 레이아웃이 골치아프군. -->
 						<!--<ToggleSwitch VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,25,0,0" IsOn="True"
 										  OnContent="Enable" OffContent="Disable" Foreground="{StaticResource LbBackgroundBrush}"/>-->
-						<Border x:Name="PreviewBorder"  BorderThickness="15" BorderBrush="{StaticResource LbLightGrayBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" MinWidth="250" MinHeight="180" CornerRadius="10" SizeChanged="PreviewBorder_SizeChanged">
-							<Grid>
-								<!--<Viewbox>
+						<StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+							<Border x:Name="PreviewBorder"  BorderThickness="15" BorderBrush="{StaticResource LbLightGrayBrush}" MinWidth="250" MinHeight="180" CornerRadius="10" SizeChanged="PreviewBorder_SizeChanged">
+								<Grid>
+									<!--<Viewbox>
 								</Viewbox>-->
-								<Frame x:Name="FramePreview" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5" Navigated="FramePreview_Navigated" >
-									<Frame.RenderTransform>
-										<CompositeTransform ScaleX="1.0" ScaleY="1.0"/>
-									</Frame.RenderTransform>
-								</Frame>
-								<Rectangle Width="30" Height="5" Fill="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-10"></Rectangle>
-							</Grid>
-						</Border>
+									<Frame x:Name="FramePreview" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" RenderTransformOrigin="0.5,0.5" Navigated="FramePreview_Navigated" >
+										<Frame.RenderTransform>
+											<CompositeTransform ScaleX="1.0" ScaleY="1.0"/>
+										</Frame.RenderTransform>
+									</Frame>
+									<Rectangle Width="30" Height="5" Fill="White" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,-10"></Rectangle>
+								</Grid>
+							</Border>
+							<TextBlock x:Uid="PreviewWarning" TextWrapping="Wrap" Text="Preview may not be identical with show playing." Margin="2,5" HorizontalAlignment="Center"
+			Foreground="{StaticResource LbLightTextBrush}" FontFamily="Segoe UI Light" />
+
+						</StackPanel>
+
 					</Grid>
 				</Grid>
 			</Grid>

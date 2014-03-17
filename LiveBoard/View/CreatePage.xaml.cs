@@ -45,15 +45,7 @@ namespace LiveBoard.View
 					var frame = (Frame)Window.Current.Content;
 					if (!(frame.Content is ShowPage))
 					{
-						if (!PreviewLock)
-						{
-							lockPreview();
-							this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
-						}
-						else
-						{
-							// TODO: 사용자에게 preview중인걸 알리기.
-						}
+						this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
 					}
 				}
 				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_CREATING)
@@ -65,6 +57,14 @@ namespace LiveBoard.View
 				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_STARTED)
 				{
 					// 프리뷰의 페이지가 로딩되었을 때.
+					if (!PreviewLock)
+					{
+						lockPreview();
+					}
+					else
+					{
+						// TODO: 사용자에게 preview중인걸 알리기.
+					}
 				}
 			});
 		}
@@ -227,7 +227,7 @@ namespace LiveBoard.View
 				//page.RenderTransform = myTransformGroup;
 				foreach (var o in page.Content.GetChildren().Where(c => c is UIElement))
 				{
-					var element = (UIElement) o;
+					var element = (UIElement)o;
 					element.RenderTransformOrigin = new Point(0.5, 0.5);
 					element.RenderTransform = myTransformGroup;
 					// do something with tb here

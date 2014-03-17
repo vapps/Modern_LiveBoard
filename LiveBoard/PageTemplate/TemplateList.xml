@@ -61,4 +61,12 @@
 			<Data Key="Count" Name="Count" ValueType="Int" DefaultValue="0" IsHidden="True" Description="" />
 		</DataList>
 	</Template>
+	<Template Key="ColoredStringPage" Name="Colored Text" Description="Show line of text in color"
+			  TemplateView="SimpleColorText" TemplateModel="SingleStringPage">
+		<DataList>
+			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="" Description="" />
+			<Data Key="BackgroundColor" Name="Background Color" ValueType="Color" DefaultValue="" Description="" />
+			<Data Key="ForegroundColor" Name="Foreground Color" ValueType="Color" DefaultValue="" Description="" />
+		</DataList>
+	</Template>
 </LiveBoardTemplates>

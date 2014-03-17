@@ -170,7 +170,11 @@
           <source>Play Now</source>
           <target state="signed-off">바로 재생</target>
         </trans-unit>
-      </group>
+		  <trans-unit translate="yes" id="Resources\PreviewWarning\Text" xml:space="preserve">
+          <source>Preview may not be identical with show playing.</source>
+          <target state="signed-off">미리보기는 쇼 화면과 다를 수 있습니다.</target>
+        </trans-unit>
+	  </group>
       <group id="TemplateList">
         <trans-unit translate="yes" id="TemplateList\StaticWebView\Name" xml:space="preserve">
           <source>Web page</source>
