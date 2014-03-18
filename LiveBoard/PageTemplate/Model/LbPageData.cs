@@ -122,8 +122,9 @@ namespace LiveBoard.PageTemplate.Model
 		/// <param name="pageData"></param>
 		/// <param name="valueType"></param>
 		/// <param name="data"></param>
+		/// <param name="defaultData"></param>
 		/// <returns></returns>
-		public static LbPageData Parse(LbPageData pageData, string valueType, string data)
+		public static LbPageData Parse(LbPageData pageData, string valueType, string data, string defaultData = "")
 		{
 			valueType = !String.IsNullOrEmpty(valueType) ? valueType : (pageData.ValueType != null ? pageData.ValueType.Name : null);
 			if (valueType == null)
@@ -134,6 +135,8 @@ namespace LiveBoard.PageTemplate.Model
 				case "":
 				case "string":
 					pageData.ValueType = typeof(string);
+					if (String.IsNullOrEmpty(data))
+						data = defaultData;
 					pageData.Data = data;
 					break;
 				case "int":
@@ -141,16 +144,22 @@ namespace LiveBoard.PageTemplate.Model
 				case "int32":
 				case "integer":
 					pageData.ValueType = typeof(int);
+					if (String.IsNullOrEmpty(data))
+						data = defaultData;
 					pageData.Data = !String.IsNullOrWhiteSpace(data) ? int.Parse(data) : 0;
 					break;
 				case "int64":
 				case "float":
 				case "double":
 					pageData.ValueType = typeof(double);
+					if (String.IsNullOrEmpty(data))
+						data = defaultData;
 					pageData.Data = !String.IsNullOrWhiteSpace(data) ? double.Parse(data) : 0d;
 					break;
 				case "color":
 					pageData.ValueType = typeof(Color);
+					if (String.IsNullOrEmpty(data))
+						data = defaultData;
 					string colorcode = data.Replace("#", "");
 					if (String.IsNullOrWhiteSpace(colorcode)) // 기본값은 검정.
 						colorcode = "000000";
@@ -197,6 +206,7 @@ namespace LiveBoard.PageTemplate.Model
 				IsHidden = bool.Parse(xElement.Attribute("IsHidden") != null
 					? xElement.Attribute("IsHidden").Value
 					: bool.FalseString),
+				DefaultData = xElement.Attribute("DefaultValue") != null ? xElement.Attribute("DefaultValue").Value : ""
 			};
 
 			// 다국어 처리.
@@ -217,7 +227,7 @@ namespace LiveBoard.PageTemplate.Model
 				}
 			}
 
-			return Parse(tData, xElement.Attribute("ValueType").Value, xElement.Attribute("DefaultValue").Value);
+			return Parse(tData, xElement.Attribute("ValueType").Value, xElement.Attribute("DefaultValue").Value, xElement.Attribute("DefaultValue").Value);
 		}
 
 		/// <summary>

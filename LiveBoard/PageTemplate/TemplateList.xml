@@ -1,10 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <LiveBoardTemplates>
 	<!-- 한 줄 출력 -->
-	<Template Key="SingleStringPage" Name="1-line text" Description="Show single line of text"
+	<Template Key="SingleStringPage" Name="1-line text" Description="Show text simply"
 			  TemplateView="SimpleText" TemplateModel="SingleStringPage">
 		<DataList>
-			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="" Description="" />
+			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="hello" Description="" />
+		</DataList>
+	</Template>
+	<Template Key="ColoredStringPage" Name="Colored Text" Description="Show text in color"
+		  TemplateView="SimpleColorText" TemplateModel="SingleStringPage">
+		<DataList>
+			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="hello" Description="" />
+			<Data Key="BackgroundColor" Name="Background Color" ValueType="Color" DefaultValue="#FF111111" Description="" />
+			<Data Key="ForegroundColor" Name="Foreground Color" ValueType="Color" DefaultValue="#FFFFFF00" Description="" />
 		</DataList>
 	</Template>
 	<!-- 웹뷰 -->
@@ -59,14 +67,6 @@
 			<Data Key="Page" Name="Facebook Page Name" ValueType="String" DefaultValue="windows" Description="" />
 			<Data Key="Title" Name="Title to Display" ValueType="String" DefaultValue="Windows Facebook Page" Description="" />
 			<Data Key="Count" Name="Count" ValueType="Int" DefaultValue="0" IsHidden="True" Description="" />
-		</DataList>
-	</Template>
-	<Template Key="ColoredStringPage" Name="Colored Text" Description="Show line of text in color"
-			  TemplateView="SimpleColorText" TemplateModel="SingleStringPage">
-		<DataList>
-			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="" Description="" />
-			<Data Key="BackgroundColor" Name="Background Color" ValueType="Color" DefaultValue="" Description="" />
-			<Data Key="ForegroundColor" Name="Foreground Color" ValueType="Color" DefaultValue="" Description="" />
 		</DataList>
 	</Template>
 </LiveBoardTemplates>

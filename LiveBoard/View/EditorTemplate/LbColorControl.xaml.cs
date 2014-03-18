@@ -72,7 +72,6 @@ BSAAB5AABSAAB7AACLAAB5AACRAAB4AAB4AAB5AACLAAB3AABMAAB6AABQAAB9AA
 B4AAB5AACNAAB8AACOAAB7AABRAAB9AACAAACAAAB5AAB3AAB5AAB4AACDAAB8AA
 CRAAB9AAB5AAB3AACNAAB6AACEAAB4AACFAAB8AABMAAB4AAB3AAB7AACPAAANAA
 AKAA}");
-
 			this.InitializeComponent();
 		}
 
@@ -94,9 +93,28 @@ AKAA}");
 			ColorPickerControl.Color = convertToColor(TextBoxControl.Text);
 		}
 
+		/// <summary>
+		/// 초기화.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void root_Loaded(object sender, RoutedEventArgs e)
+		{
+			ColorPickerControl.Color = convertToColor(TextBoxControl.Text);
+		}
+
+		/// <summary>
+		/// 색상 바꾸기.
+		/// </summary>
+		/// <param name="colorCode"></param>
+		/// <returns></returns>
 		private static Color convertToColor(string colorCode)
 		{
-			int argb = Int32.Parse(colorCode.Replace("#", ""), NumberStyles.HexNumber);
+			colorCode = colorCode.Replace("#", "");
+			if (String.IsNullOrEmpty(colorCode))
+				return Colors.Black;
+
+			int argb = Int32.Parse(colorCode, NumberStyles.HexNumber);
 			return Color.FromArgb((byte)((argb & -16777216) >> 0x18),
 								  (byte)((argb & 0xff0000) >> 0x10),
 								  (byte)((argb & 0xff00) >> 8),

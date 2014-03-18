@@ -39,6 +39,9 @@ namespace LiveBoard.Common
 					case "FacebookLike":
 						uri = new Uri(prefix + "appbar.thumbs.up.png");
 						break;
+					case "ColoredStringPage":
+						uri = new Uri(prefix + "appbar.text.color.png");
+						break;
 				}
 			}
 			catch (Exception)

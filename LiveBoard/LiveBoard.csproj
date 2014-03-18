@@ -266,6 +266,7 @@
     <Content Include="Images\appbar.monitor.play.png" />
     <Content Include="Images\appbar.rss.png" />
     <Content Include="Images\appbar.save.png" />
+    <Content Include="Images\appbar.text.color.png" />
     <Content Include="Images\appbar.text.sans.png" />
     <Content Include="Images\appbar.thumbs.up.png" />
     <Content Include="Images\appbar.timer.png" />

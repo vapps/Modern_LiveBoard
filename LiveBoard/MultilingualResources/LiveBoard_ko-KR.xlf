@@ -170,11 +170,11 @@
           <source>Play Now</source>
           <target state="signed-off">바로 재생</target>
         </trans-unit>
-		  <trans-unit translate="yes" id="Resources\PreviewWarning\Text" xml:space="preserve">
+        <trans-unit translate="yes" id="Resources\PreviewWarning\Text" xml:space="preserve">
           <source>Preview may not be identical with show playing.</source>
           <target state="signed-off">미리보기는 쇼 화면과 다를 수 있습니다.</target>
         </trans-unit>
-	  </group>
+      </group>
       <group id="TemplateList">
         <trans-unit translate="yes" id="TemplateList\StaticWebView\Name" xml:space="preserve">
           <source>Web page</source>
@@ -192,20 +192,13 @@
           <source>Show single image</source>
           <target state="translated">웹에 있는 이미지를 보여줍니다.</target>
         </trans-unit>
-        <trans-unit translate="yes" id="TemplateList\SingleStringPage\Text\Name" xml:space="preserve">
-          <source>Text</source>
-          <target state="translated">표시할 문구</target>
-        </trans-unit>
-        <trans-unit translate="yes" id="TemplateList\SingleStringPage\Text\Description" xml:space="preserve">
-          <source />
-          <target state="new" />
-        </trans-unit><trans-unit translate="yes" id="TemplateList\SingleStringPage\Name" xml:space="preserve">
+        <trans-unit translate="yes" id="TemplateList\SingleStringPage\Name" xml:space="preserve">
           <source>1-line text</source>
           <target state="translated">한 문장 표시</target>
         </trans-unit>
         <trans-unit translate="yes" id="TemplateList\SingleStringPage\Description" xml:space="preserve">
-          <source>Show single line of text</source>
-          <target state="translated">입력한 짧은 문구를 보여줍니다.</target>
+          <source>Show text simply</source>
+          <target state="needs-review-translation">입력한 짧은 문구를 보여줍니다.</target><note from="MultilingualUpdate" priority="2" annotates="source">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit translate="yes" id="TemplateList\RssList\Name" xml:space="preserve">
           <source>RSS</source>
@@ -230,6 +223,14 @@
         <trans-unit translate="yes" id="TemplateList\Countdown\Description" xml:space="preserve">
           <source>Show number to count down per 1 second to zero</source>
           <target state="translated">매초마다 카운트다운하여 0까지 도달합니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\ColoredStringPage\Description" xml:space="preserve">
+          <source>Show text in color</source>
+          <target state="new">글자에 배경색과 글자색을 지정할 수 있습니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\ColoredStringPage\Name" xml:space="preserve">
+          <source>Colored Text</source>
+          <target state="new">색을 바꿀 수 있는 문장 표시</target>
         </trans-unit>
       </group>
     </body>
