@@ -376,9 +376,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Callisto.1.4.0\lib\netcore451\Callisto.dll</HintPath>
     </Reference>
-    <Reference Include="DDay.iCal">
-      <HintPath>packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll</HintPath>
-    </Reference>
     <Reference Include="GalaSoft.MvvmLight.Extras.Win8, Version=4.2.30.23406, Culture=neutral, PublicKeyToken=33a77f5c33c10a68, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\MvvmLightLibs.4.2.30.0\lib\netcore45\GalaSoft.MvvmLight.Extras.Win8.dll</HintPath>
