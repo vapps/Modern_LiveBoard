@@ -184,9 +184,6 @@
     <Compile Include="View\RecentOpenedPage.xaml.cs">
       <DependentUpon>RecentOpenedPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\StartBasicPage.xaml.cs">
-      <DependentUpon>StartBasicPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\TemplateSelectionControl.xaml.cs">
       <DependentUpon>TemplateSelectionControl.xaml</DependentUpon>
     </Compile>
@@ -334,10 +331,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\RecentOpenedPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\StartBasicPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

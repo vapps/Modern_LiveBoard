@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,9 +11,9 @@ using Windows.System.UserProfile;
 using Windows.UI.Popups;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
@@ -28,7 +27,7 @@ namespace LiveBoard.View
 	public sealed partial class StartPage : Page
 	{
 		// 언어 리소스 로더.
-		readonly ResourceLoader _loader = new Windows.ApplicationModel.Resources.ResourceLoader("Resources");
+		readonly ResourceLoader _loader = new ResourceLoader("Resources");
 
 		readonly MainViewModel _viewModel;
 		private NavigationHelper navigationHelper;
