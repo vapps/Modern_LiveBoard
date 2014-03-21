@@ -160,11 +160,11 @@
         </trans-unit>
         <trans-unit translate="yes" id="Resources\Cancel\Text" xml:space="preserve">
           <source>Cancel</source>
-          <target state="new">취소</target>
+          <target state="signed-off">취소</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\ErrorFileLoading" xml:space="preserve">
-          <source>File loading error. File is corrupted or wrongly saved.</source>
-          <target state="new">파일 로딩에 실패했습니다. 파일이 깨졌거나 잘 못 저장되었습니다.</target>
+          <source>Error: File {0} is corrupted or wrongly saved.</source>
+          <target state="signed-off">에러: {0}.lvbd 파일이 깨졌거나 찾을 수 없습니다.</target>
         </trans-unit>
         <trans-unit translate="yes" id="Resources\PlayNow" xml:space="preserve">
           <source>Play Now</source>

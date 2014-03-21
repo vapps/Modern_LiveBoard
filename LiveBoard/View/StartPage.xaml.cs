@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
@@ -25,6 +27,9 @@ namespace LiveBoard.View
 	/// </summary>
 	public sealed partial class StartPage : LiveBoard.Common.LayoutAwarePage
 	{
+		// 언어 리소스 로더.
+		ResourceLoader _loader = new Windows.ApplicationModel.Resources.ResourceLoader("Resources");
+
 		private MainViewModel _viewModel;
 		public StartPage()
 		{
@@ -175,31 +180,39 @@ namespace LiveBoard.View
 		StorageFile _playStorageFile;
 		private async void ButtonPlayRecent_OnClick(object sender, RoutedEventArgs e)
 		{
-			// 언어 리소스 로더.
-			var loader = new Windows.ApplicationModel.Resources.ResourceLoader("Resources");
-
 			if (_viewModel == null
 				|| StorageApplicationPermissions.MostRecentlyUsedList.Entries == null
 				|| StorageApplicationPermissions.MostRecentlyUsedList.Entries.Count == 0)
 			{
-				await new MessageDialog(loader.GetString("NoRecentFile")).ShowAsync();
+				await new MessageDialog(_loader.GetString("NoRecentFile")).ShowAsync();
 				return;
 			}
 
+			String mruFirstToken = null;
 			try
 			{
-				String mruFirstToken = StorageApplicationPermissions.MostRecentlyUsedList.Entries.First().Token;
+				mruFirstToken = StorageApplicationPermissions.MostRecentlyUsedList.Entries.First().Token;
 				_playStorageFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(mruFirstToken);
 			}
-			catch (Exception exception)
+			catch (IOException)
 			{
-				new MessageDialog(loader.GetString("ErrorFileLoading"), loader.GetString("PlayRecentBoard/Text")).ShowAsync();
-				return;
+				if (!String.IsNullOrEmpty(mruFirstToken))
+				{
+					var converter = new ExtractFilenameConverter();
+					var filename = converter.Convert(mruFirstToken, typeof (string), null, GlobalizationPreferences.Languages[0]);
+					new MessageDialog(String.Format(_loader.GetString("ErrorFileLoading"), filename),
+						_loader.GetString("PlayRecentBoard/Text")).ShowAsync();
+
+					// 최근 실행목록 삭제.
+					StorageApplicationPermissions.MostRecentlyUsedList.Remove(mruFirstToken);
+					_viewModel.RefreshRecentOpenedList();
+					return;
+				}
 			}
 
-			var dialog = new MessageDialog(String.Format(loader.GetString("AskToPlayFile"), _playStorageFile.DisplayName), loader.GetString("PlayRecentBoard/Text"));
-			dialog.Commands.Add(new UICommand(loader.GetString("PlayNow"), playClickHandler));
-			dialog.Commands.Add(new UICommand(loader.GetString("Cancel/Text")));
+			var dialog = new MessageDialog(String.Format(_loader.GetString("AskToPlayFile"), _playStorageFile.DisplayName), _loader.GetString("PlayRecentBoard/Text"));
+			dialog.Commands.Add(new UICommand(_loader.GetString("PlayNow"), playClickHandler));
+			dialog.Commands.Add(new UICommand(_loader.GetString("Cancel/Text")));
 			dialog.DefaultCommandIndex = 0;
 			dialog.CancelCommandIndex = 1;
 			await dialog.ShowAsync();
@@ -210,12 +223,20 @@ namespace LiveBoard.View
 			if (_playStorageFile != null)
 			{
 				await _viewModel.ActiveBoard.LoadAsync(_playStorageFile, _viewModel.Templates);
-				this.Frame.Navigate(typeof(ShowPage), _viewModel.ActiveBoard);				
+				this.Frame.Navigate(typeof(ShowPage), _viewModel.ActiveBoard);
 			}
 		}
 
-		private void ButtonEditRecent_OnClick(object sender, RoutedEventArgs e)
+		private async void ButtonEditRecent_OnClick(object sender, RoutedEventArgs e)
 		{
+			if (_viewModel == null
+				|| StorageApplicationPermissions.MostRecentlyUsedList.Entries == null
+				|| StorageApplicationPermissions.MostRecentlyUsedList.Entries.Count == 0)
+			{
+				await new MessageDialog(_loader.GetString("NoRecentFile")).ShowAsync();
+				return;
+			}
+
 			Frame.Navigate(typeof(RecentOpenedPage));
 		}
 	}

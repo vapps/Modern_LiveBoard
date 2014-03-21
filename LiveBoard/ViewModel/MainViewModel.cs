@@ -387,6 +387,14 @@ namespace LiveBoard.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// 최근 파일 목록 새로고침.
+		/// </summary>
+		public void RefreshRecentOpenedList()
+		{
+			RaisePropertyChanged("RecentOpenedList");
+		}
+
 		#region Properties
 
 		/// <summary>

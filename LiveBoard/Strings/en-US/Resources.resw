@@ -232,7 +232,7 @@
     <value>Cancel</value>
   </data>
   <data name="ErrorFileLoading" xml:space="preserve">
-    <value>File loading error. File is corrupted or wrongly saved.</value>
+    <value>Error: File {0} is corrupted or wrongly saved.</value>
   </data>
   <data name="NoRecentFile" xml:space="preserve">
     <value>No recent files. Please creat a new Board.</value>

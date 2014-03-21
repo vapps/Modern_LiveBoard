@@ -1,12 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using Windows.ApplicationModel.Core;
+using Windows.ApplicationModel.Resources;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.UI.Core;
+using Windows.UI.Popups;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
@@ -19,7 +22,6 @@ using Windows.UI.Xaml.Navigation;
 using LiveBoard.Model;
 using LiveBoard.PageTemplate.Model;
 using LiveBoard.ViewModel;
-using Microsoft.Practices.ServiceLocation;
 
 namespace LiveBoard.View
 {
@@ -31,6 +33,7 @@ namespace LiveBoard.View
 	{
 		private NavigationHelper navigationHelper;
 		private MainViewModel _viewModel;
+		ResourceLoader _loader = new Windows.ApplicationModel.Resources.ResourceLoader("Resources");
 
 		/// <summary>
 		/// NavigationHelper is used on each page to aid in navigation and 
@@ -97,8 +100,25 @@ namespace LiveBoard.View
 				_viewModel.SelectedBoard = new BoardViewModel();
 
 			// 파일 부르기.
-			StorageFile retrievedFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(lbFile.Token);
-			var text = await FileIO.ReadTextAsync(retrievedFile);
+			StorageFile retrievedFile = null;
+			string text = null;
+			try
+			{
+				retrievedFile = await StorageApplicationPermissions.MostRecentlyUsedList.GetFileAsync(lbFile.Token);
+				text = await FileIO.ReadTextAsync(retrievedFile);
+			}
+			catch (IOException)
+			{
+				var converter = new ExtractFilenameConverter();
+				var filename = converter.Convert(lbFile.Metadata, typeof(string), null, Windows.System.UserProfile.GlobalizationPreferences.Languages[0]);
+				new MessageDialog(String.Format(_loader.GetString("ErrorFileLoading"), filename), _loader.GetString("PlayRecentBoard/Text")).ShowAsync();
+
+				// 최근 실행목록 삭제.
+				StorageApplicationPermissions.MostRecentlyUsedList.Remove(lbFile.Token);
+				_viewModel.RefreshRecentOpenedList();
+
+				return;
+			}
 
 			Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
 			{
