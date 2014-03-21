@@ -314,7 +314,7 @@
 
 									<Grid>
 										<Slider x:Name="SliderMinute" Margin="0,0,60,0" Height="40" TickPlacement="Outside" VerticalAlignment="Center" Value="{Binding Path=Duration, Converter={StaticResource DurationTimespan}, ConverterParameter='minute'}"
-												ValueChanged="SliderMinute_OnValueChanged" LargeChange="5"/>
+												ValueChanged="SliderMinute_OnValueChanged" LargeChange="5" Maximum="59"/>
 										<TextBlock Text="{Binding ElementName=SliderMinute, Path=Value, Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0" Foreground="{StaticResource LbDarkBlueBrush}" />
 										<TextBlock x:Uid="MinuteAbbr" Text="min" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5" Foreground="{StaticResource LbDarkTextBrush}" />
 									</Grid>
