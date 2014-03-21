@@ -1,4 +1,4 @@
-﻿<common:LayoutAwarePage
+﻿<Page
     x:Class="LiveBoard.View.StartPage"
 	DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -7,10 +7,10 @@
     xmlns:common="using:LiveBoard.Common"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	mc:Ignorable="d">
+	x:Name="RootPage"
+	mc:Ignorable="d" SizeChanged="RootPage_SizeChanged">
 
 	<Page.Resources>
-
 		<!-- 시작 버튼 스타일 -->
 		<Style x:Key="LbStartPageButtonStyle" TargetType="Button">
 			<Setter Property="Margin" Value="30"/>
@@ -22,82 +22,165 @@
 			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
 			<Setter Property="Padding" Value="0"/>
 		</Style>
+		<!-- 축소된 버튼 스타일 -->
+		<Style x:Key="LbStartPageButtonMinimalStyle" TargetType="Button">
+			<Setter Property="Margin" Value="20"/>
+			<Setter Property="Width" Value="180"/>
+			<Setter Property="Height" Value="180"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="VerticalAlignment" Value="Stretch"/>
+			<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+			<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+			<Setter Property="Padding" Value="0"/>
+		</Style>
+		
 	</Page.Resources>
-
-	<!--
-        This grid acts as a root panel for the page that defines two rows:
-        * Row 0 contains the back button and page title
-        * Row 1 contains the rest of the page layout
-    -->
-	<Grid Style="{StaticResource LayoutRootStyle}">
-		<StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Orientation="Horizontal">
-			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonCreate" Click="ButtonCreate_OnClick">
-				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-					<ContentControl Style="{StaticResource LbCreateNewICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
-						<ContentControl.RenderTransform>
-							<CompositeTransform ScaleX="1.8" ScaleY="1.8"/>
-						</ContentControl.RenderTransform>
-					</ContentControl>
-					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock x:Uid="CreateNewBoard" Text="Create Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
-					</Grid>
-				</Grid>
-			</Button>
-			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonEditRecent" Click="ButtonEditRecent_OnClick">
-				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-					<ContentControl Style="{StaticResource LbEditRecentICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
-						<ContentControl.RenderTransform>
-							<CompositeTransform ScaleX="2" ScaleY="2"/>
-						</ContentControl.RenderTransform>
-					</ContentControl>
-					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock x:Uid="EditRecentBoard" Text="Edit Recent Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
-					</Grid>
-				</Grid>
-
-			</Button>
-
-			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonPlayRecent" Click="ButtonPlayRecent_OnClick">
-				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-					<ContentControl Style="{StaticResource LbPlayICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
-						<ContentControl.RenderTransform>
-							<CompositeTransform ScaleX="2" ScaleY="2"/>
-						</ContentControl.RenderTransform>
-					</ContentControl>
-					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock x:Uid="PlayRecentBoard" Text="Play Recent Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
-					</Grid>
-				</Grid>
-			</Button>
-			<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonOpen" Click="ButtonOpen_OnClick">
-				<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-					<ContentControl Style="{StaticResource LbOpenICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
-						<ContentControl.RenderTransform>
-							<CompositeTransform ScaleX="2" ScaleY="2"/>
-						</ContentControl.RenderTransform>
-					</ContentControl>
-					<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
-						<TextBlock x:Uid="OpenBoardFile" Text="Open Board File" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
-					</Grid>
-				</Grid>
-			</Button>
-
-
-		</StackPanel>
-
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 		<VisualStateManager.VisualStateGroups>
-
-			<!-- Visual states reflect the application's view state -->
-			<VisualStateGroup x:Name="ApplicationViewStates">
-				<VisualState x:Name="FullScreenLandscape"/>
-				<VisualState x:Name="Filled"/>
-
-				<!-- The entire page respects the narrower 100-pixel margin convention for portrait -->
-				<VisualState x:Name="FullScreenPortrait"/>
-
-				<!-- The back button and title have different styles when snapped -->
-				<VisualState x:Name="Snapped"/>
+			<VisualStateGroup>
+				<VisualState x:Name="DefaultLayout">
+					<!-- The default Visibility properties are set in the XAML that defines the objects. -->
+				</VisualState>
+				<VisualState x:Name="MinimalLayout">
+					<Storyboard>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="defaultNavigation" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="minimalNavigation" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+						</ObjectAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
+				<VisualState x:Name="PortraitLayout">
+					<Storyboard>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="defaultNavigation" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="minimalNavigation" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+						</ObjectAnimationUsingKeyFrames>
+					</Storyboard>
+				</VisualState>
 			</VisualStateGroup>
 		</VisualStateManager.VisualStateGroups>
+
+		<Grid x:Name="defaultNavigation" Visibility="Visible">
+			<Grid.ChildrenTransitions>
+				<TransitionCollection>
+					<EntranceThemeTransition/>
+				</TransitionCollection>
+			</Grid.ChildrenTransitions>
+			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Orientation="Horizontal">
+				<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonCreate" Click="ButtonCreate_OnClick">
+					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+						<ContentControl Style="{StaticResource LbCreateNewICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
+							<ContentControl.RenderTransform>
+								<CompositeTransform ScaleX="1.8" ScaleY="1.8"/>
+							</ContentControl.RenderTransform>
+						</ContentControl>
+						<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
+							<TextBlock x:Uid="CreateNewBoard" Text="Create Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
+						</Grid>
+					</Grid>
+				</Button>
+				<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonEditRecent" Click="ButtonEditRecent_OnClick">
+					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+						<ContentControl Style="{StaticResource LbEditRecentICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
+							<ContentControl.RenderTransform>
+								<CompositeTransform ScaleX="2" ScaleY="2"/>
+							</ContentControl.RenderTransform>
+						</ContentControl>
+						<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
+							<TextBlock x:Uid="EditRecentBoard" Text="Edit Recent Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
+						</Grid>
+					</Grid>
+
+				</Button>
+
+				<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonPlayRecent" Click="ButtonPlayRecent_OnClick">
+					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+						<ContentControl Style="{StaticResource LbPlayICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
+							<ContentControl.RenderTransform>
+								<CompositeTransform ScaleX="2" ScaleY="2"/>
+							</ContentControl.RenderTransform>
+						</ContentControl>
+						<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
+							<TextBlock x:Uid="PlayRecentBoard" Text="Play Recent Board" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
+						</Grid>
+					</Grid>
+				</Button>
+				<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonStyle}" x:Name="ButtonOpen" Click="ButtonOpen_OnClick">
+					<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+						<ContentControl Style="{StaticResource LbOpenICon}" Margin="80,60,80,80" RenderTransformOrigin="0.5,0.5">
+							<ContentControl.RenderTransform>
+								<CompositeTransform ScaleX="2" ScaleY="2"/>
+							</ContentControl.RenderTransform>
+						</ContentControl>
+						<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
+							<TextBlock x:Uid="OpenBoardFile" Text="Open Board File" FontSize="20" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
+						</Grid>
+					</Grid>
+				</Button>
+			</StackPanel>
+		</Grid>
+		
+		<!-- 축소된 화면 레이아웃 -->
+		<Grid x:Name="minimalNavigation" Visibility="Collapsed">
+			<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Orientation="Horizontal">
+					<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonMinimalStyle}" x:Name="ButtonCreateMinimal" Click="ButtonCreate_OnClick">
+						<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+							<ContentControl Style="{StaticResource LbCreateNewICon}" Margin="0,-20,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+								<ContentControl.RenderTransform>
+									<CompositeTransform ScaleX="1.4" ScaleY="1.4"/>
+								</ContentControl.RenderTransform>
+							</ContentControl>
+							<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
+								<TextBlock x:Uid="CreateNewBoard" Text="Create Board" FontSize="15" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
+							</Grid>
+						</Grid>
+					</Button>
+					<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonMinimalStyle}" x:Name="ButtonEditRecentMinimal" Click="ButtonEditRecent_OnClick" FontFamily="Global User Interface">
+						<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+							<ContentControl Style="{StaticResource LbEditRecentICon}" Margin="0,-20,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+								<ContentControl.RenderTransform>
+									<CompositeTransform ScaleX="1.5" ScaleY="1.5"/>
+								</ContentControl.RenderTransform>
+							</ContentControl>
+							<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
+								<TextBlock x:Uid="EditRecentBoard" Text="Edit Recent Board" FontSize="15" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
+							</Grid>
+						</Grid>
+					</Button>
+				</StackPanel>
+				<StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Orientation="Horizontal">
+					<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonMinimalStyle}" x:Name="ButtonPlayRecentMinimal" Click="ButtonPlayRecent_OnClick">
+						<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+							<ContentControl Style="{StaticResource LbPlayICon}" Margin="0,-20,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+								<ContentControl.RenderTransform>
+									<CompositeTransform ScaleX="1.4" ScaleY="1.4"/>
+								</ContentControl.RenderTransform>
+							</ContentControl>
+							<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
+								<TextBlock x:Uid="PlayRecentBoard" Text="Play Recent Board" FontSize="15" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
+							</Grid>
+						</Grid>
+					</Button>
+					<Button Background="{StaticResource LbBlueKeyBrush}" Style="{StaticResource LbStartPageButtonMinimalStyle}" x:Name="ButtonOpenMinimal" Click="ButtonOpen_OnClick">
+						<Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+							<ContentControl Style="{StaticResource LbOpenICon}" Margin="0,-20,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+								<ContentControl.RenderTransform>
+									<CompositeTransform ScaleX="1.4" ScaleY="1.4"/>
+								</ContentControl.RenderTransform>
+							</ContentControl>
+							<Grid Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Background="#50000000">
+								<TextBlock x:Uid="OpenBoardFile" Text="Open Board File" FontSize="15" VerticalAlignment="Center" Margin="10,0,0,0" Foreground="#EFFFFFFF" />
+							</Grid>
+						</Grid>
+					</Button>
+				</StackPanel>
+			</StackPanel>
+		</Grid>
 	</Grid>
-</common:LayoutAwarePage>
+
+</Page>

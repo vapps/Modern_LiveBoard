@@ -25,60 +25,84 @@ namespace LiveBoard.View
 	/// <summary>
 	/// A basic page that provides characteristics common to most applications.
 	/// </summary>
-	public sealed partial class StartPage : LiveBoard.Common.LayoutAwarePage
+	public sealed partial class StartPage : Page
 	{
 		// 언어 리소스 로더.
-		ResourceLoader _loader = new Windows.ApplicationModel.Resources.ResourceLoader("Resources");
+		readonly ResourceLoader _loader = new Windows.ApplicationModel.Resources.ResourceLoader("Resources");
 
-		private MainViewModel _viewModel;
+		readonly MainViewModel _viewModel;
+		private NavigationHelper navigationHelper;
+		StorageFile _playStorageFile;
+		private FileActivatedEventArgs _fileEventArgs = null;
+		private ProtocolActivatedEventArgs _protocolEventArgs = null;
+
+		/// <summary>
+		/// NavigationHelper is used on each page to aid in navigation and 
+		/// process lifetime management
+		/// </summary>
+		public NavigationHelper NavigationHelper
+		{
+			get { return this.navigationHelper; }
+		}
+
 		public StartPage()
 		{
 			this.InitializeComponent();
+			this.navigationHelper = new NavigationHelper(this);
+			this.navigationHelper.LoadState += navigationHelper_LoadState;
+			this.navigationHelper.SaveState += navigationHelper_SaveState;
 
 			if (_viewModel == null)
 				_viewModel = DataContext as MainViewModel;
 		}
 
-		/// <summary>
-		/// Populates the page with content passed during navigation.  Any saved state is also
-		/// provided when recreating a page from a prior session.
-		/// </summary>
-		/// <param name="navigationParameter">The parameter value passed to
-		/// <see cref="Frame.Navigate(Type, Object)"/> when this page was initially requested.
-		/// </param>
-		/// <param name="pageState">A dictionary of state preserved by this page during an earlier
-		/// session.  This will be null the first time a page is visited.</param>
-		protected override void LoadState(Object navigationParameter, Dictionary<String, Object> pageState)
+		private void navigationHelper_SaveState(object sender, SaveStateEventArgs e)
 		{
-			var boardViewModel = navigationParameter as BoardViewModel;
+		}
+
+		private void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
+		{
+			var boardViewModel = e.NavigationParameter as BoardViewModel;
 			if (boardViewModel != null)
 				Frame.Navigate(typeof(CreatePage), boardViewModel);
 		}
 
-		/// <summary>
-		/// Preserves state associated with this page in case the application is suspended or the
-		/// page is discarded from the navigation cache.  Values must conform to the serialization
-		/// requirements of <see cref="SuspensionManager.SessionState"/>.
-		/// </summary>
-		/// <param name="pageState">An empty dictionary to be populated with serializable state.</param>
-		protected override void SaveState(Dictionary<String, Object> pageState)
+		/// The methods provided in this section are simply used to allow
+		/// NavigationHelper to respond to the page's navigation methods.
+		/// 
+		/// Page specific logic should be placed in event handlers for the  
+		/// <see cref="GridCS.Common.NavigationHelper.LoadState"/>
+		/// and <see cref="GridCS.Common.NavigationHelper.SaveState"/>.
+		/// The navigation parameter is available in the LoadState method 
+		/// in addition to page state preserved during an earlier session.
+		protected override void OnNavigatedTo(NavigationEventArgs e)
 		{
+			navigationHelper.OnNavigatedTo(e);
 		}
 
-		private FileActivatedEventArgs _fileEventArgs = null;
+		protected override void OnNavigatedFrom(NavigationEventArgs e)
+		{
+			navigationHelper.OnNavigatedFrom(e);
+		}
+
+		/// <summary>
+		/// lvbd 파일을 더블클릭하여 실행되었을 때 사용되는 파일 프로퍼티.
+		/// </summary>
 		public FileActivatedEventArgs FileEvent
 		{
 			get { return _fileEventArgs; }
 			set { _fileEventArgs = value; }
 		}
 
-		private ProtocolActivatedEventArgs _protocolEventArgs = null;
 		public ProtocolActivatedEventArgs ProtocolEvent
 		{
 			get { return _protocolEventArgs; }
 			set { _protocolEventArgs = value; }
 		}
 
+		/// <summary>
+		/// lvbd 파일을 더블클릭하여 실행되었을 때.
+		/// </summary>
 		public async Task NavigateToFilePage()
 		{
 			// Display the result of the file activation if we got here as a result of being activated for a file.
@@ -122,8 +146,8 @@ namespace LiveBoard.View
 
 		private async void ButtonOpen_OnClick(object sender, RoutedEventArgs e)
 		{
-			if (!EnsureUnsnapped())
-				return;
+			//if (!EnsureUnsnapped())
+			//	return;
 
 			var openPicker = new FileOpenPicker
 			{
@@ -177,7 +201,6 @@ namespace LiveBoard.View
 			return unsnapped;
 		}
 
-		StorageFile _playStorageFile;
 		private async void ButtonPlayRecent_OnClick(object sender, RoutedEventArgs e)
 		{
 			if (_viewModel == null
@@ -238,6 +261,23 @@ namespace LiveBoard.View
 			}
 
 			Frame.Navigate(typeof(RecentOpenedPage));
+		}
+
+		/// <summary>
+		/// 해상도 대응
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void RootPage_SizeChanged(object sender, SizeChangedEventArgs e)
+		{
+			if (e.NewSize.Width <= (1366/2))
+			{
+				VisualStateManager.GoToState(this, "MinimalLayout", true);
+			}
+			else
+			{
+				VisualStateManager.GoToState(this, "DefaultLayout", true);
+			} 
 		}
 	}
 }

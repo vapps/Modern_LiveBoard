@@ -12,21 +12,21 @@
 		<DataList>
 			<Data Key="Text" Name="Text" ValueType="String" DefaultValue="hello" Description="" />
 			<Data Key="BackgroundColor" Name="Background Color" ValueType="Color" DefaultValue="#FF111111" Description="" />
-			<Data Key="ForegroundColor" Name="Foreground Color" ValueType="Color" DefaultValue="#FFFFFF00" Description="" />
+			<Data Key="ForegroundColor" Name="Text Color" ValueType="Color" DefaultValue="#FFFFFF00" Description="" />
 		</DataList>
 	</Template>
 	<!-- 웹뷰 -->
 	<Template Key="StaticWebView" Name="Web page" Description="Show web page as a screen-captured manner" 
 			  TemplateView="StaticWebView" TemplateModel="SingleStringPage">
 		<DataList>
-			<Data Key="Url" Name="Header" ValueType="String" DefaultValue="" Description="" />
+			<Data Key="Url" Name="URL" ValueType="String" DefaultValue="" Description="Web Address (http://...)" />
 		</DataList>
 	</Template>
 	<!-- 한장 이미지 출력 -->
 	<Template Key="SingleUrlImage" Name="Simple image view" Description="Show single image" 
 			  TemplateView="SimpleUrlImage" TemplateModel="SingleStringPage">
 		<DataList>
-			<Data Key="Url" Name="Image Location (URL)" ValueType="String" DefaultValue="" Description="" />
+			<Data Key="Url" Name="Image URL" ValueType="String" DefaultValue="" Description="Image Location (http://...)" />
 		</DataList>
 	</Template>
 	<!-- 카운트다운 -->
@@ -65,7 +65,7 @@
 			  TemplateView="FacebookCount" TemplateModel="FacebookLikeCountPage">
 		<DataList>
 			<Data Key="Page" Name="Facebook Page Name" ValueType="String" DefaultValue="windows" Description="" />
-			<Data Key="Title" Name="Title to Display" ValueType="String" DefaultValue="Windows Facebook Page" Description="" />
+			<Data Key="Title" Name="Header" ValueType="String" DefaultValue="Windows Facebook Page" Description="" />
 			<Data Key="Count" Name="Count" ValueType="Int" DefaultValue="0" IsHidden="True" Description="" />
 		</DataList>
 	</Template>
