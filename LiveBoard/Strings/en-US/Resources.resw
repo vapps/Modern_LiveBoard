@@ -243,4 +243,7 @@
   <data name="PreviewWarning.Text" xml:space="preserve">
     <value>Preview may not be identical with show playing.</value>
   </data>
+  <data name="ErrorShowPlaying" xml:space="preserve">
+    <value>Error occurred to play the board. Please close the app and try again.</value>
+  </data>
 </root>

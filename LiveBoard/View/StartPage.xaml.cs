@@ -183,23 +183,6 @@ namespace LiveBoard.View
 		}
 
 
-		internal bool EnsureUnsnapped()
-		{
-			// FilePicker APIs will not work if the application is in a snapped state.
-			// If an app wants to show a FilePicker while snapped, it must attempt to unsnap first
-			bool unsnapped = ((ApplicationView.Value != ApplicationViewState.Snapped) || ApplicationView.TryUnsnap());
-			if (!unsnapped)
-			{
-				Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
-				{
-					MessageType = LbMessageType.ERROR,
-					Data = LbError.UnSnappedToSave
-				}));
-			}
-
-			return unsnapped;
-		}
-
 		private async void ButtonPlayRecent_OnClick(object sender, RoutedEventArgs e)
 		{
 			if (_viewModel == null
@@ -269,7 +252,7 @@ namespace LiveBoard.View
 		/// <param name="e"></param>
 		private void RootPage_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			if (e.NewSize.Width <= (1366/2))
+			if (e.NewSize.Width < 1366)
 			{
 				VisualStateManager.GoToState(this, "MinimalLayout", true);
 			}
