@@ -18,7 +18,7 @@
 	<Page.BottomAppBar>
 		<CommandBar>
 			<CommandBar.SecondaryCommands>
-				<AppBarButton Label="Delete" Icon="Delete" Click="AppBarRemoveButton_Click"/>
+				<AppBarButton x:Name="AppBarButtonRemove" x:Uid="Remove" Label="Remove" Icon="Remove" Click="AppBarRemoveButton_Click"/>
 			</CommandBar.SecondaryCommands>
 		</CommandBar>
 	</Page.BottomAppBar>

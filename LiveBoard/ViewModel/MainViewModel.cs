@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Xml.Linq;
 using Windows.Storage;
@@ -395,6 +396,19 @@ namespace LiveBoard.ViewModel
 			RaisePropertyChanged("RecentOpenedList");
 		}
 
+		/// <summary>
+		/// 최근 파일목록에서 선택 아이템 삭제
+		/// </summary>
+		/// <param name="selectedItems"></param>
+		public void RemoveRecentOpenedList(IList<object> selectedItems)
+		{
+			foreach (LbFile file in selectedItems)
+			{
+				StorageApplicationPermissions.MostRecentlyUsedList.Remove(file.Token);
+			}
+			RefreshRecentOpenedList();
+		}
+
 		#region Properties
 
 		/// <summary>
@@ -522,6 +536,9 @@ namespace LiveBoard.ViewModel
 			}
 		}
 
+		/// <summary>
+		/// 최근 열어본 파일 목록.
+		/// </summary>
 		public RecentOpenedListViewModel RecentOpenedList
 		{
 			get

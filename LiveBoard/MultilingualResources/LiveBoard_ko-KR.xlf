@@ -194,6 +194,14 @@
           <source>Only one selected file can be displayed.</source>
           <target state="signed-off">상세 정보는 한 개의 파일만 선택되었을 때 볼 수 있습니다.</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\Remove\Label" xml:space="preserve">
+          <source>Remove</source>
+          <target state="signed-off">항목 제거</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\RemoveRecentFileConfirm" xml:space="preserve">
+          <source>Remove selected files from list? Acutal files will not be deleted.</source>
+          <target state="signed-off">선택한 최근 파일을 목록에서 제거할까요? 실제 파일은 삭제되지 않습니다.</target>
+        </trans-unit>
       </group>
       <group id="TemplateList">
         <trans-unit translate="yes" id="TemplateList\StaticWebView\Name" xml:space="preserve">

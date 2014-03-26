@@ -258,4 +258,10 @@
   <data name="SelectOnlyOneFile.Text" xml:space="preserve">
     <value>Only one selected file can be displayed.</value>
   </data>
+  <data name="Remove.Label" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="RemoveRecentFileConfirm" xml:space="preserve">
+    <value>Remove selected files from list? Acutal files will not be deleted.</value>
+  </data>
 </root>

@@ -385,13 +385,22 @@ namespace LiveBoard.View
 			Frame.Navigate(typeof(CreatePage), _viewModel.SelectedBoard);
 		}
 
-		private void AppBarRemoveButton_Click(object sender, RoutedEventArgs e)
+		private async void AppBarRemoveButton_Click(object sender, RoutedEventArgs e)
 		{
 			if (itemListView.SelectedItem != null || itemListView.SelectedItems != null)
 			{
-				// TODO: 선택 아이템 삭제.	
-
+				var dialog = new MessageDialog(_loader.GetString("RemoveRecentFileConfirm"));
+				dialog.Commands.Add(new UICommand(_loader.GetString("Remove/Label"), removeClickHandler));
+				dialog.Commands.Add(new UICommand(_loader.GetString("Cancel/Text")));
+				dialog.DefaultCommandIndex = 0;
+				dialog.CancelCommandIndex = 1;
+				await dialog.ShowAsync();
 			}
+		}
+
+		private void removeClickHandler(IUICommand command)
+		{
+			_viewModel.RemoveRecentOpenedList(itemListView.SelectedItems);
 		}
 	}
 }
