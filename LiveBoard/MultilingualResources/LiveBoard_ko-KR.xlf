@@ -186,6 +186,10 @@
           <source>Press Plus sign button to add a new Page ↑</source>
           <target state="signed-off">더하기 버튼을 눌러서 페이지를 추가해주세요 ↑</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\MultipleProperties" xml:space="preserve">
+          <source>Contains {0} values</source>
+          <target state="signed-off">속성 {0}개 있음</target>
+        </trans-unit>
         <trans-unit translate="yes" id="Resources\SelectOnlyOneFile\Text" xml:space="preserve">
           <source>Only one selected file can be displayed.</source>
           <target state="signed-off">상세 정보는 한 개의 파일만 선택되었을 때 볼 수 있습니다.</target>

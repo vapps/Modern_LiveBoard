@@ -246,6 +246,9 @@
   <data name="ErrorShowPlaying" xml:space="preserve">
     <value>Error occurred to play the board. Please close the app and try again.</value>
   </data>
+  <data name="MultipleProperties" xml:space="preserve">
+    <value>Contains {0} values</value>
+  </data>
   <data name="PressPlusButtonToAddPage.Text" xml:space="preserve">
     <value>Press Plus sign button to add a new Page ↑</value>
   </data>

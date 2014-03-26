@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Graphics.Display;
@@ -20,6 +21,8 @@ namespace LiveBoard.Common
 	/// </summary>
 	public sealed class PropertyDataSummaryConverter : IValueConverter
 	{
+		ResourceLoader _loader = new Windows.ApplicationModel.Resources.ResourceLoader("Resources");
+
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
 			var data = value as IEnumerable<LbPageData>;
@@ -27,7 +30,7 @@ namespace LiveBoard.Common
 			{
 				var lbPageDatas = data as IList<LbPageData> ?? data.ToList();
 				if (lbPageDatas.Count() > 1)
-					return String.Format("Contains {0} values", lbPageDatas.Count(p => p.IsHidden == false));
+					return String.Format(_loader.GetString("MultipleProperties"), lbPageDatas.Count(p => p.IsHidden == false));
 				return String.Format("{0}: {1}", (lbPageDatas.ElementAt(0)).Name, (lbPageDatas.ElementAt(0)).Data);
 			}
 			return value;
