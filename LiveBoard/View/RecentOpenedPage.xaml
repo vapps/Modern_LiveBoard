@@ -18,7 +18,7 @@
 	<Page.BottomAppBar>
 		<CommandBar>
 			<CommandBar.SecondaryCommands>
-				<AppBarButton Label="Remove" Icon="Remove" Click="AppBarRemoveButton_Click"/>
+				<AppBarButton Label="Delete" Icon="Delete" Click="AppBarRemoveButton_Click"/>
 			</CommandBar.SecondaryCommands>
 		</CommandBar>
 	</Page.BottomAppBar>
@@ -86,7 +86,7 @@
 			</ListView.ItemTemplate>
 			<ListView.ItemContainerStyle>
 				<Style TargetType="FrameworkElement">
-					<Setter Property="Margin" Value="0,0,0,10"/>
+					<Setter Property="Margin" Value="0,0,0,5"/>
 					<Setter Property="HorizontalAlignment" Value="Stretch" />
 				</Style>
 			</ListView.ItemContainerStyle>
@@ -200,7 +200,7 @@
 				</StackPanel>
 				<!--<TextBlock x:Name="itemContent" Grid.Row="2" Text="sadfadsfasdfasd" Grid.ColumnSpan="2" Margin="0,30,0,0" Style="{StaticResource BodyTextBlockStyle}"/>-->
 				</Grid>
-				<local:InstructionUserControl x:Name="SelectItemPleaseInstruction" VerticalAlignment="Center" HorizontalAlignment="Center" Text="왼쪽 리스트에서 불러올 파일을 선택해주세요." />
+				<local:InstructionUserControl x:Uid="SelectLeftPanelFile" x:Name="SelectItemPleaseInstruction" VerticalAlignment="Center" HorizontalAlignment="Center" Text="왼쪽 리스트에서 불러올 파일을 선택해주세요." />
 			</Grid>
 		</ScrollViewer>
 

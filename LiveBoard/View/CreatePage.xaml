@@ -262,7 +262,7 @@
 								<Button x:Uid="Close"  x:Name="ButtonCloseTemplateSelection" Click="ButtonCloseTemplateSelection_OnClick" Content="Close" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Bottom" MinWidth="80"/>
 							</Grid>
 						</Border>
-						<view:InstructionUserControl x:Name="PressPlusButtonInstruction" Margin="0,55,45,0"
+						<view:InstructionUserControl x:Uid="PressPlusButtonToAddPage" x:Name="PressPlusButtonInstruction" Margin="0,55,45,0"
 													 VerticalAlignment="Top" HorizontalAlignment="Right" Text="더하기 버튼을 눌러서 페이지를 추가해주세요 ↑" />
 						<Grid Margin="0,2,0,0" Grid.Row="1" Background="{StaticResource LbLightShadowBrush}">
 							<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">

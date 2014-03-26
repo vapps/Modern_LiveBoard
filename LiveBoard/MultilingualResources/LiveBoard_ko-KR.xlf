@@ -178,6 +178,18 @@
           <source>Error occurred to play the board. Please close the app and try again.</source>
           <target state="signed-off">보드 실행에 문제가 있습니다. 앱을 닫은 후 다시 실행해보세요.</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\SelectLeftPanelFile\Text" xml:space="preserve">
+          <source>Select a file to load at the left.</source>
+          <target state="signed-off">왼쪽 리스트에서 불러올 파일을 선택해주세요.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PressPlusButtonToAddPage\Text" xml:space="preserve">
+          <source>Press Plus sign button to add a new Page ↑</source>
+          <target state="signed-off">더하기 버튼을 눌러서 페이지를 추가해주세요 ↑</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\SelectOnlyOneFile\Text" xml:space="preserve">
+          <source>Only one selected file can be displayed.</source>
+          <target state="signed-off">상세 정보는 한 개의 파일만 선택되었을 때 볼 수 있습니다.</target>
+        </trans-unit>
       </group>
       <group id="TemplateList">
         <trans-unit translate="yes" id="TemplateList\StaticWebView\Name" xml:space="preserve">

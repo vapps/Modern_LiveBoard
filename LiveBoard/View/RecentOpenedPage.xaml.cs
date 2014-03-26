@@ -271,21 +271,25 @@ namespace LiveBoard.View
 		/// <param name="e">Event data that describes how the selection was changed.</param>
 		private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			if (itemListView.SelectedIndex >= 0)
+			if (itemListView.SelectedItems != null && itemListView.SelectedItems.Count > 1)
 			{
+				if (this.BottomAppBar != null)
+					this.BottomAppBar.IsOpen = true;
+				SelectItemPleaseInstruction.Text = _loader.GetString("SelectOnlyOneFile/Text");
+				itemDetailGrid.Visibility = Visibility.Collapsed;
+				SelectItemPleaseInstruction.Visibility = Visibility.Visible;
+			}
+			else if (itemListView.SelectedIndex >= 0)
+			{
+				SelectItemPleaseInstruction.Text = _loader.GetString("SelectLeftPanelFile/Text");
 				itemDetailGrid.Visibility = Visibility.Visible;
 				SelectItemPleaseInstruction.Visibility = Visibility.Collapsed;
 			}
 			else
 			{
+				SelectItemPleaseInstruction.Text = _loader.GetString("SelectLeftPanelFile/Text");
 				itemDetailGrid.Visibility = Visibility.Collapsed;
 				SelectItemPleaseInstruction.Visibility = Visibility.Visible;
-			}
-			if (itemListView.SelectedItems != null && itemListView.SelectedItems.Count > 1)
-			{
-				if (this.BottomAppBar != null)
-					this.BottomAppBar.IsOpen = true;
-				SelectItemPleaseInstruction.Text = "상세 정보는 한 개만 선택할 때 볼 수 있습니다.";
 			}
 
 			// Invalidate the view state when logical page navigation is in effect, as a change

@@ -246,4 +246,13 @@
   <data name="ErrorShowPlaying" xml:space="preserve">
     <value>Error occurred to play the board. Please close the app and try again.</value>
   </data>
+  <data name="PressPlusButtonToAddPage.Text" xml:space="preserve">
+    <value>Press Plus sign button to add a new Page ↑</value>
+  </data>
+  <data name="SelectLeftPanelFile.Text" xml:space="preserve">
+    <value>Select a file to load at the left.</value>
+  </data>
+  <data name="SelectOnlyOneFile.Text" xml:space="preserve">
+    <value>Only one selected file can be displayed.</value>
+  </data>
 </root>
