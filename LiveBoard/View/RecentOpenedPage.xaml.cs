@@ -84,6 +84,7 @@ namespace LiveBoard.View
 					// 프리뷰의 페이지가 로딩되었을 때.
 				}
 			});
+
 		}
 
 		/// <summary>
@@ -145,8 +146,12 @@ namespace LiveBoard.View
 		/// session.  The state will be null the first time a page is visited.</param>
 		private void navigationHelper_LoadState(object sender, LoadStateEventArgs e)
 		{
-			// TODO: Assign a bindable group to Me.DefaultViewModel("Group")
-			// TODO: Assign a collection of bindable items to Me.DefaultViewModel("Items")
+			if (itemListView.SelectedIndex == -1)
+			{
+				itemDetailGrid.Visibility = Visibility.Collapsed;
+				SelectItemPleaseInstruction.Visibility = Visibility.Visible;
+			}
+
 
 			//if (e.PageState == null)
 			//{
@@ -266,7 +271,22 @@ namespace LiveBoard.View
 		/// <param name="e">Event data that describes how the selection was changed.</param>
 		private void ItemListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-
+			if (itemListView.SelectedIndex >= 0)
+			{
+				itemDetailGrid.Visibility = Visibility.Visible;
+				SelectItemPleaseInstruction.Visibility = Visibility.Collapsed;
+			}
+			else
+			{
+				itemDetailGrid.Visibility = Visibility.Collapsed;
+				SelectItemPleaseInstruction.Visibility = Visibility.Visible;
+			}
+			if (itemListView.SelectedItems != null && itemListView.SelectedItems.Count > 1)
+			{
+				if (this.BottomAppBar != null)
+					this.BottomAppBar.IsOpen = true;
+				SelectItemPleaseInstruction.Text = "상세 정보는 한 개만 선택할 때 볼 수 있습니다.";
+			}
 
 			// Invalidate the view state when logical page navigation is in effect, as a change
 			// in selection may cause a corresponding change in the current logical page. When
@@ -359,6 +379,15 @@ namespace LiveBoard.View
 		private void ButtonEdit_OnClick(object sender, RoutedEventArgs e)
 		{
 			Frame.Navigate(typeof(CreatePage), _viewModel.SelectedBoard);
+		}
+
+		private void AppBarRemoveButton_Click(object sender, RoutedEventArgs e)
+		{
+			if (itemListView.SelectedItem != null || itemListView.SelectedItems != null)
+			{
+				// TODO: 선택 아이템 삭제.	
+
+			}
 		}
 	}
 }

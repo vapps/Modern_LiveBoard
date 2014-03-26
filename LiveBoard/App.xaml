@@ -23,6 +23,7 @@
 			<common:PropertyDataSummaryConverter x:Key="PropertyDataSummary" />
 			<common:NumberCommaConverter x:Key="numberComma" />
 			<common:WebColorToColorConverter x:Key="WebColorToColor" />
+			<common:NullToVisibilityConverter x:Key="NullToVisibility" />
 
 			<Style x:Key="ListViewItemStyle1" TargetType="ListViewItem">
 				<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>

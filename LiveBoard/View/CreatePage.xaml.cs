@@ -113,7 +113,6 @@ namespace LiveBoard.View
 
 			if (_viewModel == null)
 				throw new InvalidOperationException("CreatePage.LoadState viewModel is null");
-
 		}
 
 		/// <summary>
@@ -193,6 +192,13 @@ namespace LiveBoard.View
 			var viewSource = new CollectionViewSource { Source = _viewModel.ActiveBoard.Board.Pages };
 			ListViewPages.ItemsSource = viewSource.View;
 
+			// 아무 페이지도 없을 때 가이드 출력.
+			if (_viewModel.ActiveBoard.Board.Pages == null || _viewModel.ActiveBoard.Board.Pages.Count == 0)
+				PressPlusButtonInstruction.Visibility = Visibility.Visible;
+			else
+				PressPlusButtonInstruction.Visibility = Visibility.Collapsed;
+
+			// 선택 페이지에 대한 프리뷰 화면 비워주기.
 			if (ListViewPages.SelectedIndex < 0)
 			{
 				loadFrame(null);
