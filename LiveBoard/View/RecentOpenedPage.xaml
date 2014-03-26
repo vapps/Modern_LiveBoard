@@ -107,98 +107,121 @@
 			>
 
 			<Grid>
-				
-			<Grid x:Name="itemDetailGrid" Margin="0,60,0,50">
-				<Grid.RowDefinitions>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="Auto"/>
-					<RowDefinition Height="*"/>
-				</Grid.RowDefinitions>
-				<Grid.ColumnDefinitions>
-					<ColumnDefinition Width="Auto"/>
-					<ColumnDefinition Width="*"/>
-				</Grid.ColumnDefinitions>
-				<StackPanel Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,0,0">
-					<Button x:Name="ButtonEdit" Click="ButtonEdit_OnClick" Background="{StaticResource LbLightShadowBrush}">
-						<StackPanel Orientation="Horizontal" Margin="3">
-							<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
-								<Image Source="../Images/appbar.edit.png" Margin="2" />
-							</Grid>
-							<TextBlock x:Uid="Edit" Text="Edit" VerticalAlignment="Center" FontSize="24" 
-						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}" />
-						</StackPanel>
-					</Button>
-					<Button x:Name="ButtonPreview" Command="{Binding Source={StaticResource Locator}, Path=Main.PreviewCmd}" CommandParameter="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
-						<StackPanel Orientation="Horizontal" Margin="3">
-							<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
-								<Image Source="../Images/appbar.monitor.play.png" Margin="2" />
-							</Grid>
-							<TextBlock x:Uid="Preview" Text="Preview" VerticalAlignment="Center" FontSize="24" 
-						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}" />
-						</StackPanel>
-					</Button>
-					<Button x:Name="ButtonPlay" Command="{Binding Source={StaticResource Locator}, Path=Main.PlayCmd}" CommandParameter="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
-						<StackPanel Orientation="Horizontal" Margin="3">
-							<Grid Width="40" Height="40" Background="{StaticResource LbRedKeyBrush}">
-								<Image Source="../Images/appbar.control.play.png" Margin="2" />
-							</Grid>
-							<TextBlock x:Uid="PlayBoard" Text="Play Board" VerticalAlignment="Center" FontSize="24" 
-						   Margin="10,0,0,0" Foreground="{StaticResource LbRedKeyBrush}" />
-						</StackPanel>
-					</Button>
-				</StackPanel>
 
-				<!-- 선택한 것에 따라서 DataContext가 변하고 하부의 아이템들이 바인딩된다. -->
-				<StackPanel DataContext="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">
-					<TextBlock Margin="0,0,0,0" x:Uid="BriefInformation" Text="Brief information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
-					<StackPanel Margin="5,-5,0,0">
-						<TextBlock x:Name="itemTitle" Text="{Binding Path=Board.Title, Converter={StaticResource Prefix}, ConverterParameter='Title', TargetNullValue='unknown'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
-						<TextBlock x:Name="itemAuthor" Text="{Binding Path=Board.Author, Converter={StaticResource Prefix}, ConverterParameter='Author'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
-						<TextBlock x:Name="itemSlideNumber" Text="{Binding Path=Board.Pages.Count, Converter={StaticResource Prefix}, ConverterParameter='Total Slides'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
-						<TextBlock x:Name="itemRunningTime" Text="{Binding Path=RunningTime, Converter={StaticResource Prefix}, ConverterParameter='Running Time'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+				<Grid x:Name="itemDetailGrid" Margin="0,60,0,50">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="Auto"/>
+						<RowDefinition Height="*"/>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="Auto"/>
+						<ColumnDefinition Width="*"/>
+					</Grid.ColumnDefinitions>
+					<StackPanel x:Name="StackPanelPlayControl" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,0,0">
+						<Button x:Name="ButtonEdit" Click="ButtonEdit_OnClick" Background="{StaticResource LbLightShadowBrush}">
+							<StackPanel Orientation="Horizontal" Margin="3">
+								<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
+									<Image Source="../Images/appbar.edit.png" Margin="2" />
+								</Grid>
+								<TextBlock x:Uid="Edit" Text="Edit" VerticalAlignment="Center" FontSize="24" 
+						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}" />
+							</StackPanel>
+						</Button>
+						<Button x:Name="ButtonPreview" Command="{Binding Source={StaticResource Locator}, Path=Main.PreviewCmd}" CommandParameter="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
+							<StackPanel Orientation="Horizontal" Margin="3">
+								<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
+									<Image Source="../Images/appbar.monitor.play.png" Margin="2" />
+								</Grid>
+								<TextBlock x:Uid="Preview" Text="Preview" VerticalAlignment="Center" FontSize="24" 
+						   Margin="10,0,0,0" Foreground="{StaticResource LbBlueKeyBrush}" />
+							</StackPanel>
+						</Button>
+						<Button x:Name="ButtonPlay" Command="{Binding Source={StaticResource Locator}, Path=Main.PlayCmd}" CommandParameter="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
+							<StackPanel Orientation="Horizontal" Margin="3">
+								<Grid Width="40" Height="40" Background="{StaticResource LbRedKeyBrush}">
+									<Image Source="../Images/appbar.control.play.png" Margin="2" />
+								</Grid>
+								<TextBlock x:Uid="PlayBoard" Text="Play Board" VerticalAlignment="Center" FontSize="24" 
+						   Margin="10,0,0,0" Foreground="{StaticResource LbRedKeyBrush}" />
+							</StackPanel>
+						</Button>
 					</StackPanel>
-					<TextBlock Margin="0,30,0,0" x:Uid="DetailInformation" Text="Detail information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
-					<TextBlock Margin="5,-5,0,0" x:Uid="EditPageGuide" Text="If your want to edit pages, please select folder icon at the top" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{StaticResource LbTextBrush}" FontStyle="Italic" />
-					<!--Pages 리스트. 아이템의 드래그앤드롭 기능을 위해 ItemsSource 는 CodeBehind에서 설정한다.-->
-					<ListView x:Name="itemListViewPages" HorizontalAlignment="Stretch" Background="{StaticResource LbLightShadowBrush}" ItemsSource="{Binding Path=Board.Pages}"
+					<StackPanel x:Name="StackPanelPlayControlSingle" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,20,0,0" Visibility="Collapsed">
+						<Button x:Name="ButtonEditSingle" Click="ButtonEdit_OnClick" Background="{StaticResource LbLightShadowBrush}">
+							<StackPanel Orientation="Horizontal" Margin="3">
+								<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
+									<Image Source="../Images/appbar.edit.png" Margin="2" />
+								</Grid>
+							</StackPanel>
+						</Button>
+						<Button x:Name="ButtonPreviewSingle" Command="{Binding Source={StaticResource Locator}, Path=Main.PreviewCmd}" CommandParameter="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
+							<StackPanel Orientation="Horizontal" Margin="3">
+								<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
+									<Image Source="../Images/appbar.monitor.play.png" Margin="2" />
+								</Grid>
+							</StackPanel>
+						</Button>
+						<Button x:Name="ButtonPlaySingle" Command="{Binding Source={StaticResource Locator}, Path=Main.PlayCmd}" CommandParameter="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Background="{StaticResource LbLightShadowBrush}">
+							<StackPanel Orientation="Horizontal" Margin="3">
+								<Grid Width="40" Height="40" Background="{StaticResource LbRedKeyBrush}">
+									<Image Source="../Images/appbar.control.play.png" Margin="2" />
+								</Grid>
+							</StackPanel>
+						</Button>
+					</StackPanel>
+
+					<!-- 선택한 것에 따라서 DataContext가 변하고 하부의 아이템들이 바인딩된다. -->
+					<StackPanel DataContext="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">
+						<TextBlock Margin="0,0,0,0" x:Uid="BriefInformation" Text="Brief information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
+						<StackPanel Margin="5,-5,0,0">
+							<TextBlock x:Name="itemTitle" Text="{Binding Path=Board.Title, Converter={StaticResource Prefix}, ConverterParameter='Title', TargetNullValue='unknown'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+							<TextBlock x:Name="itemAuthor" Text="{Binding Path=Board.Author, Converter={StaticResource Prefix}, ConverterParameter='Author'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+							<TextBlock x:Name="itemSlideNumber" Text="{Binding Path=Board.Pages.Count, Converter={StaticResource Prefix}, ConverterParameter='Total Slides'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+							<TextBlock x:Name="itemRunningTime" Text="{Binding Path=RunningTime, Converter={StaticResource Prefix}, ConverterParameter='Running Time'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+						</StackPanel>
+						<TextBlock Margin="0,30,0,0" x:Uid="DetailInformation" Text="Detail information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
+						<TextBlock Margin="5,-5,0,0" x:Uid="EditPageGuide" Text="If your want to edit pages, please select folder icon at the top" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{StaticResource LbTextBrush}" FontStyle="Italic" />
+						<!--Pages 리스트. 아이템의 드래그앤드롭 기능을 위해 ItemsSource 는 CodeBehind에서 설정한다.-->
+						<ListView x:Name="itemListViewPages" HorizontalAlignment="Stretch" Background="{StaticResource LbLightShadowBrush}" ItemsSource="{Binding Path=Board.Pages}"
 			VerticalAlignment="Stretch" BorderThickness="0" Margin="0,20,50,0" ItemContainerStyle="{StaticResource ListViewItemStyle1}" SelectionMode="None">
-						<ItemsControl.ItemTemplate>
-							<DataTemplate>
-								<Border BorderBrush="White" BorderThickness="0,0,0,0" Height="60">
-									<Grid Background="White">
-										<Grid.ColumnDefinitions>
-											<ColumnDefinition Width="60" />
-											<ColumnDefinition Width="1*"/>
-											<ColumnDefinition Width="150" />
-										</Grid.ColumnDefinitions>
-										<Grid Background="{StaticResource LbDarkTextBrush}">
-											<Image Source="{Binding Path=TemplateKey, Mode=OneWay, Converter={StaticResource TemplateViewToIcon}}"></Image>
-										</Grid>
-										<StackPanel Orientation="Vertical" Grid.Column="1" Margin="5">
-											<StackPanel Orientation="Horizontal">
-												<TextBlock Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Title}" FontFamily="Global User Interface"/>
-												<TextBlock Foreground="{StaticResource LbDarkTextBrush}" Margin="15,0,13,0" Text="{Binding Path=Description}" FontFamily="Global User Interface"/>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<Border BorderBrush="White" BorderThickness="0,0,0,0" Height="60">
+										<Grid Background="White">
+											<Grid.ColumnDefinitions>
+												<ColumnDefinition Width="60" />
+												<ColumnDefinition Width="1*"/>
+												<ColumnDefinition Width="150" />
+											</Grid.ColumnDefinitions>
+											<Grid Background="{StaticResource LbDarkTextBrush}">
+												<Image Source="{Binding Path=TemplateKey, Mode=OneWay, Converter={StaticResource TemplateViewToIcon}}"></Image>
+											</Grid>
+											<StackPanel Orientation="Vertical" Grid.Column="1" Margin="5">
+												<StackPanel Orientation="Horizontal">
+													<TextBlock Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Title}" FontFamily="Global User Interface"/>
+													<TextBlock Foreground="{StaticResource LbDarkTextBrush}" Margin="15,0,13,0" Text="{Binding Path=Description}" FontFamily="Global User Interface"/>
+												</StackPanel>
+												<TextBlock Foreground="{StaticResource LbLightTextBrush}" Margin="0,7,0,0" Text="{Binding Path=Data, Converter={StaticResource PropertyDataSummary}}" FontFamily="Global User Interface"/>
 											</StackPanel>
-											<TextBlock Foreground="{StaticResource LbLightTextBrush}" Margin="0,7,0,0" Text="{Binding Path=Data, Converter={StaticResource PropertyDataSummary}}" FontFamily="Global User Interface"/>
-										</StackPanel>
-										<Grid Grid.Column="2">
-											<StackPanel Orientation="Horizontal" Margin="0,0,13,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-												<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="{Binding Path=Duration.Minutes}" VerticalAlignment="Bottom" Margin="0,0,3,0" FontSize="35" HorizontalAlignment="Right" Visibility="{Binding Path=Duration.Minutes, Converter={StaticResource ZeroToVisibility}, Mode=OneWay}" FontFamily="Global User Interface" />
-												<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="m" FontSize="15" VerticalAlignment="Bottom" Visibility="{Binding Path=Duration.Minutes, Converter={StaticResource ZeroToVisibility}, Mode=OneWay}" />
-												<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="{Binding Path=Duration.Seconds, Converter={StaticResource TimespanZeroFill}}" VerticalAlignment="Bottom" Margin="0,0,3,0" FontSize="35" HorizontalAlignment="Right" />
-												<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="s" FontSize="15" VerticalAlignment="Bottom" />
-											</StackPanel>
+											<Grid Grid.Column="2">
+												<StackPanel Orientation="Horizontal" Margin="0,0,13,0" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+													<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="{Binding Path=Duration.Minutes}" VerticalAlignment="Bottom" Margin="0,0,3,0" FontSize="35" HorizontalAlignment="Right" Visibility="{Binding Path=Duration.Minutes, Converter={StaticResource ZeroToVisibility}, Mode=OneWay}" FontFamily="Global User Interface" />
+													<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="m" FontSize="15" VerticalAlignment="Bottom" Visibility="{Binding Path=Duration.Minutes, Converter={StaticResource ZeroToVisibility}, Mode=OneWay}" />
+													<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="{Binding Path=Duration.Seconds, Converter={StaticResource TimespanZeroFill}}" VerticalAlignment="Bottom" Margin="0,0,3,0" FontSize="35" HorizontalAlignment="Right" />
+													<TextBlock Foreground="{StaticResource LbRedKeyBrush}" Text="s" FontSize="15" VerticalAlignment="Bottom" />
+												</StackPanel>
+											</Grid>
 										</Grid>
-									</Grid>
-								</Border>
-							</DataTemplate>
-						</ItemsControl.ItemTemplate>
-						<ItemsPanelTemplate>
-							<VirtualizingStackPanel Orientation="Vertical" />
-						</ItemsPanelTemplate>
-					</ListView>
-				</StackPanel>
-				<!--<TextBlock x:Name="itemContent" Grid.Row="2" Text="sadfadsfasdfasd" Grid.ColumnSpan="2" Margin="0,30,0,0" Style="{StaticResource BodyTextBlockStyle}"/>-->
+									</Border>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+							<ItemsPanelTemplate>
+								<VirtualizingStackPanel Orientation="Vertical" />
+							</ItemsPanelTemplate>
+						</ListView>
+					</StackPanel>
+					<!--<TextBlock x:Name="itemContent" Grid.Row="2" Text="sadfadsfasdfasd" Grid.ColumnSpan="2" Margin="0,30,0,0" Style="{StaticResource BodyTextBlockStyle}"/>-->
 				</Grid>
 				<local:InstructionUserControl x:Uid="SelectLeftPanelFile" x:Name="SelectItemPleaseInstruction" VerticalAlignment="Center" HorizontalAlignment="Center" Text="왼쪽 리스트에서 불러올 파일을 선택해주세요." />
 			</Grid>
@@ -220,9 +243,16 @@
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemDetail" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
 						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="StackPanelPlayControlSingle" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="StackPanelPlayControl" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+						</ObjectAnimationUsingKeyFrames>
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Padding">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="120,0,90,60"/>
 						</ObjectAnimationUsingKeyFrames>
+
 					</Storyboard>
 				</VisualState>
 				<!--
@@ -239,6 +269,12 @@
 						</ObjectAnimationUsingKeyFrames>
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemListView" Storyboard.TargetProperty="Visibility">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="StackPanelPlayControl" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Collapsed"/>
+						</ObjectAnimationUsingKeyFrames>
+						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="StackPanelPlayControlSingle" Storyboard.TargetProperty="Visibility">
+							<DiscreteObjectKeyFrame KeyTime="0" Value="Visible"/>
 						</ObjectAnimationUsingKeyFrames>
 						<ObjectAnimationUsingKeyFrames Storyboard.TargetName="itemDetail" Storyboard.TargetProperty="(Grid.Row)">
 							<DiscreteObjectKeyFrame KeyTime="0" Value="1"/>
