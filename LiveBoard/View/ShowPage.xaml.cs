@@ -156,6 +156,10 @@ namespace LiveBoard.View
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e)
 		{
+			Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
+			{
+				MessageType = LbMessageType.EVT_SHOW_FINISHING
+			}));
 			navigationHelper.OnNavigatedFrom(e);
 		}
 
