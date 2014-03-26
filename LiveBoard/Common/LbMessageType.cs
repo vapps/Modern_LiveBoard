@@ -32,16 +32,4 @@ namespace LiveBoard.Common
 		/// </summary>
 	    EVT_PAGE_CREATING
     }
-
-	/// <summary>
-	/// 에러 유형
-	/// </summary>
-	public enum LbError
-	{
-		UnSnappedToSave,
-		DataContextIsNull,
-		IsPlayingTrue,
-		PageTemplateViewTypeNotFound
-	}
-
 }

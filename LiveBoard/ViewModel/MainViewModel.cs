@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using System.Xml.Linq;
 using Windows.Storage;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
@@ -19,7 +16,6 @@ using GalaSoft.MvvmLight.Messaging;
 using LiveBoard.Common;
 using LiveBoard.Model;
 using LiveBoard.PageTemplate.Model;
-using WinRTXamlToolkit.Tools;
 
 namespace LiveBoard.ViewModel
 {
@@ -119,6 +115,7 @@ namespace LiveBoard.ViewModel
 		public ICommand StopCmd { get { return new RelayCommand<BoardViewModel>(Stop); } }
 		#endregion ICommand
 
+
 		/// <summary>
 		/// Á¾·á
 		/// </summary>
@@ -150,6 +147,18 @@ namespace LiveBoard.ViewModel
 			if (board == null)
 				board = ActiveBoard;
 			ActiveBoard = board;
+
+			if (ActiveBoard == null || ActiveBoard.Board == null
+				|| ActiveBoard.Board.Pages == null
+				|| ActiveBoard.Board.Pages.Count == 0)
+			{
+				Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
+				{
+					MessageType = LbMessageType.ERROR,
+					Data = LbError.NothingToPlay
+				}));
+				return;
+			}
 
 			if (!IsPlaying)
 				IsPlaying = true;
@@ -393,6 +402,7 @@ namespace LiveBoard.ViewModel
 		/// </summary>
 		public void RefreshRecentOpenedList()
 		{
+			RaisePropertyChanged("SelectedBoard");
 			RaisePropertyChanged("RecentOpenedList");
 		}
 
@@ -409,6 +419,12 @@ namespace LiveBoard.ViewModel
 			RefreshRecentOpenedList();
 		}
 
+		public void LoadSelectedBoard(Board board, StorageFile retrievedFile)
+		{
+			SelectedBoard.Board = board;
+			SelectedBoard.Filename = retrievedFile;
+			RaisePropertyChanged("SelectedBoard");
+		}
 		#region Properties
 
 		/// <summary>

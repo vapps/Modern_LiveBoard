@@ -202,6 +202,10 @@
           <source>Remove selected files from list? Acutal files will not be deleted.</source>
           <target state="signed-off">선택한 최근 파일을 목록에서 제거할까요? 실제 파일은 삭제되지 않습니다.</target>
         </trans-unit>
+        <trans-unit translate="yes" id="Resources\ErrorNothingToPlay" xml:space="preserve">
+          <source>No page to Play. Please create pages.</source>
+          <target state="signed-off">실행할 페이지가 없습니다. 먼저 페이지를 추가해주세요.</target>
+        </trans-unit>
       </group>
       <group id="TemplateList">
         <trans-unit translate="yes" id="TemplateList\StaticWebView\Name" xml:space="preserve">

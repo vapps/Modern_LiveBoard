@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using Windows.ApplicationModel.Resources;
 using Windows.Foundation;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 // The Basic Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234237
@@ -24,6 +26,8 @@ namespace LiveBoard.View
 	public sealed partial class CreatePage : LiveBoard.Common.LayoutAwarePage
 	{
 		private MainViewModel _viewModel;
+		readonly ResourceLoader _loader = new ResourceLoader("Resources");
+
 		public CreatePage()
 		{
 			this.InitializeComponent();
@@ -38,34 +42,44 @@ namespace LiveBoard.View
 			// 메신저 연결.
 			Messenger.Default.Register<GenericMessage<LbMessage>>(this, message =>
 			{
+				var frame = (Frame)Window.Current.Content;
+				if (!(frame.Content is CreatePage))
+					return;
+				switch (message.Content.MessageType)
+				{
+					case LbMessageType.EVT_SHOW_STARTING:
+					{
+						Debug.WriteLine("* CreatePage Received Message: " + message.Content.MessageType.ToString());
+						if (!(((Frame)Window.Current.Content).Content is ShowPage))
+						{
+							this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+						}
+					}
+						break;
+					case LbMessageType.EVT_PAGE_CREATING:
+						if (BorderTemplateSelection.Visibility == Visibility.Visible)
+							ToggleButtonAddPage.IsChecked = false;
+						break;
+					case LbMessageType.EVT_PAGE_STARTED:
+						if (!PreviewLock)
+						{
+							lockPreview();
+						}
+						else
+						{
+							// TODO: 사용자에게 preview중인걸 알리기.
+						}
+						break;
+					case LbMessageType.ERROR:
+						{
+							if (message.Content.Data is LbError && (LbError)message.Content.Data == LbError.NothingToPlay)
+							{
+								new MessageDialog(_loader.GetString("ErrorNothingToPlay")).ShowAsync();
+							}
+						}
+						break;
+				}
 
-				if (message.Content.MessageType == LbMessageType.EVT_SHOW_STARTING)
-				{
-					Debug.WriteLine("* CreatePage Received Message: " + message.Content.MessageType.ToString());
-					var frame = (Frame)Window.Current.Content;
-					if (!(frame.Content is ShowPage))
-					{
-						this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
-					}
-				}
-				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_CREATING)
-				{
-					// 템플릿에서 하나의 페이지를 추가할 때: 템플릿 선택 창을 닫는다.
-					if (BorderTemplateSelection.Visibility == Visibility.Visible)
-						ToggleButtonAddPage.IsChecked = false;
-				}
-				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_STARTED)
-				{
-					// 프리뷰의 페이지가 로딩되었을 때.
-					if (!PreviewLock)
-					{
-						lockPreview();
-					}
-					else
-					{
-						// TODO: 사용자에게 preview중인걸 알리기.
-					}
-				}
 			});
 		}
 
@@ -251,5 +265,11 @@ namespace LiveBoard.View
 		}
 
 		public bool PreviewLock { get; set; }
+
+		private void ToggleButtonAddPage_OnClick(object sender, RoutedEventArgs e)
+		{
+			if(PressPlusButtonInstruction.Visibility == Visibility.Visible)
+				PressPlusButtonInstruction.Visibility = Visibility.Collapsed;
+		}
 	}
 }

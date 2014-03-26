@@ -264,4 +264,7 @@
   <data name="RemoveRecentFileConfirm" xml:space="preserve">
     <value>Remove selected files from list? Acutal files will not be deleted.</value>
   </data>
+  <data name="ErrorNothingToPlay" xml:space="preserve">
+    <value>No page to Play. Please create pages.</value>
+  </data>
 </root>

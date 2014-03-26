@@ -33,7 +33,7 @@ namespace LiveBoard.View
 	{
 		private NavigationHelper navigationHelper;
 		private MainViewModel _viewModel;
-		ResourceLoader _loader = new Windows.ApplicationModel.Resources.ResourceLoader("Resources");
+		readonly ResourceLoader _loader = new ResourceLoader("Resources");
 
 		/// <summary>
 		/// NavigationHelper is used on each page to aid in navigation and 
@@ -70,18 +70,30 @@ namespace LiveBoard.View
 			// 메신저 연결.
 			Messenger.Default.Register<GenericMessage<LbMessage>>(this, message =>
 			{
-				if (message.Content.MessageType == LbMessageType.EVT_SHOW_STARTING)
+				var frame = (Frame)Window.Current.Content;
+				if(!(frame.Content is RecentOpenedPage))
+					return;
+				switch (message.Content.MessageType)
 				{
-					Debug.WriteLine("* RecentOpenedPage Received Message: " + message.Content.MessageType.ToString());
-					var frame = (Frame)Window.Current.Content;
-					if (!(frame.Content is ShowPage))
+					case LbMessageType.EVT_SHOW_STARTING:
 					{
-						this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+						Debug.WriteLine("* RecentOpenedPage Received Message: " + message.Content.MessageType.ToString());
+						if (!(((Frame)Window.Current.Content).Content is ShowPage))
+						{
+							this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+						}
 					}
-				}
-				else if (message.Content.MessageType == LbMessageType.EVT_PAGE_STARTED)
-				{
-					// 프리뷰의 페이지가 로딩되었을 때.
+						break;
+					case LbMessageType.ERROR:
+					{
+						if (message.Content.Data is LbError && (LbError)message.Content.Data == LbError.NothingToPlay)
+						{
+							new MessageDialog(_loader.GetString("ErrorNothingToPlay")).ShowAsync();
+						}
+					}
+						break;
+					case LbMessageType.EVT_PAGE_STARTED:
+						break;
 				}
 			});
 
@@ -121,11 +133,9 @@ namespace LiveBoard.View
 				return;
 			}
 
-			Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
-			{
-				_viewModel.SelectedBoard.Board = Board.FromXml(XElement.Parse(text), _viewModel.Templates);
-				_viewModel.SelectedBoard.Filename = retrievedFile;
-			});
+			Dispatcher.RunAsync(CoreDispatcherPriority.Normal, 
+				() => _viewModel.LoadSelectedBoard(Board.FromXml(XElement.Parse(text), _viewModel.Templates),
+				retrievedFile));
 
 			if (this.UsingLogicalPageNavigation())
 			{

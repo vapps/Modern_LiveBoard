@@ -208,7 +208,7 @@
 							<StackPanel.RenderTransform>
 								<CompositeTransform ScaleX="0.8" ScaleY="0.8"/>
 							</StackPanel.RenderTransform>
-							<ToggleButton x:Name="ToggleButtonAddPage" Background="Transparent" Style="{StaticResource SquareButtonStyle}">
+							<ToggleButton x:Name="ToggleButtonAddPage" Background="Transparent" Style="{StaticResource SquareButtonStyle}" Click="ToggleButtonAddPage_OnClick">
 								<Grid Width="40" Height="40" Background="{StaticResource LbBlueKeyBrush}">
 									<Image Source="../Images/appbar.add.png" Margin="2" />
 								</Grid>
@@ -263,7 +263,8 @@
 							</Grid>
 						</Border>
 						<view:InstructionUserControl x:Uid="PressPlusButtonToAddPage" x:Name="PressPlusButtonInstruction" Margin="0,55,45,0"
-													 VerticalAlignment="Top" HorizontalAlignment="Right" Text="더하기 버튼을 눌러서 페이지를 추가해주세요 ↑" />
+													 VerticalAlignment="Top" HorizontalAlignment="Right" Text="더하기 버튼을 눌러서 페이지를 추가해주세요 ↑"
+													 />
 						<Grid Margin="0,2,0,0" Grid.Row="1" Background="{StaticResource LbLightShadowBrush}">
 							<StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
 								<ToggleSwitch x:Name="ToggleLoop" x:Uid="Loop" HorizontalAlignment="Left" VerticalAlignment="Center" 

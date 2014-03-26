@@ -113,7 +113,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Common\LbError.cs" />
     <Compile Include="Common\NullToVisibilityConverter.cs" />
+    <Compile Include="Common\OppositeVisibilityConverter.cs" />
     <Compile Include="Common\WebColorToColorConverter.cs.cs" />
     <Compile Include="Common\ExtractFilenameConverter.cs" />
     <Compile Include="Common\NumberCommaConverter.cs" />
