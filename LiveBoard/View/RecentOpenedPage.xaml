@@ -175,10 +175,10 @@
 					<StackPanel DataContext="{Binding Source={StaticResource Locator}, Path=Main.SelectedBoard}" Grid.Row="1" Grid.Column="1" Margin="0,20,0,0">
 						<TextBlock Margin="0,0,0,0" x:Uid="BriefInformation" Text="Brief information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
 						<StackPanel Margin="5,-5,0,0">
-							<TextBlock x:Name="itemTitle" Text="{Binding Path=Board.Title, Converter={StaticResource Prefix}, ConverterParameter='Title', TargetNullValue='unknown'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
-							<TextBlock x:Name="itemAuthor" Text="{Binding Path=Board.Author, Converter={StaticResource Prefix}, ConverterParameter='Author'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
-							<TextBlock x:Name="itemSlideNumber" Text="{Binding Path=Board.Pages.Count, Converter={StaticResource Prefix}, ConverterParameter='Total Slides'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
-							<TextBlock x:Name="itemRunningTime" Text="{Binding Path=RunningTime, Converter={StaticResource Prefix}, ConverterParameter='Running Time'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+							<TextBlock x:Name="itemTitle" Text="{Binding Path=Board.Title, Converter={StaticResource Prefix}, ConverterParameter='Title/Text', TargetNullValue='unknown'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+							<TextBlock x:Name="itemAuthor" Text="{Binding Path=Board.Author, Converter={StaticResource Prefix}, ConverterParameter='Author/Text'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+							<TextBlock x:Name="itemSlideNumber" Text="{Binding Path=Board.Pages.Count, Converter={StaticResource Prefix}, ConverterParameter='TotalPages/Text'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
+							<TextBlock x:Name="itemRunningTime" Text="{Binding Path=RunningTime, Converter={StaticResource Prefix}, ConverterParameter='RunningTime/Text'}" Margin="0,10,0,0" Style="{StaticResource SubtitleTextBlockStyle}"/>
 						</StackPanel>
 						<TextBlock Margin="0,30,0,0" x:Uid="DetailInformation" Text="Detail information" FontSize="30" Foreground="{StaticResource LbBlueKeyBrush}" FontFamily="Segoe UI Light"/>
 						<TextBlock Margin="5,-5,0,0" x:Uid="EditPageGuide" Text="If your want to edit pages, please select folder icon at the top" Style="{StaticResource SubtitleTextBlockStyle}" Foreground="{StaticResource LbTextBrush}" FontStyle="Italic" />

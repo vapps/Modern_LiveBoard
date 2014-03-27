@@ -21,7 +21,7 @@ namespace LiveBoard.Common
 	/// </summary>
 	public sealed class PropertyDataSummaryConverter : IValueConverter
 	{
-		ResourceLoader _loader = new Windows.ApplicationModel.Resources.ResourceLoader("Resources");
+		readonly ResourceLoader _loader = new ResourceLoader("Resources");
 
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{

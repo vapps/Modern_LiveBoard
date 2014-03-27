@@ -4,6 +4,283 @@
     <header>
       <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="2.2.1212.0" tool-company="Microsoft" />
     </header>
-    <body />
+    <body>
+      <group id="Resources">
+        <trans-unit translate="yes" id="Resources\SecondAbbr\Text" xml:space="preserve">
+          <source>sec</source>
+          <target state="translated">초</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\LoopCount\Watermark" xml:space="preserve">
+          <source>iteration</source>
+          <target state="translated">횟수 입력</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Times\Text" xml:space="preserve">
+          <source>times</source>
+          <target state="translated">회 반복</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\test" xml:space="preserve">
+          <source>test</source>
+          <target state="new">test</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\MinuteAbbr\Text" xml:space="preserve">
+          <source>min</source>
+          <target state="translated">분</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\MicrosoftAccount\Text" xml:space="preserve">
+          <source>If you want to fetch photo or text from OneDrive, please click Sign In button.</source>
+          <target state="translated">OneDrive에 있는 사진이나 텍스트를 사용하려면, 로그인 단추를 클릭해주세요.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\appTitle" xml:space="preserve">
+          <source>Live Board</source>
+          <target state="final">라이브 보드</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Title\Text" xml:space="preserve">
+          <source>Title</source>
+          <target state="translated" state-qualifier="tm-suggestion">제목</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Properties\Text" xml:space="preserve">
+          <source>Properties</source>
+          <target state="translated" state-qualifier="tm-suggestion">속성</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PrivacyPolicy\Text" xml:space="preserve">
+          <source>Live Board app does not gather or require any privacy information. Live Board app is created by an employee of Bapul, Inc. during his coffee break.</source>
+          <target state="translated">본 프로그램은 바로풀기 서비스 개발사인 ㈜바풀의 직원이 잉여시간을 활용하여 취미로 만들었습니다. 본 프로그램은 어떠한 개인 정보도 수집하지 않습니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PreviewMode\Text" xml:space="preserve">
+          <source>Preview Mode</source>
+          <target state="signed-off">미리보기 모드</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Preview\Text" xml:space="preserve">
+          <source>Preview</source>
+          <target state="translated">미리보기</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PlayRecentBoard\Text" xml:space="preserve">
+          <source>Play Recent Board</source>
+          <target state="translated">최근 보드 재생</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Playing\Text" xml:space="preserve">
+          <source>Playing...</source>
+          <target state="translated">재생 중...</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PlayBoard\Text" xml:space="preserve">
+          <source>Play Board</source>
+          <target state="translated">보드 실행</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Pages\Text" xml:space="preserve">
+          <source>Pages</source>
+          <target state="translated" state-qualifier="tm-suggestion">페이지</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Page" xml:space="preserve">
+          <source>Page</source>
+          <target state="signed-off" state-qualifier="tm-suggestion">페이지</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\EditRecentBoard\Text" xml:space="preserve">
+          <source>Recent Boards</source>
+          <target state="translated">최근 보드 목록</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\DetailInformation\Text" xml:space="preserve">
+          <source>Detail information</source>
+          <target state="final" state-qualifier="tm-suggestion">세부 정보</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Description\Text" xml:space="preserve">
+          <source>Description</source>
+          <target state="translated">설명</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Edit\Text" xml:space="preserve">
+          <source>Edit</source>
+          <target state="final" state-qualifier="tm-suggestion">편집</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Details\Text" xml:space="preserve">
+          <source>Details</source>
+          <target state="translated">세부사항</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Duration\Text" xml:space="preserve">
+          <source>Duration</source>
+          <target state="translated">재생시간</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\EditPageGuide\Text" xml:space="preserve">
+          <source>If your want to edit pages, please select Edit button at the top</source>
+          <target state="final">페이지를 편집하려면 상단에 편집 버튼을 클릭해주세요</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\OpenBoardFile\Text" xml:space="preserve">
+          <source>Open Board File</source>
+          <target state="final">파일 열기</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\NA" xml:space="preserve">
+          <source>N/A</source>
+          <target state="final">정보없음</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\InputTitleHint\PlaceholderText" xml:space="preserve">
+          <source>Input title...</source>
+          <target state="translated">제목 입력...</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Loop\OffContent" xml:space="preserve">
+          <source>No Loop</source>
+          <target state="translated">횟수 재생</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\InquiryEmail" xml:space="preserve">
+          <source>Inquiry (Email)</source>
+          <target state="translated">문의하기 (이메일)</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Loop\OnContent" xml:space="preserve">
+          <source>Loop</source>
+          <target state="translated">무한반복</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\GoBack\Content" xml:space="preserve">
+          <source>Go Back</source>
+          <target state="signed-off" state-qualifier="tm-suggestion">돌아가기</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\CreateNewBoard\Text" xml:space="preserve">
+          <source>Create Board</source>
+          <target state="translated">보드 만들기</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\BriefInformation\Text" xml:space="preserve">
+          <source>Brief information</source>
+          <target state="final">간략한 정보</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\SelectTemplate\Text" xml:space="preserve">
+          <source>Select Template</source>
+          <target state="signed-off">템플릿 선택</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Add\Content" xml:space="preserve">
+          <source>Add</source>
+          <target state="signed-off">추가</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Close\Content" xml:space="preserve">
+          <source>Close</source>
+          <target state="signed-off">닫기</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\AskToPlayFile" xml:space="preserve">
+          <source>Would you like to play "{0}"?</source>
+          <target state="signed-off">최근 작업한 "{0}" 파일을 바로 재생할까요?</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\NoRecentFile" xml:space="preserve">
+          <source>No recent files. Please creat a new Board.</source>
+          <target state="signed-off">최근에 작업한 파일이 없습니다. 새 보드를 만들어주세요.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Cancel\Text" xml:space="preserve">
+          <source>Cancel</source>
+          <target state="signed-off">취소</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\ErrorFileLoading" xml:space="preserve">
+          <source>Error: File {0} is corrupted or wrongly saved.</source>
+          <target state="signed-off">에러: {0}.lvbd 파일이 깨졌거나 찾을 수 없습니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PlayNow" xml:space="preserve">
+          <source>Play Now</source>
+          <target state="signed-off">바로 재생</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PreviewWarning\Text" xml:space="preserve">
+          <source>Preview may not be identical with show playing.</source>
+          <target state="signed-off">미리보기는 실행 화면과 다를 수 있습니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\ErrorShowPlaying" xml:space="preserve">
+          <source>Error occurred to play the board. Please close the app and try again.</source>
+          <target state="signed-off">보드 실행에 문제가 있습니다. 앱을 닫은 후 다시 실행해보세요.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\SelectLeftPanelFile\Text" xml:space="preserve">
+          <source>Select a file to load at the left.</source>
+          <target state="signed-off">왼쪽 리스트에서 불러올 파일을 선택해주세요.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\PressPlusButtonToAddPage\Text" xml:space="preserve">
+          <source>Press Plus sign button to add a new Page ↑</source>
+          <target state="signed-off">더하기 버튼을 눌러서 페이지를 추가해주세요 ↑</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\MultipleProperties" xml:space="preserve">
+          <source>Contains {0} values</source>
+          <target state="signed-off">속성 {0}개 있음</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\SelectOnlyOneFile\Text" xml:space="preserve">
+          <source>Only one selected file can be displayed.</source>
+          <target state="signed-off">상세 정보는 한 개의 파일만 선택되었을 때 볼 수 있습니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Remove\Label" xml:space="preserve">
+          <source>Remove</source>
+          <target state="signed-off">항목 제거</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\RemoveRecentFileConfirm" xml:space="preserve">
+          <source>Remove selected files from list? Acutal files will not be deleted.</source>
+          <target state="signed-off">선택한 최근 파일을 목록에서 제거할까요? 실제 파일은 삭제되지 않습니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\ErrorNothingToPlay" xml:space="preserve">
+          <source>No page to Play. Please create pages.</source>
+          <target state="signed-off">실행할 페이지가 없습니다. 먼저 페이지를 추가해주세요.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\Author\Text" xml:space="preserve">
+          <source>Author</source>
+          <target state="signed-off">작성자</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\NotAvailableAbbr\Text" xml:space="preserve">
+          <source>N/A</source>
+          <target state="signed-off">내용 없음</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\RunningTime\Text" xml:space="preserve">
+          <source>Running Time</source>
+          <target state="signed-off">총 실행시간</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="Resources\TotalPages\Text" xml:space="preserve">
+          <source>Total Pages</source>
+          <target state="signed-off">페이지 수</target>
+        </trans-unit>
+      </group>
+      <group id="TemplateList">
+        <trans-unit translate="yes" id="TemplateList\StaticWebView\Name" xml:space="preserve">
+          <source>Web page</source>
+          <target state="translated">웹페이지</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\StaticWebView\Description" xml:space="preserve">
+          <source>Show web page as a screen-captured manner</source>
+<target state="translated">웹페이지를 스크린샷처럼 보여줍니다.</target>
+		</trans-unit>
+        <trans-unit translate="yes" id="TemplateList\SingleUrlImage\Name" xml:space="preserve">
+          <source>Simple image view</source>
+          <target state="translated">웹이미지 뷰어</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\SingleUrlImage\Description" xml:space="preserve">
+          <source>Show single image</source>
+          <target state="translated">웹에 있는 이미지를 보여줍니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\SingleStringPage\Name" xml:space="preserve">
+          <source>1-line text</source>
+          <target state="translated">한 문장 표시</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\SingleStringPage\Description" xml:space="preserve">
+          <source>Show text simply</source>
+          <target state="needs-review-translation">입력한 짧은 문구를 보여줍니다.</target><note from="MultilingualUpdate" priority="2" annotates="source">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\RssList\Name" xml:space="preserve">
+          <source>RSS</source>
+          <target state="new">RSS</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\RssList\Description" xml:space="preserve">
+          <source>Header and 10 titles from RSS</source>
+          <target state="final">RSS의 제목과 10개의 목록을 보여줍니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\FacebookLike\Name" xml:space="preserve">
+          <source>Facebook Like count</source>
+          <target state="final">페이스북 '좋아요' 숫자</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\FacebookLike\Description" xml:space="preserve">
+          <source>Show 'Like' count of a Facebook page</source>
+          <target state="final">페이스북 페이지의 '좋아요' 수를 나타냅니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\Countdown\Name" xml:space="preserve">
+          <source>Countdown</source>
+          <target state="final">카운트다운</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\Countdown\Description" xml:space="preserve">
+          <source>Show number to count down per 1 second to zero</source>
+          <target state="translated">매초마다 카운트다운하여 0까지 도달합니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\ColoredStringPage\Description" xml:space="preserve">
+          <source>Show text in color</source>
+          <target state="new">글자에 배경색과 글자색을 지정할 수 있습니다.</target>
+        </trans-unit>
+        <trans-unit translate="yes" id="TemplateList\ColoredStringPage\Name" xml:space="preserve">
+          <source>Colored Text</source>
+          <target state="new">색을 바꿀 수 있는 문장 표시</target>
+        </trans-unit>
+      </group>
+    </body>
   </file>
 </xliff>

@@ -267,4 +267,16 @@
   <data name="ErrorNothingToPlay" xml:space="preserve">
     <value>No page to Play. Please create pages.</value>
   </data>
+  <data name="Author.Text" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="NotAvailableAbbr.Text" xml:space="preserve">
+    <value>N/A</value>
+  </data>
+  <data name="RunningTime.Text" xml:space="preserve">
+    <value>Running Time</value>
+  </data>
+  <data name="TotalPages.Text" xml:space="preserve">
+    <value>Total Pages</value>
+  </data>
 </root>
