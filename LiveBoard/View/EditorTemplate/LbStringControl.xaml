@@ -13,6 +13,9 @@
 	<Grid Margin="0,5,0,5">
 		<StackPanel Orientation="Vertical">
 			<TextBlock Text="{Binding Path=Name}" Style="{StaticResource EditorControlHeader}" Margin="2"></TextBlock>
+			<TextBlock Text="{Binding Path=Description}" Style="{StaticResource EditorControlDescription}" Margin="10,0,0,2"
+					   Visibility="{Binding Text, Converter={StaticResource NullToVisibility}, RelativeSource={RelativeSource Mode=Self}}" />
+
 			<controls:WatermarkTextBox TextWrapping="Wrap" Text="{Binding Path=Data, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
 									   AcceptsReturn="True" VerticalAlignment="Top" Margin="10,0"/>
 		</StackPanel>

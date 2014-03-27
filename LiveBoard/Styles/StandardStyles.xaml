@@ -72,6 +72,11 @@
 		<Setter Property="FontSize" Value="14"/>
 		<Setter Property="FontWeight" Value="Bold" />
 		<Setter Property="Foreground" Value="{StaticResource LbBackgroundBrush}"></Setter>
+	</Style>	
+	
+	<Style x:Key="EditorControlDescription" TargetType="TextBlock">
+		<Setter Property="FontSize" Value="12"/>
+		<Setter Property="Foreground" Value="{StaticResource LbLightTextBrush}"></Setter>
 	</Style>
 	<!-- RichTextBlock styles -->
 

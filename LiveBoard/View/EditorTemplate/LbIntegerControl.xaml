@@ -12,6 +12,9 @@
 	<Grid Margin="0,5,0,5">
 		<StackPanel Orientation="Vertical">
 			<TextBlock Text="{Binding Path=Name}" Style="{StaticResource EditorControlHeader}" Margin="2"></TextBlock>
+			<TextBlock Text="{Binding Path=Description}" Style="{StaticResource EditorControlDescription}" Margin="10,0,0,2"
+					   Visibility="{Binding Text, Converter={StaticResource NullToVisibility}, RelativeSource={RelativeSource Mode=Self}}" />
+
 			<Input:RadNumericBox Value="{Binding Path=Data, Mode=TwoWay}" ValueFormat="{}{0,0:N0}" Maximum="9999999999" Minimum="-9999999999" Margin="10,0" />
 		</StackPanel>
 	</Grid>

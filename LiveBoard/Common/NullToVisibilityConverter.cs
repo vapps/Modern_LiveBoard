@@ -9,9 +9,9 @@ namespace LiveBoard.Common
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
 			if (parameter == null || String.IsNullOrEmpty(parameter.ToString()))
-				return value != null ? Visibility.Visible : Visibility.Collapsed;
+				return value != null && !String.IsNullOrEmpty(value.ToString()) ? Visibility.Visible : Visibility.Collapsed;
 			// '!' 등을 파라미터에 넣으면 반대로 해준다.
-			return value != null ? Visibility.Collapsed : Visibility.Visible;
+			return value != null && !String.IsNullOrEmpty(value.ToString()) ? Visibility.Collapsed : Visibility.Visible;
 		}
 
 		public object ConvertBack(object value, Type targetType, object parameter, string language)

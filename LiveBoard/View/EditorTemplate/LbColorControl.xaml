@@ -15,13 +15,14 @@
 	<Grid Margin="0,5,0,5">
 		<StackPanel Orientation="Vertical">
 			<TextBlock Text="{Binding Path=Name}" Style="{StaticResource EditorControlHeader}" Margin="2" />
+			<TextBlock Text="{Binding Path=Description}" Style="{StaticResource EditorControlDescription}" Margin="10,0,0,2"
+					   Visibility="{Binding Text, Converter={StaticResource NullToVisibility}, RelativeSource={RelativeSource Mode=Self}}" />
 			<StackPanel Orientation="Horizontal">
-				
-			<controls:WatermarkTextBox x:Name="TextBoxControl" TextWrapping="Wrap" Text="{Binding Path=Data, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150"
+				<controls:WatermarkTextBox x:Name="TextBoxControl" TextWrapping="Wrap" Text="{Binding Path=Data, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150"
 									   WatermarkText="Web Color..."
 									   AcceptsReturn="True" VerticalAlignment="Top" Margin="10,0" MaxLength="9"
 									   TextChanged="TextBoxControl_OnTextChanged"/>
-			<controls1:ColorPicker x:Name="ColorPickerControl"
+				<controls1:ColorPicker x:Name="ColorPickerControl"
 								   Color="Black"
 								   Height="{Binding ElementName=TextBoxControl, Path=ActualHeight}"
 								   VerticalAlignment="Top" HorizontalAlignment="Stretch" ColorChanged="ColorPicker_OnColorChanged"
