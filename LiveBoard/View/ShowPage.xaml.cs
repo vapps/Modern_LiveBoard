@@ -118,7 +118,7 @@ namespace LiveBoard.View
 
 			// Preview 표시 노출.
 			GridPreviewBanner.Visibility = _vm.IsPreview ? Visibility.Visible : Visibility.Collapsed;
-			ProgressBarTimer.Visibility = _vm.IsPreview ? Visibility.Visible : Visibility.Collapsed;
+			//ProgressBarTimer.Visibility = _vm.IsPreview ? Visibility.Visible : Visibility.Collapsed;
 
 			Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 			{
