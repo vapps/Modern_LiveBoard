@@ -71,26 +71,26 @@ namespace LiveBoard.View
 			Messenger.Default.Register<GenericMessage<LbMessage>>(this, message =>
 			{
 				var frame = (Frame)Window.Current.Content;
-				if(!(frame.Content is RecentOpenedPage))
+				if (!(frame.Content is RecentOpenedPage))
 					return;
 				switch (message.Content.MessageType)
 				{
 					case LbMessageType.EVT_SHOW_STARTING:
-					{
-						Debug.WriteLine("* RecentOpenedPage Received Message: " + message.Content.MessageType.ToString());
-						if (!(((Frame)Window.Current.Content).Content is ShowPage))
 						{
-							this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+							Debug.WriteLine("* RecentOpenedPage Received Message: " + message.Content.MessageType.ToString());
+							if (!(((Frame)Window.Current.Content).Content is ShowPage))
+							{
+								this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+							}
 						}
-					}
 						break;
 					case LbMessageType.ERROR:
-					{
-						if (message.Content.Data is LbError && (LbError)message.Content.Data == LbError.NothingToPlay)
 						{
-							new MessageDialog(_loader.GetString("ErrorNothingToPlay")).ShowAsync();
+							if (message.Content.Data is LbError && (LbError)message.Content.Data == LbError.NothingToPlay)
+							{
+								new MessageDialog(_loader.GetString("ErrorNothingToPlay")).ShowAsync();
+							}
 						}
-					}
 						break;
 					case LbMessageType.EVT_PAGE_STARTED:
 						break;
@@ -133,7 +133,7 @@ namespace LiveBoard.View
 				return;
 			}
 
-			Dispatcher.RunAsync(CoreDispatcherPriority.Normal, 
+			Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
 				() => _viewModel.LoadSelectedBoard(Board.FromXml(XElement.Parse(text), _viewModel.Templates),
 				retrievedFile));
 
@@ -378,9 +378,22 @@ namespace LiveBoard.View
 		/// The navigation parameter is available in the LoadState method 
 		/// in addition to page state preserved during an earlier session.
 
-		protected override void OnNavigatedTo(NavigationEventArgs e)
+		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
 			navigationHelper.OnNavigatedTo(e);
+
+			//// 페이지 진입할 때. 즉시 재생.
+			//if (e.Parameter is StorageFile)
+			//{
+			//	var text = await FileIO.ReadTextAsync((StorageFile)e.Parameter);
+			//	Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+			//		() =>
+			//		{
+			//			_viewModel.LoadSelectedBoard(Board.FromXml(XElement.Parse(text), _viewModel.Templates),
+			//				(StorageFile)e.Parameter);
+			//			_viewModel.PlayCmd.Execute(_viewModel.SelectedBoard);
+			//		});
+			//}
 		}
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e)

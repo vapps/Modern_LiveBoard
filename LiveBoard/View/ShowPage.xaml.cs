@@ -156,6 +156,7 @@ namespace LiveBoard.View
 
 		protected override void OnNavigatedFrom(NavigationEventArgs e)
 		{
+			// 페이지를 벗어날 때 종료 메시지 전송.
 			Messenger.Default.Send(new GenericMessage<LbMessage>(this, new LbMessage()
 			{
 				MessageType = LbMessageType.EVT_SHOW_FINISHING

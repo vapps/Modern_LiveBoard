@@ -99,6 +99,10 @@ namespace LiveBoard.ViewModel
 						var page = generatePageFromTemaplate(message.Content.Data as LbTemplate);
 						ActiveBoard.Board.Pages.Add(page);
 						break;
+					case LbMessageType.EVT_PAGE_FINISHED:
+						CurrentRemainedSecond = 0;
+						CurrentPageElapsedRatio = 0;
+						break;
 				}
 			});
 
@@ -126,8 +130,6 @@ namespace LiveBoard.ViewModel
 			ActiveBoard.Stop();
 			IsPlaying = false;
 			IsPreview = false;
-			CurrentRemainedSecond = 0;
-			CurrentPageElapsedRatio = 0;
 			Messenger.Default.Send(new GenericMessage<LbMessage>(new LbMessage()
 			{
 				MessageType = LbMessageType.EVT_SHOW_FINISHED

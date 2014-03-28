@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -53,6 +54,27 @@ namespace LiveBoard.View
 
 			if (_viewModel == null)
 				_viewModel = DataContext as MainViewModel;
+
+
+			// 메신저 연결.
+			Messenger.Default.Register<GenericMessage<LbMessage>>(this, message =>
+			{
+				var frame = (Frame)Window.Current.Content;
+				if (!(frame.Content is StartPage))
+					return;
+				switch (message.Content.MessageType)
+				{
+					case LbMessageType.EVT_SHOW_STARTING:
+						{
+							Debug.WriteLine("* StartPage Received Message: " + message.Content.MessageType.ToString());
+							if (!(((Frame)Window.Current.Content).Content is ShowPage))
+							{
+								this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+							}
+						}
+						break;
+				}
+			});
 		}
 
 		private void navigationHelper_SaveState(object sender, SaveStateEventArgs e)
@@ -227,8 +249,9 @@ namespace LiveBoard.View
 		{
 			if (_playStorageFile != null)
 			{
+				// 토큰 보내기.
 				await _viewModel.ActiveBoard.LoadAsync(_playStorageFile, _viewModel.Templates);
-				this.Frame.Navigate(typeof(ShowPage), _viewModel.ActiveBoard);
+				_viewModel.PlayCmd.Execute(_viewModel.ActiveBoard);
 			}
 		}
 

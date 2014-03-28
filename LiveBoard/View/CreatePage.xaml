@@ -237,7 +237,7 @@
 												<Image Source="{Binding Path=TemplateKey, Mode=OneWay, Converter={StaticResource TemplateViewToIcon}}"></Image>
 											</Grid>
 											<StackPanel Orientation="Vertical" Grid.Column="1" Margin="5">
-												<TextBlock Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Title}" FontFamily="Global User Interface" Margin="0,3" />
+												<TextBlock x:Name="TestBlock" Foreground="{StaticResource LbBackgroundBrush}" Text="{Binding Path=Title}" FontFamily="Global User Interface" Margin="0,3" />
 												<TextBlock Foreground="{StaticResource LbLightTextBrush}" Text="{Binding Path=Data, Converter={StaticResource PropertyDataSummary}}"/>
 											</StackPanel>
 											<Grid Grid.Column="2">

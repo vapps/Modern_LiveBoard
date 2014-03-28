@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest" xmlns:m2="http://schemas.microsoft.com/appx/2013/manifest">
-  <Identity Name="iCombine.LiveBoard" Publisher="CN=58ABDB10-F0DC-4C68-9C0A-7BB0561CE5A5" Version="1.1.0.31" />
+  <Identity Name="iCombine.LiveBoard" Publisher="CN=58ABDB10-F0DC-4C68-9C0A-7BB0561CE5A5" Version="1.1.0.32" />
   <Properties>
     <DisplayName>ms-resource:appTitle</DisplayName>
     <PublisherDisplayName>i&amp;Combine</PublisherDisplayName>
