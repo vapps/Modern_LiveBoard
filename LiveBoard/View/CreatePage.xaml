@@ -41,7 +41,6 @@
                                     HiddenTemplate="{StaticResource HiddenTemplate}"
 											 />
 		<common:LbPageToDataListConverter x:Key="PageToDataListConverter" />
-		<common:BooleanToVisibilityConverter x:Key="BoolToVisibility" />
 
 		<Style TargetType="Input:RadNumericBox" x:Key="CustomNumericBoxStyle">
 			<Setter Property="Template">

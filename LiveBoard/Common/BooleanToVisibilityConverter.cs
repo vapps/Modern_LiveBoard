@@ -21,6 +21,7 @@ namespace LiveBoard.Common
 	{
 		public object Convert(object value, Type targetType, object parameter, string language)
 		{
+			// true면 보여준다.
 			var visible = (value is bool && (bool)value) ? Visibility.Visible : Visibility.Collapsed;
 			if (parameter == null)
 				return visible;

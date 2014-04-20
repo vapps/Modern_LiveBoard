@@ -10,10 +10,11 @@
     mc:Ignorable="d">
 
 	<Grid Background="White">
-		<!-- Title -->
-		<StackPanel HorizontalAlignment="Center" Margin="0,-170,0,0" Orientation="Horizontal">
+		<StackPanel VerticalAlignment="Center" Orientation="Vertical" Margin="0,-30,0,0">
 
-			<Canvas x:Name="like_icon" Height="110" UseLayoutRounding="False" Width="110">
+			<!-- Title -->
+			<StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+
 				<Canvas x:Name="Layer_1" Height="90.98" Width="106.068">
 					<Path Data="F1M54.732,3.843C54.754,3.836 54.754,3.836 54.766,3.819 54.754,3.836 54.754,3.836 54.732,3.843 M54.946,3.64C54.928,3.64,54.928,3.654,54.924,3.654L54.908,3.654C54.924,3.654,54.928,3.64,54.946,3.64 M55.292,3.342C55.26,3.36 55.232,3.388 55.212,3.402 55.232,3.388 55.26,3.36 55.296,3.342z M55.698,3.063C55.67,3.076 55.652,3.094 55.618,3.108 55.65,3.094 55.67,3.076 55.698,3.063 M56.332,2.74C56.286,2.754 56.234,2.786 56.194,2.8 56.234,2.786 56.286,2.754 56.332,2.74 M56.99,2.492C56.94,2.52,56.892,2.533,56.838,2.548L56.836,2.548C56.892,2.533,56.926,2.52,56.99,2.492 M57.9,2.31C57.836,2.31 57.776,2.327 57.708,2.345 57.776,2.327 57.836,2.31 57.9,2.31 M101.682,40.385C101.682,38.544 100.958,36.889 99.652,35.713 98.712,34.866 96.986,33.879 94.108,33.879L66.994,33.879C68.086,28.245 69.458,18.884 69.522,18.429 69.542,18.268 69.548,18.104 69.542,17.939 69.062,10.88 64.562,2.352 64.366,2.002 64.126,1.543 63.73,1.19 63.248,0.988 61.692,0.322 60.17,0 58.754,0 54.978,0 53.108,2.257 52.912,2.502 52.594,2.919 52.426,3.433 52.44,3.947 52.444,4.049 52.702,14.195 52.712,16.809 51.996,19.819 40.926,37.627 38.434,39.751 37.724,40.367 36.712,41.092 35.604,41.844 35.24,41.11 34.48,40.606 33.608,40.606L30.364,40.606 30.362,40.606 2.26,40.606C1.637,40.606 1.028,40.871 0.601,41.33 0.171,41.781 -0.038,42.418 0.006,43.037L3.254,84.483C3.348,85.665,4.332,86.582,5.504,86.582L33.608,86.582C34.854,86.582,35.856,85.565,35.856,84.312L35.856,80.329 37.272,80.329C37.624,80.357 38.616,80.99 39.27,81.406 40.776,82.363 42.642,83.576 44.852,83.576L81.926,83.576C88.276,83.576 92.542,78.765 92.542,74.264 92.542,72.822 92.092,71.496 91.274,70.422 93.98,68.606 95.586,65.733 95.586,62.971 95.586,61.526 95.138,60.186 94.32,59.128 97.02,57.313 98.634,54.44 98.634,51.678 98.634,50.321 98.22,48.952 97.36,47.832 100.072,46.02 101.682,43.139 101.682,40.385" Fill="#FFD2D2D1" Height="86.582" Canvas.Left="4.385" Opacity="0.5" Stretch="None" Canvas.Top="4.398" Width="101.683"/>
 					<Path Data="F1M3.244,41.449L24.84,41.449 24.84,0 0.001,0z" Fill="#FF566DA2" Height="41.449" Canvas.Left="10.543" Stretch="None" Canvas.Top="44.664" Width="24.84"/>
@@ -41,20 +42,21 @@
 					<Path Data="F1M6.25,31.451L0,29.767 8.028,0 14.282,1.68z" Fill="#FFE5ECEE" Height="31.451" Canvas.Left="82.659" Stretch="None" Canvas.Top="44.797" Width="14.282"/>
 					<Path Data="F1M3.16,24.528L0,23.832 5.151,0 8.311,0.696z" Fill="#FFF4F9F9" Height="24.528" Canvas.Left="74.789" Stretch="None" Canvas.Top="47.639" Width="8.311"/>
 				</Canvas>
-			</Canvas>
 
-			<TextBlock
+				<TextBlock
                    TextWrapping="Wrap" Text="{Binding Data[1].Data}" 
-                   Foreground="#8b9dc3" Margin="30,0,0,0"
-                   VerticalAlignment="Center" FontFamily="Malgun Gothic" FontSize="50"/>
-		</StackPanel>
+                   Foreground="#8b9dc3" Margin="30,0,0,0" FontFamily="Malgun Gothic" FontSize="50"/>
+			</StackPanel>
 
-		<!-- Count -->
-		<TextBlock HorizontalAlignment="Center"
-				   Margin="0,80,0,0"
+			<!-- Count -->
+			<TextBlock HorizontalAlignment="Stretch"
+				   Margin="0,50,0,0"
                    TextWrapping="Wrap" Text="{Binding Path=Data[2].Data, Converter={StaticResource numberComma}}" 
                    Foreground="#3b5998"
-                   VerticalAlignment="Center" FontFamily="Malgun Gothic" FontSize="100"/>
+                   FontFamily="Malgun Gothic" FontSize="100" TextAlignment="Center"/>
+		</StackPanel>
+		<!--<TextBlock HorizontalAlignment="Center" FontSize="50" Margin="0,30" TextWrapping="Wrap" Text="PREVIEW IS NOT ACCURATE" VerticalAlignment="Bottom"
+				   Visibility="{Binding Source={StaticResource Locator}, Path=Main.IsDraft, Converter={StaticResource BoolToVisibility}}"/>-->
 
 	</Grid>
 </Page>

@@ -49,13 +49,13 @@ namespace LiveBoard.View
 				switch (message.Content.MessageType)
 				{
 					case LbMessageType.EVT_SHOW_STARTING:
-					{
-						Debug.WriteLine("* CreatePage Received Message: " + message.Content.MessageType.ToString());
-						if (!(((Frame)Window.Current.Content).Content is ShowPage))
 						{
-							this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+							Debug.WriteLine("* CreatePage Received Message: " + message.Content.MessageType.ToString());
+							if (!(((Frame)Window.Current.Content).Content is ShowPage))
+							{
+								this.Frame.Navigate(typeof(ShowPage), message.Content.Data);
+							}
 						}
-					}
 						break;
 					case LbMessageType.EVT_PAGE_CREATING:
 						if (BorderTemplateSelection.Visibility == Visibility.Visible)
@@ -226,6 +226,11 @@ namespace LiveBoard.View
 			FramePreview.Height = FramePreview.ActualWidth / ratio;
 		}
 
+		/// <summary>
+		/// 프리뷰를 화면비율에 맞게 리사이즈.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void FramePreview_Navigated(object sender, Windows.UI.Xaml.Navigation.NavigationEventArgs e)
 		{
 			Debug.WriteLine("navigated");
@@ -236,23 +241,72 @@ namespace LiveBoard.View
 			var page = (FramePreview.Content as Page);
 			if (page != null)
 			{
-				//page.Width = FramePreview.ActualWidth;
-				//page.Height = FramePreview.ActualHeight;
-				var myScaleTransform = new ScaleTransform
+				var myTransformGroup = new TransformGroup();
+				myTransformGroup.Children.Add(new ScaleTransform
 				{
 					ScaleY = 1 / ratio,
 					ScaleX = 1 / ratio
-				};
-				var myTransformGroup = new TransformGroup();
-				myTransformGroup.Children.Add(myScaleTransform);
-				//page.RenderTransform = myTransformGroup;
-				foreach (var o in page.Content.GetChildren().Where(c => c is UIElement))
+				});
+
+				recursiveResize(page.Content, myTransformGroup, ratio);
+				page.Content.InvalidateMeasure();
+				//var myScaleTransform = new ScaleTransform
+				//{
+				//	ScaleY = 1 / ratio,
+				//	ScaleX = 1 / ratio
+				//};
+				//var myTransformGroup = new TransformGroup();
+				//myTransformGroup.Children.Add(myScaleTransform);
+				//var count = page.Content.GetChildren().Count(c => c is UIElement);
+				//Debug.WriteLine(count);
+				//foreach (var o in page.Content.GetChildren().Where(c => c is UIElement))
+				//{
+				//	if (o is Panel)
+				//	{
+				//		var panel = (Panel)o;
+				//		(panel).Margin = new Thickness(
+				//			panel.Margin.Left / ratio,
+				//			panel.Margin.Top / ratio,
+				//			panel.Margin.Right / ratio,
+				//			panel.Margin.Bottom / ratio);
+				//	}
+				//	else
+				//	{
+				//		var element = (UIElement)o;
+				//		element.RenderTransformOrigin = new Point(0.5, 0.5);
+				//		element.RenderTransform = myTransformGroup;
+				//	}
+				//}
+			}
+		}
+
+		private static void recursiveResize(UIElement uiElement, TransformGroup transformGroup, double ratio)
+		{
+
+			foreach (var o in uiElement.GetChildren().Where(c => c is UIElement))
+			{
+				if (o is Panel)
 				{
-					var element = (UIElement)o;
+					var panel = (Panel)o;
+					(panel).Margin = new Thickness(
+						panel.Margin.Left / ratio,
+						panel.Margin.Top / ratio,
+						panel.Margin.Right / ratio,
+						panel.Margin.Bottom / ratio);
+
+					// recursive call.
+					recursiveResize((UIElement)o, transformGroup, ratio);
+				}
+				else if (o is FrameworkElement)
+				{
+					var element = (FrameworkElement)o;
+					element.Margin = new Thickness(
+						element.Margin.Left / ratio,
+						element.Margin.Top / ratio,
+						element.Margin.Right / ratio,
+						element.Margin.Bottom / ratio);
 					element.RenderTransformOrigin = new Point(0.5, 0.5);
-					element.RenderTransform = myTransformGroup;
-					// do something with tb here
-					//Debug.WriteLine(tb);
+					element.RenderTransform = transformGroup;
 				}
 			}
 		}
@@ -269,7 +323,7 @@ namespace LiveBoard.View
 
 		private void ToggleButtonAddPage_OnClick(object sender, RoutedEventArgs e)
 		{
-			if(PressPlusButtonInstruction.Visibility == Visibility.Visible)
+			if (PressPlusButtonInstruction.Visibility == Visibility.Visible)
 				PressPlusButtonInstruction.Visibility = Visibility.Collapsed;
 		}
 	}

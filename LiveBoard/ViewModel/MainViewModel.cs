@@ -518,6 +518,14 @@ namespace LiveBoard.ViewModel
 		}
 
 		/// <summary>
+		/// Create Page에서 시안보기
+		/// </summary>
+		public bool IsDraft
+		{
+			get { return !IsPlaying; }
+		}
+
+		/// <summary>
 		/// 쇼 시작 시간.
 		/// </summary>
 		public DateTime StartTime
@@ -539,6 +547,7 @@ namespace LiveBoard.ViewModel
 			set
 			{
 				_isPlaying = value;
+				RaisePropertyChanged("IsDraft");
 				RaisePropertyChanged("IsPlaying");
 			}
 		}

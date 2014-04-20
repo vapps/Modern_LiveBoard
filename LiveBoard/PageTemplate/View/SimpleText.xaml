@@ -16,10 +16,13 @@
 				<GradientStop Color="#FF575757" Offset="1"/>
 			</LinearGradientBrush>
 		</Grid.Background>
-		<TextBlock HorizontalAlignment="Center"
+		<Grid Background="Red" HorizontalAlignment="Stretch" VerticalAlignment="Center">
+
+			<!--TextWrapping="Wrap" Text="{Binding Path=Data[0].Data}"--> 
+			<TextBlock
                    TextWrapping="Wrap" Text="{Binding Path=Data[0].Data}" 
                    Foreground="White"
-                   VerticalAlignment="Center" FontSize="80">
-		</TextBlock>
+                   FontSize="80" TextAlignment="Center" />
+		</Grid>
 	</Grid>
 </Page>

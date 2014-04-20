@@ -25,6 +25,7 @@
 			<common:WebColorToColorConverter x:Key="WebColorToColor" />
 			<common:NullToVisibilityConverter x:Key="NullToVisibility" />
 			<common:OppositeVisibilityConverter x:Key="OppositeVisibility" />
+			<common:BooleanToVisibilityConverter x:Key="BoolToVisibility" />
 
 			<Style x:Key="ListViewItemStyle1" TargetType="ListViewItem">
 				<Setter Property="FontFamily" Value="{StaticResource ContentControlThemeFontFamily}"/>
