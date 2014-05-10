@@ -275,7 +275,7 @@ namespace LiveBoard.View
 		/// <param name="e"></param>
 		private void RootPage_SizeChanged(object sender, SizeChangedEventArgs e)
 		{
-			if (e.NewSize.Width < 1366)
+			if (e.NewSize.Width < 1280)
 			{
 				VisualStateManager.GoToState(this, "MinimalLayout", true);
 			}
